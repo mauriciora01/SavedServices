@@ -1,0 +1,2 @@
+OriginatorActivity.g.xaml
+XamlStaticHelperNamespace._XamlStaticHelper

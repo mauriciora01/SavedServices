@@ -1,0 +1,2 @@
+PortfolioActivity.g.xaml
+XamlStaticHelperNamespace._XamlStaticHelper

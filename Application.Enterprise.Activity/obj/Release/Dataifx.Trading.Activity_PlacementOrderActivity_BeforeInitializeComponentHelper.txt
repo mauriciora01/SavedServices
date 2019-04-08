@@ -1,0 +1,2 @@
+PlacementOrderActivity.g.xaml
+XamlStaticHelperNamespace._XamlStaticHelper

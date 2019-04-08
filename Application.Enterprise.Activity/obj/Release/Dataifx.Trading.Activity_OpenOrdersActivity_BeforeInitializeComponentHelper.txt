@@ -1,0 +1,2 @@
+OpenOrdersActivity.g.xaml
+XamlStaticHelperNamespace._XamlStaticHelper

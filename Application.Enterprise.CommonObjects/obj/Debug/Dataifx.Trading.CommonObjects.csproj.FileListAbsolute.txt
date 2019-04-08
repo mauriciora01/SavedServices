@@ -1,0 +1,10 @@
+C:\TFS\TradingSolution\Dataifx.Trading.CommonObjects\bin\Debug\Dataifx.Trading.CommonObjects.dll
+C:\TFS\TradingSolution\Dataifx.Trading.CommonObjects\bin\Debug\Dataifx.Trading.CommonObjects.pdb
+C:\TFS\TradingSolution\Dataifx.Trading.CommonObjects\obj\Debug\Dataifx.Trading.CommonObjects.csprojResolveAssemblyReference.cache
+C:\TFS\TradingSolution\Dataifx.Trading.CommonObjects\obj\Debug\Dataifx.Trading.CommonObjects.dll
+C:\TFS\TradingSolution\Dataifx.Trading.CommonObjects\obj\Debug\Dataifx.Trading.CommonObjects.pdb
+C:\ProyectosVS\TradingSolution\Dataifx.Trading.CommonObjects\bin\Debug\Dataifx.Trading.CommonObjects.dll
+C:\ProyectosVS\TradingSolution\Dataifx.Trading.CommonObjects\bin\Debug\Dataifx.Trading.CommonObjects.pdb
+C:\ProyectosVS\TradingSolution\Dataifx.Trading.CommonObjects\obj\Debug\Dataifx.Trading.CommonObjects.csproj.CoreCompileInputs.cache
+C:\ProyectosVS\TradingSolution\Dataifx.Trading.CommonObjects\obj\Debug\Dataifx.Trading.CommonObjects.dll
+C:\ProyectosVS\TradingSolution\Dataifx.Trading.CommonObjects\obj\Debug\Dataifx.Trading.CommonObjects.pdb

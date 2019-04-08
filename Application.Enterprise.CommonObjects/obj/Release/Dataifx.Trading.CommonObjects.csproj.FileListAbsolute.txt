@@ -1,0 +1,4 @@
+C:\TFS\TradingSolution\Dataifx.Trading.CommonObjects\bin\Release\Dataifx.Trading.CommonObjects.dll
+C:\TFS\TradingSolution\Dataifx.Trading.CommonObjects\bin\Release\ObjetosComunes.xml
+C:\TFS\TradingSolution\Dataifx.Trading.CommonObjects\obj\Release\Dataifx.Trading.CommonObjects.csprojResolveAssemblyReference.cache
+C:\TFS\TradingSolution\Dataifx.Trading.CommonObjects\obj\Release\Dataifx.Trading.CommonObjects.dll

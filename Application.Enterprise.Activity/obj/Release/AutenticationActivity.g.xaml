@@ -1,0 +1,556 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dta:AutenticationActivity xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:dta="clr-namespace:Dataifx.Trading.Activity;assembly=Dataifx.Trading.Activity" xmlns:dtb="clr-namespace:Dataifx.Trading.Business;assembly=Dataifx.Trading.Business" xmlns:dtbc="clr-namespace:Dataifx.Trading.Business.Correval;assembly=Dataifx.Trading.Business.Correval" xmlns:dtc="clr-namespace:Dataifx.Trading.CommonObjects;assembly=Dataifx.Trading.CommonObjects" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities" xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>Dataifx.Trading.Infrastructure.Models</x:String>
+      <x:String>Dataifx.Trading.CommonObjects</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>Dataifx.Trading.Business.Correval</AssemblyReference>
+      <AssemblyReference>Dataifx.Trading.Business</AssemblyReference>
+      <AssemblyReference>Dataifx.Trading.CommonObjects</AssemblyReference>
+      <AssemblyReference>Dataifx.Trading.Data</AssemblyReference>
+      <AssemblyReference>Dataifx.Trading.Infrastructure</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>Dataifx.Trading.Activity</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <dta:AutenticationActivity.Implementation>
+    <Flowchart>
+      <Flowchart.Variables>
+        <Variable x:TypeArguments="sd:DataTable" Name="datos">
+          <Variable.Default>
+            <mca:CSharpValue x:TypeArguments="sd:DataTable">new DataTable()</mca:CSharpValue>
+          </Variable.Default>
+        </Variable>
+        <Variable x:TypeArguments="dtc:EstadoUsuario" Name="eu" />
+        <Variable x:TypeArguments="dtc:PerfilUsuario" Name="perfil" />
+        <Variable x:TypeArguments="sd:DataTable" Name="dtOrdenante" />
+        <Variable x:TypeArguments="sd:DataTable" Name="dtClienteJuridico" />
+        <Variable x:TypeArguments="sd:DataTable" Name="dtClienteNatural" />
+      </Flowchart.Variables>
+      <Flowchart.StartNode>
+        <FlowStep x:Name="__ReferenceID9">
+          <Assign>
+            <Assign.To>
+              <OutArgument x:TypeArguments="dtc:EstadoAutenticacion">
+                <mca:CSharpReference x:TypeArguments="dtc:EstadoAutenticacion">autenticationState</mca:CSharpReference>
+              </OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="dtc:EstadoAutenticacion">
+                <mca:CSharpValue x:TypeArguments="dtc:EstadoAutenticacion">EstadoAutenticacion.UsuarioClaveNoValidos</mca:CSharpValue>
+              </InArgument>
+            </Assign.Value>
+          </Assign>
+          <FlowStep.Next>
+            <FlowSwitch x:TypeArguments="x:Int32" x:Name="__ReferenceID33" DisplayName="ValidarComisionista">
+              <FlowSwitch.Default>
+                <FlowStep x:Name="__ReferenceID10">
+                  <Assign>
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="sd:DataTable">
+                        <mca:CSharpReference x:TypeArguments="sd:DataTable">datos</mca:CSharpReference>
+                      </OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="sd:DataTable">
+                        <mca:CSharpValue x:TypeArguments="sd:DataTable">Business.Usuario.FillUser(strIdUser)</mca:CSharpValue>
+                      </InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <FlowStep.Next>
+                    <x:Reference>__ReferenceID8</x:Reference>
+                  </FlowStep.Next>
+                </FlowStep>
+              </FlowSwitch.Default>
+              <FlowSwitch.Expression>
+                <mca:CSharpValue x:TypeArguments="x:Int32">IdFirma</mca:CSharpValue>
+              </FlowSwitch.Expression>
+              <FlowStep x:Key="2" x:Name="__ReferenceID34">
+                <Assign>
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="sd:DataTable">
+                      <mca:CSharpReference x:TypeArguments="sd:DataTable">datos</mca:CSharpReference>
+                    </OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="sd:DataTable">
+                      <mca:CSharpValue x:TypeArguments="sd:DataTable">Business.Usuario.FillUserDavHb(strIdUser)</mca:CSharpValue>
+                    </InArgument>
+                  </Assign.Value>
+                </Assign>
+                <FlowStep.Next>
+                  <FlowStep x:Name="__ReferenceID8">
+                    <Assign>
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">
+                          <mca:CSharpReference x:TypeArguments="x:String">UserEmail</mca:CSharpReference>
+                        </OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">
+                          <mca:CSharpValue x:TypeArguments="x:String">Business.Usuario.GetEmail(datos)</mca:CSharpValue>
+                        </InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <FlowStep.Next>
+                      <FlowDecision x:Name="__ReferenceID11">
+                        <FlowDecision.Condition>
+                          <mca:CSharpValue x:TypeArguments="x:Boolean">datos.Rows.Count &gt; 0</mca:CSharpValue>
+                        </FlowDecision.Condition>
+                        <FlowDecision.True>
+                          <FlowStep x:Name="__ReferenceID12">
+                            <Assign>
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="dtc:EstadoUsuario">
+                                  <mca:CSharpReference x:TypeArguments="dtc:EstadoUsuario">eu</mca:CSharpReference>
+                                </OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="dtc:EstadoUsuario">
+                                  <mca:CSharpValue x:TypeArguments="dtc:EstadoUsuario">(CommonObjects.EstadoUsuario)Convert.ToChar(datos.Rows[0]["Estado"].ToString())</mca:CSharpValue>
+                                </InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <FlowStep.Next>
+                              <FlowDecision x:Name="__ReferenceID13">
+                                <FlowDecision.Condition>
+                                  <mca:CSharpValue x:TypeArguments="x:Boolean">eu != EstadoUsuario.Activo</mca:CSharpValue>
+                                </FlowDecision.Condition>
+                                <FlowDecision.True>
+                                  <FlowStep x:Name="__ReferenceID14">
+                                    <Assign>
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="dtc:EstadoAutenticacion">
+                                          <mca:CSharpReference x:TypeArguments="dtc:EstadoAutenticacion">autenticationState</mca:CSharpReference>
+                                        </OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="dtc:EstadoAutenticacion">
+                                          <mca:CSharpValue x:TypeArguments="dtc:EstadoAutenticacion">EstadoAutenticacion.UsuarioBloqueado</mca:CSharpValue>
+                                        </InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <FlowStep.Next>
+                                      <FlowStep x:Name="__ReferenceID6">
+                                        <Assign>
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="dtc:InfoUsuario">
+                                              <mca:CSharpReference x:TypeArguments="dtc:InfoUsuario">iu</mca:CSharpReference>
+                                            </OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="dtc:InfoUsuario">
+                                              <mca:CSharpValue x:TypeArguments="dtc:InfoUsuario">null</mca:CSharpValue>
+                                            </InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                      </FlowStep>
+                                    </FlowStep.Next>
+                                  </FlowStep>
+                                </FlowDecision.True>
+                                <FlowDecision.False>
+                                  <FlowDecision x:Name="__ReferenceID32">
+                                    <FlowDecision.Condition>
+                                      <mca:CSharpValue x:TypeArguments="x:Boolean">validatepassword==true</mca:CSharpValue>
+                                    </FlowDecision.Condition>
+                                    <FlowDecision.True>
+                                      <FlowDecision x:Name="__ReferenceID15">
+                                        <FlowDecision.Condition>
+                                          <mca:CSharpValue x:TypeArguments="x:Boolean">Business.Usuario.ValidatePassword(strPassword, (string)datos.Rows[0]["Hash"], (string)datos.Rows[0]["Salt"])</mca:CSharpValue>
+                                        </FlowDecision.Condition>
+                                        <FlowDecision.True>
+                                          <FlowStep x:Name="__ReferenceID7">
+                                            <Assign>
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="dtc:EstadoAutenticacion">
+                                                  <mca:CSharpReference x:TypeArguments="dtc:EstadoAutenticacion">autenticationState</mca:CSharpReference>
+                                                </OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="dtc:EstadoAutenticacion">
+                                                  <mca:CSharpValue x:TypeArguments="dtc:EstadoAutenticacion">EstadoAutenticacion.AutenticacionSatisfactoria</mca:CSharpValue>
+                                                </InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                            <FlowStep.Next>
+                                              <FlowStep x:Name="__ReferenceID16">
+                                                <Assign>
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="dtc:PerfilUsuario">
+                                                      <mca:CSharpReference x:TypeArguments="dtc:PerfilUsuario">perfil</mca:CSharpReference>
+                                                    </OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="dtc:PerfilUsuario">
+                                                      <mca:CSharpValue x:TypeArguments="dtc:PerfilUsuario">Business.Usuario.FillInfoUser(iu, datos)</mca:CSharpValue>
+                                                    </InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                                <FlowStep.Next>
+                                                  <FlowDecision x:Name="__ReferenceID26" DisplayName="Es Comercial">
+                                                    <FlowDecision.Condition>
+                                                      <mca:CSharpValue x:TypeArguments="x:Boolean">perfil == PerfilUsuario.TraderSoporte</mca:CSharpValue>
+                                                    </FlowDecision.Condition>
+                                                    <FlowDecision.True>
+                                                      <FlowSwitch x:TypeArguments="x:Int32" x:Name="__ReferenceID28" DisplayName="ValidarComisionista">
+                                                        <FlowSwitch.Expression>
+                                                          <mca:CSharpValue x:TypeArguments="x:Int32">IdFirma</mca:CSharpValue>
+                                                        </FlowSwitch.Expression>
+                                                        <FlowStep x:Key="1" x:Name="__ReferenceID1">
+                                                          <InvokeMethod MethodName="FillInfoTrader" TargetType="dtbc:Trader">
+                                                            <InArgument x:TypeArguments="dtc:InfoUsuario">
+                                                              <mca:CSharpValue x:TypeArguments="dtc:InfoUsuario">iu</mca:CSharpValue>
+                                                            </InArgument>
+                                                          </InvokeMethod>
+                                                        </FlowStep>
+                                                        <FlowDecision x:Key="0" x:Name="__ReferenceID0" DisplayName="ValidarIpLocal">
+                                                          <FlowDecision.Condition>
+                                                            <mca:CSharpValue x:TypeArguments="x:Boolean">Business.IpAddress.IsValidLocalIpAddress(strIdUser,strIpAddress)</mca:CSharpValue>
+                                                          </FlowDecision.Condition>
+                                                          <FlowDecision.True>
+                                                            <FlowStep x:Name="__ReferenceID27">
+                                                              <InvokeMethod MethodName="FillInfoTrader" TargetType="dtb:Trader">
+                                                                <InArgument x:TypeArguments="dtc:InfoUsuario">
+                                                                  <mca:CSharpValue x:TypeArguments="dtc:InfoUsuario">iu</mca:CSharpValue>
+                                                                </InArgument>
+                                                              </InvokeMethod>
+                                                            </FlowStep>
+                                                          </FlowDecision.True>
+                                                          <FlowDecision.False>
+                                                            <FlowStep x:Name="__ReferenceID29">
+                                                              <Assign>
+                                                                <Assign.To>
+                                                                  <OutArgument x:TypeArguments="dtc:EstadoAutenticacion">
+                                                                    <mca:CSharpReference x:TypeArguments="dtc:EstadoAutenticacion">autenticationState</mca:CSharpReference>
+                                                                  </OutArgument>
+                                                                </Assign.To>
+                                                                <Assign.Value>
+                                                                  <InArgument x:TypeArguments="dtc:EstadoAutenticacion">
+                                                                    <mca:CSharpValue x:TypeArguments="dtc:EstadoAutenticacion">EstadoAutenticacion.IpInvalidaParaPerfil</mca:CSharpValue>
+                                                                  </InArgument>
+                                                                </Assign.Value>
+                                                              </Assign>
+                                                            </FlowStep>
+                                                          </FlowDecision.False>
+                                                        </FlowDecision>
+                                                        <x:Reference>__ReferenceID0<x:Key>3</x:Key></x:Reference>
+                                                        <x:Reference>__ReferenceID1<x:Key>2</x:Key></x:Reference>
+                                                      </FlowSwitch>
+                                                    </FlowDecision.True>
+                                                    <FlowDecision.False>
+                                                      <FlowStep x:Name="__ReferenceID30">
+                                                        <Assign DisplayName="Validando si requiere OTP">
+                                                          <Assign.To>
+                                                            <OutArgument x:TypeArguments="x:Boolean">
+                                                              <mca:CSharpReference x:TypeArguments="x:Boolean">ValidateOTP</mca:CSharpReference>
+                                                            </OutArgument>
+                                                          </Assign.To>
+                                                          <Assign.Value>
+                                                            <InArgument x:TypeArguments="x:Boolean">
+                                                              <mca:CSharpValue x:TypeArguments="x:Boolean">(datos.Columns.Contains("RequiereToken")) ? Convert.ToBoolean(datos.Rows[0]["RequiereToken"]) : false;</mca:CSharpValue>
+                                                            </InArgument>
+                                                          </Assign.Value>
+                                                        </Assign>
+                                                        <FlowStep.Next>
+                                                          <FlowStep x:Name="__ReferenceID17">
+                                                            <Assign>
+                                                              <Assign.To>
+                                                                <OutArgument x:TypeArguments="sd:DataTable">
+                                                                  <mca:CSharpReference x:TypeArguments="sd:DataTable">dtOrdenante</mca:CSharpReference>
+                                                                </OutArgument>
+                                                              </Assign.To>
+                                                              <Assign.Value>
+                                                                <InArgument x:TypeArguments="sd:DataTable">
+                                                                  <mca:CSharpValue x:TypeArguments="sd:DataTable">Business.Usuario.FillOrdenante(strIdUser)</mca:CSharpValue>
+                                                                </InArgument>
+                                                              </Assign.Value>
+                                                            </Assign>
+                                                            <FlowStep.Next>
+                                                              <FlowDecision x:Name="__ReferenceID18">
+                                                                <FlowDecision.Condition>
+                                                                  <mca:CSharpValue x:TypeArguments="x:Boolean">dtOrdenante.Rows.Count == 1</mca:CSharpValue>
+                                                                </FlowDecision.Condition>
+                                                                <FlowDecision.True>
+                                                                  <FlowStep x:Name="__ReferenceID19">
+                                                                    <Parallel>
+                                                                      <Assign>
+                                                                        <Assign.To>
+                                                                          <OutArgument x:TypeArguments="x:String">
+                                                                            <mca:CSharpReference x:TypeArguments="x:String">iu.InfoCliente.NombreOrdenante</mca:CSharpReference>
+                                                                          </OutArgument>
+                                                                        </Assign.To>
+                                                                        <Assign.Value>
+                                                                          <InArgument x:TypeArguments="x:String">
+                                                                            <mca:CSharpValue x:TypeArguments="x:String">dtOrdenante.Rows[0]["Nombres"].ToString() + " " + dtOrdenante.Rows[0]["Apellidos"].ToString()</mca:CSharpValue>
+                                                                          </InArgument>
+                                                                        </Assign.Value>
+                                                                      </Assign>
+                                                                      <Assign>
+                                                                        <Assign.To>
+                                                                          <OutArgument x:TypeArguments="x:String">
+                                                                            <mca:CSharpReference x:TypeArguments="x:String">iu.InfoCliente.Id</mca:CSharpReference>
+                                                                          </OutArgument>
+                                                                        </Assign.To>
+                                                                        <Assign.Value>
+                                                                          <InArgument x:TypeArguments="x:String">
+                                                                            <mca:CSharpValue x:TypeArguments="x:String">dtOrdenante.Rows[0]["IdCliente"].ToString()</mca:CSharpValue>
+                                                                          </InArgument>
+                                                                        </Assign.Value>
+                                                                      </Assign>
+                                                                    </Parallel>
+                                                                    <FlowStep.Next>
+                                                                      <FlowSwitch x:TypeArguments="x:Int32" x:Name="__ReferenceID24" DisplayName="Validando la Comisionista">
+                                                                        <FlowSwitch.Expression>
+                                                                          <mca:CSharpValue x:TypeArguments="x:Int32">IdFirma</mca:CSharpValue>
+                                                                        </FlowSwitch.Expression>
+                                                                        <FlowDecision x:Key="0" x:Name="__ReferenceID4">
+                                                                          <FlowDecision.Condition>
+                                                                            <mca:CSharpValue x:TypeArguments="x:Boolean">perfil == PerfilUsuario.Institucional</mca:CSharpValue>
+                                                                          </FlowDecision.Condition>
+                                                                          <FlowDecision.True>
+                                                                            <FlowStep x:Name="__ReferenceID20">
+                                                                              <InvokeMethod MethodName="FillClientJuridico" TargetType="dtb:Usuario">
+                                                                                <InArgument x:TypeArguments="dtc:InfoUsuario">
+                                                                                  <mca:CSharpValue x:TypeArguments="dtc:InfoUsuario">iu</mca:CSharpValue>
+                                                                                </InArgument>
+                                                                                <InArgument x:TypeArguments="x:String">
+                                                                                  <mca:CSharpValue x:TypeArguments="x:String">dtOrdenante.Rows[0]["IdCliente"].ToString()</mca:CSharpValue>
+                                                                                </InArgument>
+                                                                              </InvokeMethod>
+                                                                              <FlowStep.Next>
+                                                                                <FlowDecision x:Name="__ReferenceID2">
+                                                                                  <FlowDecision.Condition>
+                                                                                    <mca:CSharpValue x:TypeArguments="x:Boolean">dtOrdenante.Rows.Count &gt; 1 &amp;&amp; iu.Perfil != PerfilUsuario.Institucional &amp;&amp; iu.Perfil != PerfilUsuario.Demo</mca:CSharpValue>
+                                                                                  </FlowDecision.Condition>
+                                                                                  <FlowDecision.True>
+                                                                                    <FlowStep x:Name="__ReferenceID22">
+                                                                                      <Assign>
+                                                                                        <Assign.To>
+                                                                                          <OutArgument x:TypeArguments="dtc:PerfilUsuario">
+                                                                                            <mca:CSharpReference x:TypeArguments="dtc:PerfilUsuario">iu.Perfil</mca:CSharpReference>
+                                                                                          </OutArgument>
+                                                                                        </Assign.To>
+                                                                                        <Assign.Value>
+                                                                                          <InArgument x:TypeArguments="dtc:PerfilUsuario">
+                                                                                            <mca:CSharpValue x:TypeArguments="dtc:PerfilUsuario">PerfilUsuario.MultiOrdenante</mca:CSharpValue>
+                                                                                          </InArgument>
+                                                                                        </Assign.Value>
+                                                                                      </Assign>
+                                                                                      <FlowStep.Next>
+                                                                                        <FlowStep x:Name="__ReferenceID3">
+                                                                                          <Assign>
+                                                                                            <Assign.To>
+                                                                                              <OutArgument x:TypeArguments="x:Boolean">
+                                                                                                <mca:CSharpReference x:TypeArguments="x:Boolean">iu.IsCertified</mca:CSharpReference>
+                                                                                              </OutArgument>
+                                                                                            </Assign.To>
+                                                                                            <Assign.Value>
+                                                                                              <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                                                                                            </Assign.Value>
+                                                                                          </Assign>
+                                                                                        </FlowStep>
+                                                                                      </FlowStep.Next>
+                                                                                    </FlowStep>
+                                                                                  </FlowDecision.True>
+                                                                                </FlowDecision>
+                                                                              </FlowStep.Next>
+                                                                            </FlowStep>
+                                                                          </FlowDecision.True>
+                                                                          <FlowDecision.False>
+                                                                            <FlowStep x:Name="__ReferenceID21">
+                                                                              <InvokeMethod MethodName="FillClientNatural" TargetType="dtb:Usuario">
+                                                                                <InArgument x:TypeArguments="dtc:InfoUsuario">
+                                                                                  <mca:CSharpValue x:TypeArguments="dtc:InfoUsuario">iu</mca:CSharpValue>
+                                                                                </InArgument>
+                                                                                <InArgument x:TypeArguments="x:String">
+                                                                                  <mca:CSharpValue x:TypeArguments="x:String">dtOrdenante.Rows[0]["IdCliente"].ToString()</mca:CSharpValue>
+                                                                                </InArgument>
+                                                                              </InvokeMethod>
+                                                                              <FlowStep.Next>
+                                                                                <x:Reference>__ReferenceID2</x:Reference>
+                                                                              </FlowStep.Next>
+                                                                            </FlowStep>
+                                                                          </FlowDecision.False>
+                                                                        </FlowDecision>
+                                                                        <FlowStep x:Key="1" x:Name="__ReferenceID5">
+                                                                          <Parallel>
+                                                                            <Assign>
+                                                                              <Assign.To>
+                                                                                <OutArgument x:TypeArguments="sd:DataTable">
+                                                                                  <mca:CSharpReference x:TypeArguments="sd:DataTable">dtClienteJuridico</mca:CSharpReference>
+                                                                                </OutArgument>
+                                                                              </Assign.To>
+                                                                              <Assign.Value>
+                                                                                <InArgument x:TypeArguments="sd:DataTable">
+                                                                                  <mca:CSharpValue x:TypeArguments="sd:DataTable">Business.Correval.User.FillClientJuridico((decimal)dtOrdenante.Rows[0]["IdCliente"])</mca:CSharpValue>
+                                                                                </InArgument>
+                                                                              </Assign.Value>
+                                                                            </Assign>
+                                                                            <Assign>
+                                                                              <Assign.To>
+                                                                                <OutArgument x:TypeArguments="sd:DataTable">
+                                                                                  <mca:CSharpReference x:TypeArguments="sd:DataTable">dtClienteNatural</mca:CSharpReference>
+                                                                                </OutArgument>
+                                                                              </Assign.To>
+                                                                              <Assign.Value>
+                                                                                <InArgument x:TypeArguments="sd:DataTable">
+                                                                                  <mca:CSharpValue x:TypeArguments="sd:DataTable">Business.Correval.User.FillClientNatural((decimal)dtOrdenante.Rows[0]["IdCliente"])</mca:CSharpValue>
+                                                                                </InArgument>
+                                                                              </Assign.Value>
+                                                                            </Assign>
+                                                                          </Parallel>
+                                                                          <FlowStep.Next>
+                                                                            <FlowStep x:Name="__ReferenceID31">
+                                                                              <Assign>
+                                                                                <Assign.To>
+                                                                                  <OutArgument x:TypeArguments="x:String">
+                                                                                    <mca:CSharpReference x:TypeArguments="x:String">NumeroDocumento</mca:CSharpReference>
+                                                                                  </OutArgument>
+                                                                                </Assign.To>
+                                                                                <Assign.Value>
+                                                                                  <InArgument x:TypeArguments="x:String">
+                                                                                    <mca:CSharpValue x:TypeArguments="x:String">(datos.Columns.Contains("NumeroDocumento")) ? datos.Rows[0]["NumeroDocumento"].ToString() : "";</mca:CSharpValue>
+                                                                                  </InArgument>
+                                                                                </Assign.Value>
+                                                                              </Assign>
+                                                                              <FlowStep.Next>
+                                                                                <FlowStep x:Name="__ReferenceID25">
+                                                                                  <InvokeMethod MethodName="FillInfoUser" TargetType="dtbc:User">
+                                                                                    <InArgument x:TypeArguments="dtc:InfoUsuario">
+                                                                                      <mca:CSharpValue x:TypeArguments="dtc:InfoUsuario">iu</mca:CSharpValue>
+                                                                                    </InArgument>
+                                                                                    <InArgument x:TypeArguments="sd:DataTable">
+                                                                                      <mca:CSharpValue x:TypeArguments="sd:DataTable">dtClienteNatural</mca:CSharpValue>
+                                                                                    </InArgument>
+                                                                                    <InArgument x:TypeArguments="sd:DataTable">
+                                                                                      <mca:CSharpValue x:TypeArguments="sd:DataTable">dtClienteJuridico</mca:CSharpValue>
+                                                                                    </InArgument>
+                                                                                    <InArgument x:TypeArguments="x:Decimal">
+                                                                                      <mca:CSharpValue x:TypeArguments="x:Decimal">(decimal)dtOrdenante.Rows[0]["IdCliente"]</mca:CSharpValue>
+                                                                                    </InArgument>
+                                                                                  </InvokeMethod>
+                                                                                  <FlowStep.Next>
+                                                                                    <x:Reference>__ReferenceID3</x:Reference>
+                                                                                  </FlowStep.Next>
+                                                                                </FlowStep>
+                                                                              </FlowStep.Next>
+                                                                            </FlowStep>
+                                                                          </FlowStep.Next>
+                                                                        </FlowStep>
+                                                                        <x:Reference>__ReferenceID4<x:Key>3</x:Key></x:Reference>
+                                                                        <x:Reference>__ReferenceID5<x:Key>2</x:Key></x:Reference>
+                                                                      </FlowSwitch>
+                                                                    </FlowStep.Next>
+                                                                  </FlowStep>
+                                                                </FlowDecision.True>
+                                                              </FlowDecision>
+                                                            </FlowStep.Next>
+                                                          </FlowStep>
+                                                        </FlowStep.Next>
+                                                      </FlowStep>
+                                                    </FlowDecision.False>
+                                                  </FlowDecision>
+                                                </FlowStep.Next>
+                                              </FlowStep>
+                                            </FlowStep.Next>
+                                          </FlowStep>
+                                        </FlowDecision.True>
+                                        <FlowDecision.False>
+                                          <FlowStep x:Name="__ReferenceID23">
+                                            <Assign>
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="dtc:EstadoAutenticacion">
+                                                  <mca:CSharpReference x:TypeArguments="dtc:EstadoAutenticacion">autenticationState</mca:CSharpReference>
+                                                </OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="dtc:EstadoAutenticacion">
+                                                  <mca:CSharpValue x:TypeArguments="dtc:EstadoAutenticacion">Business.Usuario.UpdateFailedAttempts(strIdUser, Convert.ToInt32(datos.Rows[0]["NumVecesErrado"]))</mca:CSharpValue>
+                                                </InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                            <FlowStep.Next>
+                                              <x:Reference>__ReferenceID6</x:Reference>
+                                            </FlowStep.Next>
+                                          </FlowStep>
+                                        </FlowDecision.False>
+                                      </FlowDecision>
+                                    </FlowDecision.True>
+                                    <FlowDecision.False>
+                                      <x:Reference>__ReferenceID7</x:Reference>
+                                    </FlowDecision.False>
+                                  </FlowDecision>
+                                </FlowDecision.False>
+                              </FlowDecision>
+                            </FlowStep.Next>
+                          </FlowStep>
+                        </FlowDecision.True>
+                      </FlowDecision>
+                    </FlowStep.Next>
+                  </FlowStep>
+                </FlowStep.Next>
+              </FlowStep>
+            </FlowSwitch>
+          </FlowStep.Next>
+        </FlowStep>
+      </Flowchart.StartNode>
+      <x:Reference>__ReferenceID9</x:Reference>
+      <x:Reference>__ReferenceID10</x:Reference>
+      <x:Reference>__ReferenceID11</x:Reference>
+      <x:Reference>__ReferenceID12</x:Reference>
+      <x:Reference>__ReferenceID13</x:Reference>
+      <x:Reference>__ReferenceID14</x:Reference>
+      <x:Reference>__ReferenceID15</x:Reference>
+      <x:Reference>__ReferenceID7</x:Reference>
+      <x:Reference>__ReferenceID16</x:Reference>
+      <x:Reference>__ReferenceID17</x:Reference>
+      <x:Reference>__ReferenceID18</x:Reference>
+      <x:Reference>__ReferenceID19</x:Reference>
+      <x:Reference>__ReferenceID4</x:Reference>
+      <x:Reference>__ReferenceID20</x:Reference>
+      <x:Reference>__ReferenceID21</x:Reference>
+      <x:Reference>__ReferenceID2</x:Reference>
+      <x:Reference>__ReferenceID22</x:Reference>
+      <x:Reference>__ReferenceID23</x:Reference>
+      <x:Reference>__ReferenceID6</x:Reference>
+      <x:Reference>__ReferenceID24</x:Reference>
+      <x:Reference>__ReferenceID5</x:Reference>
+      <x:Reference>__ReferenceID25</x:Reference>
+      <x:Reference>__ReferenceID26</x:Reference>
+      <x:Reference>__ReferenceID1</x:Reference>
+      <x:Reference>__ReferenceID27</x:Reference>
+      <x:Reference>__ReferenceID28</x:Reference>
+      <x:Reference>__ReferenceID0</x:Reference>
+      <x:Reference>__ReferenceID29</x:Reference>
+      <x:Reference>__ReferenceID3</x:Reference>
+      <x:Reference>__ReferenceID30</x:Reference>
+      <x:Reference>__ReferenceID31</x:Reference>
+      <x:Reference>__ReferenceID8</x:Reference>
+      <x:Reference>__ReferenceID32</x:Reference>
+      <x:Reference>__ReferenceID33</x:Reference>
+      <x:Reference>__ReferenceID34</x:Reference>
+      <sads:DebugSymbol.Symbol>9xCfDZ8xNKivarnG9SqiDEoiSkM6XFRGU1xUcmFkaW5nU29sdXRpb25cRGF0YWlmeC5UcmFkaW5nLkFjdGl2aXR5XEF1dGVudGljYXRpb25BY3Rpdml0eS54YW1sW0EDxQQPAgEBRQtFXAIBAlAJWxIDAdUIcg9yUwMBwwhgEWsaAwGeCIMBE44BHAMB+QeSARmSAW8DAecHlgEboQEkAwHCB6UBIaUBegMBsAfKASXKAXoDAZ4H0wEr3gE0AwH5BuEBL+wBOAMB1AbwATXwAZkBAwHCBqICN60CQAMBnQawAju7AkQDAfgFvwJBvwKbAQMB5gXDAkPcAk4DAZsF4AJJ4AKNAQMBiQWoA0nBA1QDAb4ExANNzwNWAwGZBNIDUd8DYAMB0AOFA1mOA2IDAbwD5AJL5AKvAQMBqgOZA02gA1wDAYUD8wJT8wKOAgMB8wL3AlWCA14DAc4C6AJN7wJcAwGpAvUBOfUBfQMBlwL4ATn8AUgDAYQCgAI7gAK6AQMB8gGNAj2YAkYDAc0BhAI9iAJMAwG6Ac8BKc8B1AEDAagB/AMrhwQ0AwGDAbcBJ8IBMAIBXqkBI7QBLAIBOXUPgAEYAgEUWA9YhQEDAegIUw9TdgMB1ghoF2h9AwGxCGMXY2YDAZ8IiwEZiwF3AwGMCIYBGYYBaAMB+geeASGeAbcBAwHVB5kBIZkBcgMBwwfbATHbAawBAwGMB9YBMdYBmAEDAfoG6QE16QGkAQMB5wbkATXkAYoBAwHVBqoCPaoC4gEDAbAGpQI9pQKPAQMBnga4AkG4AqwBAwGLBrMCQbMClgEDAfkFxAJFzwJOAwHBBdACRdsCTgMBnAWpA0u0A1QDAeQEtQNLwANUAwG/BMwDU8wD8AEDAawExwNTxwOoAQMBmgTdA1XdA70BAwGHBNoDVdoDqAEDAfUD1wNV1wOnAQMB4wPUA1XUA5wBAwHRA4wDhQGMA4kBAwHPA4gDX4gDtAEDAb0DngNRngO6AQMBmAObA1GbA5gBAwGGA/8CW/8CvgEDAeEC+gJb+gKzAQMBzwLtAlHtAroBAwG8AuoCUeoCmAEDAaoC+gE9+gGEAQMBhQKVAkOVArgBAwHgAZACQ5ACqgEDAc4BhgJBhgKIAQMBuwGEBDGEBOABAwGWAf8DMf8DmAEDAYQBvwEtvwF2AgFxugEtugF8AgFfsQEpsQGaAQIBTKwBKawBkAECATp9FX2AAQIBJ3gVeGQCARXMAkvMAuYBAwHUBccCS8cCrwEDAcIF2AJL2AK0AQMBrwXTAkvTAqIBAwGdBbEDUbED5wEDAfcErANRrAOsAQMB5QS9A1G9A+YBAwHSBLgDUbgDqwEDAcAE</sads:DebugSymbol.Symbol>
+    </Flowchart>
+  </dta:AutenticationActivity.Implementation>
+</dta:AutenticationActivity>

@@ -1,0 +1,2 @@
+obj\Release\ReportPortfolioActivity.g.xaml
+obj\Release\Application.Enterprise.Activity_ReportPortfolioActivity_BeforeInitializeComponentHelper.txt

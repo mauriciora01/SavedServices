@@ -1,0 +1,2 @@
+AlarmsActivity.g.xaml
+XamlStaticHelperNamespace._XamlStaticHelper
