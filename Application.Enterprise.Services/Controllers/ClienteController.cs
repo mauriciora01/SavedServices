@@ -163,7 +163,7 @@ namespace Application.Enterprise.Services.Controllers
                 ObjSessionEmpresariaInfo.PremioBienvenida = objClienteInfo.Premio.ToString();
                 ObjSessionEmpresariaInfo.TipoEnvioCliente = objClienteInfo.TipoEnvio.ToString();
                 ObjSessionEmpresariaInfo.Empresaria_Lider = objClienteInfo.Lider; //GAVL Lider para Fletes por Lider 
-                
+
                 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
                 //Se valida si la ciudad del cliente es exento de iva.
                 Ciudad ObjCiudad = new Ciudad("conexion");
@@ -201,7 +201,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
 
-        private string ComponerNombreCompleto(ClienteInfo objClienteInfo )
+        private string ComponerNombreCompleto(ClienteInfo objClienteInfo)
         {
             string nombreempresariacompleto = "";
 
@@ -230,6 +230,199 @@ namespace Application.Enterprise.Services.Controllers
 
             return nombreempresariacompleto;
         }
+
+
+
+        [HttpGet]
+        [HttpPost]
+        public ClienteInfo CargarDireccionTelefono(ClienteInfo objClienteInfo)
+        {
+            ClienteInfo ObjClienteInfoResponse = new ClienteInfo();
+
+            if (objClienteInfo.Nit != "" && objClienteInfo.Nit != null && objClienteInfo.Nit != "undefined")
+            {
+                Cliente ObjCliente = new Cliente("conexion");
+                ClienteInfo ObjClienteInfo = new ClienteInfo();
+
+                ObjClienteInfo = ObjCliente.ListTelefonoDireccionxNIT(objClienteInfo.Nit);
+
+                if (ObjClienteInfo != null)
+                {                    
+                    ObjClienteInfoResponse.DireccionPedidos = ObjClienteInfo.DireccionPedidos.Trim();
+
+                    string[] split = ObjClienteInfo.Telefono1.Split(new Char[] { '-' });
+
+                    foreach (string s in split)
+                    {
+
+                        if (s.Trim() != "")
+                            ObjClienteInfo.Telefono1 = s.Trim();
+                    }
+
+                    ObjClienteInfoResponse.Telefono1 = ObjClienteInfo.Telefono1.Trim();
+                }
+                else
+                {
+                    ObjClienteInfoResponse.Error = new Error();
+                    ObjClienteInfoResponse.Error.Id = -1;
+                    ObjClienteInfoResponse.Error.Descripcion = "No se puede crear el pedido, verifique el Documento de la empresaria.:" + objClienteInfo.Nit + ", Fallo Envio.";
+                    ObjClienteInfoResponse.Nit = objClienteInfo.Nit;
+                }
+
+            }
+            else
+            {
+                ObjClienteInfoResponse.Error = new Error();
+                ObjClienteInfoResponse.Error.Id = -1;
+                ObjClienteInfoResponse.Error.Descripcion = "No se puede crear el pedido, verifique el Documento de la empresaria.:" + objClienteInfo.Nit + ", Fallo Envio.";
+                ObjClienteInfoResponse.Nit = objClienteInfo.Nit;
+            }
+
+            return ObjClienteInfoResponse;
+        }
+
+        [HttpGet]
+        [HttpPost]
+        public ClienteInfo ValidarTipoEnvioPedido(ClienteInfo ObjClienteInfoReq)
+        {
+            ClienteInfo ObjClienteInfoResponse = new ClienteInfo();
+
+            //si es 1, es envio a la casa de la empresaria.
+            if (ObjClienteInfoReq.TipoEnvio == 1)
+            {
+
+                Cliente ObjCliente = new Cliente("conexion");
+                ClienteInfo ObjClienteInfo = new ClienteInfo();
+                CiudadInfo ObjCiudadInfo = new CiudadInfo();
+                Ciudad ObjCiudad = new Ciudad("conexion");
+
+                ObjClienteInfo = ObjCliente.ListxNITSimpleEdit(ObjClienteInfoReq.Nit);
+
+                if (ObjClienteInfo != null)
+                {
+                    string CodCiudadCliente = "";
+                    decimal PorcentajeIvaFlete = 0;
+
+                    decimal ValorFleteSinIva = 0;
+
+                    //Se obtiene el codigo de la ciudad para el flete.
+                    ObjClienteInfo = ObjCliente.ListClienteSVDNxNit(ObjClienteInfoReq.Nit);
+
+                    if (ObjClienteInfo != null)
+                    {
+                        CodCiudadCliente = ObjClienteInfo.CodCiudad;
+
+                    }
+
+                    //se obtiene la info de la ciudad del cliente.
+                    ObjCiudadInfo = ObjCiudad.ListCiudadxId(CodCiudadCliente);
+
+                    PorcentajeIvaFlete = ObjCiudadInfo.IVA;
+                    ValorFleteSinIva = ObjCiudadInfo.ValorFlete;
+
+                    ObjClienteInfoResponse.PorcentajeIvaFlete = PorcentajeIvaFlete;
+                    ObjClienteInfoResponse.ValorFleteSinIva = ValorFleteSinIva;
+                    ObjClienteInfoResponse.ValorFlete = (ValorFleteSinIva + (PorcentajeIvaFlete * (ValorFleteSinIva / 100)));
+                    ObjClienteInfoResponse.CodCiudadDespacho = "";
+
+                }
+
+            }
+            else if (ObjClienteInfoReq.TipoEnvio == 2)
+            {
+                /*********************SE BUSCA EL VALOR DEL FLETE POR GERENTE/DIRECTOR*************************************************/
+
+                ParametrosInfo ObjParametrosInfo = new ParametrosInfo();
+                Parametros ObjParametros = new Parametros("conexion");
+
+                ObjParametrosInfo = ObjParametros.ListxId((int)ParametrosEnum.ValorIVACOP);
+                decimal PorcentajeIvaFlete = Convert.ToDecimal(ObjParametrosInfo.Valor.ToString());
+
+                decimal ValorFleteSinIva = 0;
+
+                ZonaInfo objZonaInfo = new ZonaInfo();
+                Zona objZona = new Zona("conexion");
+
+                objZonaInfo = objZona.ListxIdZona(ObjClienteInfoReq.Zona.ToString());
+
+                if (objZonaInfo != null)
+                {
+                    ValorFleteSinIva = objZonaInfo.ValorFlete;
+                    ObjClienteInfoResponse.PorcentajeIvaFlete = PorcentajeIvaFlete;
+                    ObjClienteInfoResponse.ValorFleteSinIva = ValorFleteSinIva;
+                    ObjClienteInfoResponse.ValorFlete = (ValorFleteSinIva + (PorcentajeIvaFlete * (ValorFleteSinIva / 100)));
+                    ObjClienteInfoResponse.CodCiudadDespacho = objZonaInfo.CodLocalidad;
+                }
+     
+            }
+            else if (ObjClienteInfoReq.TipoEnvio == 3)
+            {
+                /*********************SE BUSCA EL VALOR DE FLETE POR LIDER**************************************************/
+                FleteLiderInfo FleteLiderInfo = new FleteLiderInfo();
+                FleteLider ObjFletes = new FleteLider("conexion");
+
+                FleteLiderInfo = ObjFletes.List(ObjClienteInfoReq.EmpresariaLider);
+                decimal PorcentajeIvaFlete = Convert.ToDecimal(FleteLiderInfo.Iva.ToString());
+
+                decimal ValorFleteSinIva = 0;
+
+                if (ObjFletes != null)
+                {
+                    ValorFleteSinIva = FleteLiderInfo.Valor;
+
+                    ObjClienteInfoResponse.PorcentajeIvaFlete = PorcentajeIvaFlete;
+                    ObjClienteInfoResponse.ValorFleteSinIva = ValorFleteSinIva;
+                    ObjClienteInfoResponse.ValorFlete = (ValorFleteSinIva + (PorcentajeIvaFlete * (ValorFleteSinIva / 100)));
+                    
+                }
+
+                Lider ObjLider1 = new Lider("conexion");
+                LiderInfo ObjLiderInfo1 = new LiderInfo();
+
+                //Se obtiene el codigo de la ciudad para el flete.
+                ObjLiderInfo1 = ObjLider1.ListxIdLider(ObjClienteInfoReq.EmpresariaLider);
+
+                if (ObjLiderInfo1 != null)
+                {                    
+                    ObjClienteInfoResponse.CodCiudadDespacho = ObjLiderInfo1.Codciudad;
+                }
+            }
+            else if (ObjClienteInfoReq.TipoEnvio == 4)
+            {
+                /*********************SE BUSCA EL VALOR DEL FLETE POR PUNTO DE VENTA*************************************************/
+                //TODO: PREGUNTAR QUE VALOR DE FLETE VA AQUI
+                ParametrosInfo ObjParametrosInfo = new ParametrosInfo();
+                Parametros ObjParametros = new Parametros("conexion");
+
+                ObjParametrosInfo = ObjParametros.ListxId((int)ParametrosEnum.ValorIVACOP);
+                decimal PorcentajeIvaFlete = Convert.ToDecimal(ObjParametrosInfo.Valor.ToString());
+
+                decimal ValorFleteSinIva = 0;
+
+                ZonaInfo objZonaInfo = new ZonaInfo();
+                Zona objZona = new Zona("conexion");
+
+                objZonaInfo = objZona.ListxIdZona(ObjClienteInfoReq.Zona.ToString());
+
+                if (objZonaInfo != null)
+                {
+                    ValorFleteSinIva = objZonaInfo.ValorFlete;
+                    ObjClienteInfoResponse.PorcentajeIvaFlete = PorcentajeIvaFlete;
+                    ObjClienteInfoResponse.ValorFleteSinIva = ValorFleteSinIva;
+                    ObjClienteInfoResponse.ValorFlete = (ValorFleteSinIva + (PorcentajeIvaFlete * (ValorFleteSinIva / 100)));
+                    ObjClienteInfoResponse.CodCiudadDespacho = objZonaInfo.CodLocalidad;
+                }
+            }
+            else
+            {
+                //TODO: PREGUNTAR QUE VALOR DE FLETE VA POR DEFECTO POR SI ALGO PASA
+            }
+
+
+            return ObjClienteInfoResponse;
+
+        }
+
 
 
     }

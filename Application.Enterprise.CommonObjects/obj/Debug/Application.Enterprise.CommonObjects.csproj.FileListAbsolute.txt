@@ -16,3 +16,9 @@ D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\A
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csproj.CoreCompileInputs.cache
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.dll
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.pdb
+C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.dll
+C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.pdb
+C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csprojAssemblyReference.cache
+C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csproj.CoreCompileInputs.cache
+C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.dll
+C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.pdb

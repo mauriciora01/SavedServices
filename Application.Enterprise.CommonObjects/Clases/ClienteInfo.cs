@@ -1390,6 +1390,46 @@ namespace Application.Enterprise.CommonObjects
             set;
         }
 
+        private decimal porcentajeivaflete;
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal PorcentajeIvaFlete
+        {
+            get { return porcentajeivaflete; }
+            set { porcentajeivaflete = value; }
+        }
+
+        private decimal valorfletesiniva;
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal ValorFleteSinIva
+        {
+            get { return valorfletesiniva; }
+            set { valorfletesiniva = value; }
+        }
+
+        private decimal valorflete;
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal ValorFlete
+        {
+            get { return valorflete; }
+            set { valorflete = value; }
+        }
+
+        private string empresarialider;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string EmpresariaLider
+        {
+            get { return empresarialider; }
+            set { empresarialider = value; }
+        }
+
 
     }
 }
