@@ -183,6 +183,7 @@
     <Compile Include="Controllers\ExceptionErrorController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ParametrosController.cs" />
+    <Compile Include="Controllers\CiudadController.cs" />
     <Compile Include="Controllers\ParroquiaController.cs" />
     <Compile Include="Controllers\CantonController.cs" />
     <Compile Include="Controllers\CatalogoController.cs" />

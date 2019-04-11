@@ -120,6 +120,16 @@ namespace Application.Enterprise.CommonObjects
             get { return valorfletefull; }
             set { valorfletefull = value; }
         }
+
+        private string codigociudaddespacho;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string CodigoCiudadDespacho
+        {
+            get { return codigociudaddespacho; }
+            set { codigociudaddespacho = value; }
+        }
     }
     
     public class ZonadeCiudadInfo
