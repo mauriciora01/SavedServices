@@ -419,7 +419,7 @@ namespace Application.Enterprise.Services.Controllers
             }
 
 
-            return ObjClienteInfoResponse;
+            return ObjClienteInfoResponse; 
 
         }
 
