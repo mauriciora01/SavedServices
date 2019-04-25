@@ -423,6 +423,44 @@ namespace Application.Enterprise.Services.Controllers
 
         }
 
+        [HttpGet]
+        [HttpPost]
+        public ClienteInfo ActualizarDireccionTelefono(ClienteInfo objClienteInfo)
+        {
+            ClienteInfo ObjClienteInfoResponse = new ClienteInfo();
+
+            if (objClienteInfo.Nit != "" && objClienteInfo.Nit != null && objClienteInfo.Nit != "undefined")
+            {
+                Cliente ObjCliente = new Cliente("conexion");
+            
+                bool OkTrans = false;
+
+                OkTrans = ObjCliente.ActualizarDireccionTelefono(objClienteInfo);
+
+                if (OkTrans)
+                {
+                    ObjClienteInfoResponse = objClienteInfo;
+                }
+                else
+                {
+                    ObjClienteInfoResponse.Error = new Error();
+                    ObjClienteInfoResponse.Error.Id = -1;
+                    ObjClienteInfoResponse.Error.Descripcion = "No se puede crear actualizar la informacion, verifique el Documento de la empresaria.:" + objClienteInfo.Nit + ", Fallo Envio.";
+                    ObjClienteInfoResponse.Nit = objClienteInfo.Nit;
+                }
+
+            }
+            else
+            {
+                ObjClienteInfoResponse.Error = new Error();
+                ObjClienteInfoResponse.Error.Id = -1;
+                ObjClienteInfoResponse.Error.Descripcion = "No se puede crear actualizar la informacion, verifique el Documento de la empresaria.:" + objClienteInfo.Nit + ", Fallo Envio.";
+                ObjClienteInfoResponse.Nit = objClienteInfo.Nit;
+            }
+
+            return ObjClienteInfoResponse;
+        }
+
 
 
     }

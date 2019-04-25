@@ -1,66 +1,66 @@
 namespace Application.Enterprise.Activity {
     
-    #line 25 "C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
+    #line 25 "D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
     using System;
     
     #line default
     #line hidden
     
-    #line 1 "C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
+    #line 1 "D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
     using System.Collections;
     
     #line default
     #line hidden
     
-    #line 26 "C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
+    #line 26 "D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
     using System.Collections.Generic;
     
     #line default
     #line hidden
     
-    #line 1 "C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
+    #line 1 "D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
     using System.Activities;
     
     #line default
     #line hidden
     
-    #line 1 "C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
+    #line 1 "D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
     using System.Activities.Expressions;
     
     #line default
     #line hidden
     
-    #line 1 "C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
+    #line 1 "D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
     using System.Activities.Statements;
     
     #line default
     #line hidden
     
-    #line 27 "C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
+    #line 27 "D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
     using System.Data;
     
     #line default
     #line hidden
     
-    #line 28 "C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
+    #line 28 "D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
     using System.Linq;
     
     #line default
     #line hidden
     
-    #line 29 "C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
+    #line 29 "D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
     using System.Text;
     
     #line default
     #line hidden
     
-    #line 30 "C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
+    #line 30 "D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
     using Application.Enterprise.CommonObjects;
     
     #line default
     #line hidden
     
-    #line 1 "C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
+    #line 1 "D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\ReportPortfolioActivity.xaml"
     using System.Activities.XamlIntegration;
     
     #line default
@@ -624,7 +624,7 @@ namespace Application.Enterprise.Activity {
             
             internal System.Linq.Expressions.Expression @__Expr2GetTree() {
                 
-                #line 69 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 69 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 System.Linq.Expressions.Expression<System.Func<System.Data.DataTable>> expression = () => 
                 dtPortfolio;
                 
@@ -636,7 +636,7 @@ namespace Application.Enterprise.Activity {
             [System.Diagnostics.DebuggerHiddenAttribute()]
             public System.Data.DataTable @__Expr2Get() {
                 
-                #line 69 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 69 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 return 
                 dtPortfolio;
                 
@@ -652,7 +652,7 @@ namespace Application.Enterprise.Activity {
             [System.Diagnostics.DebuggerHiddenAttribute()]
             public void @__Expr2Set(System.Data.DataTable value) {
                 
-                #line 69 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 69 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 
                 dtPortfolio = value;
                 
@@ -668,7 +668,7 @@ namespace Application.Enterprise.Activity {
             
             internal System.Linq.Expressions.Expression @__Expr4GetTree() {
                 
-                #line 83 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 83 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 System.Linq.Expressions.Expression<System.Func<System.Data.DataTable>> expression = () => 
                     dtMercado;
                 
@@ -680,7 +680,7 @@ namespace Application.Enterprise.Activity {
             [System.Diagnostics.DebuggerHiddenAttribute()]
             public System.Data.DataTable @__Expr4Get() {
                 
-                #line 83 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 83 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 return 
                     dtMercado;
                 
@@ -696,7 +696,7 @@ namespace Application.Enterprise.Activity {
             [System.Diagnostics.DebuggerHiddenAttribute()]
             public void @__Expr4Set(System.Data.DataTable value) {
                 
-                #line 83 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 83 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 
                     dtMercado = value;
                 
@@ -712,7 +712,7 @@ namespace Application.Enterprise.Activity {
             
             internal System.Linq.Expressions.Expression @__Expr6GetTree() {
                 
-                #line 97 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 97 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 System.Linq.Expressions.Expression<System.Func<System.Collections.Generic.List<Application.Enterprise.CommonObjects.ParametroConfiguracion>>> expression = () => 
                         MyPortfolio;
                 
@@ -724,7 +724,7 @@ namespace Application.Enterprise.Activity {
             [System.Diagnostics.DebuggerHiddenAttribute()]
             public System.Collections.Generic.List<Application.Enterprise.CommonObjects.ParametroConfiguracion> @__Expr6Get() {
                 
-                #line 97 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 97 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 return 
                         MyPortfolio;
                 
@@ -740,7 +740,7 @@ namespace Application.Enterprise.Activity {
             [System.Diagnostics.DebuggerHiddenAttribute()]
             public void @__Expr6Set(System.Collections.Generic.List<Application.Enterprise.CommonObjects.ParametroConfiguracion> value) {
                 
-                #line 97 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 97 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 
                         MyPortfolio = value;
                 
@@ -825,7 +825,7 @@ namespace Application.Enterprise.Activity {
             
             internal System.Linq.Expressions.Expression @__Expr0GetTree() {
                 
-                #line 63 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 63 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 System.Linq.Expressions.Expression<System.Func<int>> expression = () => 
           IdFirma;
                 
@@ -837,7 +837,7 @@ namespace Application.Enterprise.Activity {
             [System.Diagnostics.DebuggerHiddenAttribute()]
             public int @__Expr0Get() {
                 
-                #line 63 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 63 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 return 
           IdFirma;
                 
@@ -852,7 +852,7 @@ namespace Application.Enterprise.Activity {
             
             internal System.Linq.Expressions.Expression @__Expr1GetTree() {
                 
-                #line 74 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 74 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 System.Linq.Expressions.Expression<System.Func<System.Data.DataTable>> expression = () => 
                 Business.ConfiguracionInstrumentos.EliminarConfiguracionIntrumentos1(strIdComercial);
                 
@@ -864,7 +864,7 @@ namespace Application.Enterprise.Activity {
             [System.Diagnostics.DebuggerHiddenAttribute()]
             public System.Data.DataTable @__Expr1Get() {
                 
-                #line 74 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 74 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 return 
                 Business.ConfiguracionInstrumentos.EliminarConfiguracionIntrumentos1(strIdComercial);
                 
@@ -879,7 +879,7 @@ namespace Application.Enterprise.Activity {
             
             internal System.Linq.Expressions.Expression @__Expr3GetTree() {
                 
-                #line 88 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 88 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 System.Linq.Expressions.Expression<System.Func<System.Data.DataTable>> expression = () => 
                     Business.ConfiguracionInstrumentos.EliminarConfiguracionIntrumentos1(strIdComercial);
                 
@@ -891,7 +891,7 @@ namespace Application.Enterprise.Activity {
             [System.Diagnostics.DebuggerHiddenAttribute()]
             public System.Data.DataTable @__Expr3Get() {
                 
-                #line 88 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 88 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 return 
                     Business.ConfiguracionInstrumentos.EliminarConfiguracionIntrumentos1(strIdComercial);
                 
@@ -906,7 +906,7 @@ namespace Application.Enterprise.Activity {
             
             internal System.Linq.Expressions.Expression @__Expr5GetTree() {
                 
-                #line 102 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 102 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 System.Linq.Expressions.Expression<System.Func<System.Collections.Generic.List<Application.Enterprise.CommonObjects.ParametroConfiguracion>>> expression = () => 
                         MyPortfolio;
                 
@@ -918,7 +918,7 @@ namespace Application.Enterprise.Activity {
             [System.Diagnostics.DebuggerHiddenAttribute()]
             public System.Collections.Generic.List<Application.Enterprise.CommonObjects.ParametroConfiguracion> @__Expr5Get() {
                 
-                #line 102 "C:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
+                #line 102 "D:\PROYECTOSVS\SAVEDSERVICESNET\APPLICATION.ENTERPRISE.ACTIVITY\REPORTPORTFOLIOACTIVITY.XAML"
                 return 
                         MyPortfolio;
                 
