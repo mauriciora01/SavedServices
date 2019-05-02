@@ -163,6 +163,19 @@ namespace Application.Enterprise.Services.Controllers
                 ObjSessionEmpresariaInfo.PremioBienvenida = objClienteInfo.Premio.ToString();
                 ObjSessionEmpresariaInfo.TipoEnvioCliente = objClienteInfo.TipoEnvio.ToString();
                 ObjSessionEmpresariaInfo.Empresaria_Lider = objClienteInfo.Lider; //GAVL Lider para Fletes por Lider 
+                ObjSessionEmpresariaInfo.IdZona = objClienteInfo.Zona;
+                ObjSessionEmpresariaInfo.Email = objClienteInfo.Email;
+                ObjSessionEmpresariaInfo.Vendedor = objClienteInfo.Vendedor;
+                ObjSessionEmpresariaInfo.Clasificacion = objClienteInfo.Clasificacion;
+                ObjSessionEmpresariaInfo.Telefono1 = objClienteInfo.Telefono1;
+                ObjSessionEmpresariaInfo.Celular1 = objClienteInfo.Celular1;
+                ObjSessionEmpresariaInfo.CodigoRegional = objClienteInfo.CodigoRegional.ToString();
+                ObjSessionEmpresariaInfo.Usuario = objClienteInfo.Usuario;
+                ObjSessionEmpresariaInfo.Whatsapp = objClienteInfo.Whatsapp;
+                ObjSessionEmpresariaInfo.TipoCliente = objClienteInfo.TipoCliente;
+                ObjSessionEmpresariaInfo.TallaPrendaSuperior = objClienteInfo.TallaPrendaSuperior;
+                ObjSessionEmpresariaInfo.TallaPrendaInferior = objClienteInfo.TallaPrendaInferior;
+                ObjSessionEmpresariaInfo.TallaCalzado = objClienteInfo.TallaCalzado;
 
                 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
                 //Se valida si la ciudad del cliente es exento de iva.
@@ -247,7 +260,7 @@ namespace Application.Enterprise.Services.Controllers
                 ObjClienteInfo = ObjCliente.ListTelefonoDireccionxNIT(objClienteInfo.Nit);
 
                 if (ObjClienteInfo != null)
-                {                    
+                {
                     ObjClienteInfoResponse.DireccionPedidos = ObjClienteInfo.DireccionPedidos.Trim();
 
                     string[] split = ObjClienteInfo.Telefono1.Split(new Char[] { '-' });
@@ -353,7 +366,7 @@ namespace Application.Enterprise.Services.Controllers
                     ObjClienteInfoResponse.ValorFlete = (ValorFleteSinIva + (PorcentajeIvaFlete * (ValorFleteSinIva / 100)));
                     ObjClienteInfoResponse.CodCiudadDespacho = objZonaInfo.CodLocalidad;
                 }
-     
+
             }
             else if (ObjClienteInfoReq.TipoEnvio == 3)
             {
@@ -373,7 +386,7 @@ namespace Application.Enterprise.Services.Controllers
                     ObjClienteInfoResponse.PorcentajeIvaFlete = PorcentajeIvaFlete;
                     ObjClienteInfoResponse.ValorFleteSinIva = ValorFleteSinIva;
                     ObjClienteInfoResponse.ValorFlete = (ValorFleteSinIva + (PorcentajeIvaFlete * (ValorFleteSinIva / 100)));
-                    
+
                 }
 
                 Lider ObjLider1 = new Lider("conexion");
@@ -383,7 +396,7 @@ namespace Application.Enterprise.Services.Controllers
                 ObjLiderInfo1 = ObjLider1.ListxIdLider(ObjClienteInfoReq.EmpresariaLider);
 
                 if (ObjLiderInfo1 != null)
-                {                    
+                {
                     ObjClienteInfoResponse.CodCiudadDespacho = ObjLiderInfo1.Codciudad;
                 }
             }
@@ -419,7 +432,7 @@ namespace Application.Enterprise.Services.Controllers
             }
 
 
-            return ObjClienteInfoResponse; 
+            return ObjClienteInfoResponse;
 
         }
 
@@ -432,7 +445,7 @@ namespace Application.Enterprise.Services.Controllers
             if (objClienteInfo.Nit != "" && objClienteInfo.Nit != null && objClienteInfo.Nit != "undefined")
             {
                 Cliente ObjCliente = new Cliente("conexion");
-            
+
                 bool OkTrans = false;
 
                 OkTrans = ObjCliente.ActualizarDireccionTelefono(objClienteInfo);

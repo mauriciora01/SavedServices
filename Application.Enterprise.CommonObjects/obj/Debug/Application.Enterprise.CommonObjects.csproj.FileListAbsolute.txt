@@ -21,3 +21,4 @@ C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\A
 C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csproj.CoreCompileInputs.cache
 C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.dll
 C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.pdb
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csprojAssemblyReference.cache

@@ -51,14 +51,89 @@
             set;
         }
        
+        public virtual string IdZona
+        {
+            get;
+            set;
+        }
+
+        public virtual string Email
+        {
+            get;
+            set;
+        }
+
+        public virtual string Vendedor
+        {
+            get;
+            set;
+        }
+
+        public virtual string Clasificacion
+        {
+            get;
+            set;
+        }
+
+        public virtual string Telefono1
+        {
+            get;
+            set;
+        }
+
+        public virtual string Celular1
+        {
+            get;
+            set;
+        }
+
+        public virtual string CodigoRegional
+        {
+            get;
+            set;
+        }
+
+        public virtual string Usuario
+        {
+            get;
+            set;
+        }
+
+        public virtual string Whatsapp
+        {
+            get;
+            set;
+        }
+
+        public virtual string TipoCliente
+        {
+            get;
+            set;
+        }
+
+        public virtual string TallaPrendaSuperior
+        {
+            get;
+            set;
+        }
+
+        public virtual string TallaPrendaInferior
+        {
+            get;
+            set;
+        }
+
+        public virtual string TallaCalzado
+        {
+            get;
+            set;
+        }
 
         public virtual Error Error
         {
             get;
             set;
         }
-
-
 
     }
 }

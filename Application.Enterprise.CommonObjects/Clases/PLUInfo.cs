@@ -242,5 +242,44 @@ namespace Application.Enterprise.CommonObjects
         }
 
 
+        private string campana;
+
+        public string Campana
+        {
+            get { return campana; }
+            set { campana = value; }
+        }
+
+        private string idzona;
+
+        public string IdZona
+        {
+            get { return idzona; }
+            set { idzona = value; }
+        }
+
+        public virtual Error Error
+        {
+            get;
+            set;
+        }
+
+        private string usuario;
+
+        public string Usuario
+        {
+            get { return usuario; }
+            set { usuario = value; }
+        }
+
+        public virtual SessionEmpresariaInfo SessionEmpresaria
+        {
+            get;
+            set;
+        }
+
+
+        
+
     }
 }
