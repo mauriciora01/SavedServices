@@ -1021,6 +1021,11 @@
             
             </summary>
         </member>
+        <member name="P:Application.Enterprise.CommonObjects.CiudadInfo.CodigoCiudadDespacho">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:Application.Enterprise.CommonObjects.ZonadeCiudadInfo.ZonasAsignadaxCiudad">
             <summary>
             
@@ -2139,6 +2144,26 @@
             </summary>
         </member>
         <member name="P:Application.Enterprise.CommonObjects.ClienteInfo.NombreEmpresariaCompleto">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.ClienteInfo.PorcentajeIvaFlete">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.ClienteInfo.ValorFleteSinIva">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.ClienteInfo.ValorFlete">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.ClienteInfo.EmpresariaLider">
             <summary>
             
             </summary>
@@ -6873,6 +6898,16 @@
             </summary>
         </member>
         <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.NombreAnulo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.ExcentoIVA">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.CodCiudadCliente">
             <summary>
             
             </summary>

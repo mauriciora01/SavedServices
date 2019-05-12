@@ -129,6 +129,18 @@
             set;
         }
 
+        public virtual string Catalogo
+        {
+            get;
+            set;
+        }
+
+        public virtual string Campana
+        {
+            get;
+            set;
+        }
+
         public virtual Error Error
         {
             get;

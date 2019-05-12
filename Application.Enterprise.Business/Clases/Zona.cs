@@ -4,6 +4,7 @@ using System.Text;
 using Application.Enterprise.CommonObjects.Interfaces;
 using Application.Enterprise.CommonObjects;
 using System.Reflection;
+using static Application.Enterprise.CommonObjects.Enumerations;
 
 namespace Application.Enterprise.Business
 {
@@ -223,5 +224,69 @@ namespace Application.Enterprise.Business
         }
 
         #endregion
+
+
+        public ZonaInfo CargarVariablesZona(string IdZona)
+        {
+            
+           ZonaInfo objZonaInfo = new ZonaInfo();
+
+            if (IdZona != null)
+            {
+
+                objZonaInfo = module.ListxIdZona(IdZona);
+
+                if (objZonaInfo == null)
+                {
+                    //este parametro guarda los dias que debe estar vivo el pedido como un borrador o reserva en linea para anularlo.
+                    Parametros objParametros = new Parametros("conexion");
+                    ParametrosInfo objParametrosInfo = new ParametrosInfo();
+
+                    objParametrosInfo = objParametros.ListxId((int)ParametrosEnum.DiasCierrePedidoBorrador);
+
+                    if (objParametrosInfo != null)
+                    {
+                        //este parametro guarda los dias que debe estar vivo el pedido como un borrador para anularlo.
+                        objZonaInfo.DiasBorrador = Convert.ToInt32(objParametrosInfo.Valor);
+                    }
+
+                    objParametrosInfo = objParametros.ListxId((int)ParametrosEnum.DiasCierrePedidoReservado);
+
+                    if (objParametrosInfo != null)
+                    {
+                        //este parametro guarda los dias que debe estar vivo el pedido como una reserva para hacerle devolucion.
+                        objZonaInfo.DiasReserva = Convert.ToInt32(objParametrosInfo.Valor);
+                    }
+
+                    objZonaInfo.DiasDeGracia = 1;
+                }
+            }
+            else
+            {
+               Parametros objParametros = new Parametros("conexion");
+               ParametrosInfo objParametrosInfo = new ParametrosInfo();
+
+                objParametrosInfo = objParametros.ListxId((int)ParametrosEnum.DiasCierrePedidoBorrador);
+
+                if (objParametrosInfo != null)
+                {
+                    //este parametro guarda los dias que debe estar vivo el pedido como un borrador para anularlo.
+                    objZonaInfo.DiasBorrador = Convert.ToInt32(objParametrosInfo.Valor);
+                }
+
+                objParametrosInfo = objParametros.ListxId((int)ParametrosEnum.DiasCierrePedidoReservado);
+
+                if (objParametrosInfo != null)
+                {
+                    //este parametro guarda los dias que debe estar vivo el pedido como una reserva para hacerle devolucion.
+                    objZonaInfo.DiasReserva = Convert.ToInt32(objParametrosInfo.Valor);
+                }
+
+                objZonaInfo.DiasDeGracia = 1;
+            }
+
+
+            return objZonaInfo;
+        }
     }
 }

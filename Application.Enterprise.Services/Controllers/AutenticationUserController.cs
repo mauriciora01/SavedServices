@@ -764,6 +764,10 @@ namespace Application.Enterprise.Services.Controllers
 
             }
 
+            //TODO MRG: Cambiar esto para que sea lo q viene de BD.
+            ObjSessionUserInfo.Campana = "0919";
+            ObjSessionUserInfo.Catalogo = "124";
+
             var response = Request.CreateResponse<SessionUserInfo>(HttpStatusCode.OK, ObjSessionUserInfo);
             response.Headers.Add("Token", "");
             response.Headers.Add("TokenExpiry", ConfigurationManager.AppSettings["AuthTokenExpiry"]);

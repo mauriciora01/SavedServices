@@ -12,3 +12,17 @@ C:\ProyectosVS\TradingSolution\Application.Enterprise.Business\obj\Release\Appli
 C:\ProyectosVS\TradingSolution\Application.Enterprise.Business\obj\Release\Application.Enterprise.Business.csproj.CoreCompileInputs.cache
 C:\ProyectosVS\TradingSolution\Application.Enterprise.Business\obj\Release\Application.Enterprise.Business.csproj.CopyComplete
 C:\ProyectosVS\TradingSolution\Application.Enterprise.Business\obj\Release\Application.Enterprise.Business.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Release\Application.Enterprise.Business.dll.config
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Release\Application.Enterprise.Business.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Release\Application.Enterprise.Data.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Release\Application.Enterprise.Data.dll.config
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.xml
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Release\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\obj\Release\Application.Enterprise.Business.csprojAssemblyReference.cache
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\obj\Release\Application.Enterprise.Business.csproj.CoreCompileInputs.cache
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\obj\Release\Application.Enterprise.Business.csproj.CopyComplete
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\obj\Release\Application.Enterprise.Business.dll

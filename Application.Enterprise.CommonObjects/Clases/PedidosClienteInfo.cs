@@ -26,7 +26,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Numero
         {
-            get { return numero.Trim(); }
+            get { return numero; }
             set { numero = value; }
         }
 
@@ -86,7 +86,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Nit
         {
-            get { return nit.Trim(); }
+            get { return nit; }
             set { nit = value; }
         }
 
@@ -226,7 +226,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string CodTipo
         {
-            get { return codtipo.Trim(); }
+            get { return codtipo; }
             set { codtipo = value; }
         }
 
@@ -592,7 +592,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Codigo
         {
-            get { return codigo.Trim().ToUpper(); }
+            get { return codigo; }
             set { codigo = value; }
         }
 
@@ -602,7 +602,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string GrupoCatalogo
         {
-            get { return grupocatalogo.Trim(); }
+            get { return grupocatalogo; }
             set { grupocatalogo = value; }
         }
 
@@ -669,7 +669,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string DescripcionReferencia
         {
-            get { return descripcionreferencia.Trim(); }
+            get { return descripcionreferencia; }
             set { descripcionreferencia = value; }
         }
 
@@ -679,7 +679,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Referencia
         {
-            get { return referencia.Trim(); }
+            get { return referencia; }
             set { referencia = value; }
         }
 
@@ -699,7 +699,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string CodigoTotal
         {
-            get { return codigototal.Trim(); }
+            get { return codigototal; }
             set { codigototal = value; }
         }
 
@@ -709,7 +709,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string CCostos
         {
-            get { return ccostos.Trim(); }
+            get { return ccostos; }
             set { ccostos = value; }
         }
 
@@ -730,7 +730,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Usuario
         {
-            get { return usuario.Trim(); }
+            get { return usuario; }
             set { usuario = value; }
         }
 
@@ -744,7 +744,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string DireccionEntregaPedido
         {
-            get { return direccionentregapedido.Trim(); }
+            get { return direccionentregapedido; }
             set { direccionentregapedido = value; }
         }
 
@@ -755,7 +755,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string CodigoCiudad
         {
-            get { return codigociudad.Trim(); }
+            get { return codigociudad; }
             set { codigociudad = value; }
         }
 
@@ -765,7 +765,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string NombreCiudad
         {
-            get { return nombreciudad.Trim(); }
+            get { return nombreciudad; }
             set { nombreciudad = value; }
         }
 
@@ -775,7 +775,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string TelefonoPrincipal
         {
-            get { return telefonoprincipal.Trim(); }
+            get { return telefonoprincipal; }
             set { telefonoprincipal = value; }
         }
 
@@ -785,7 +785,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Email
         {
-            get { return email.Trim(); }
+            get { return email; }
             set { email = value; }
         }
 
@@ -795,7 +795,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Celular
         {
-            get { return celular.Trim(); }
+            get { return celular; }
             set { celular = value; }
         }
 
@@ -805,7 +805,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Sector
         {
-            get { return sector.Trim(); }
+            get { return sector; }
             set { sector = value; }
         }
 
@@ -815,7 +815,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Referido
         {
-            get { return referido.Trim(); }
+            get { return referido; }
             set { referido = value; }
         }
 
@@ -845,7 +845,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string EstadoCliente
         {
-            get { return estadocliente.Trim(); }
+            get { return estadocliente; }
             set { estadocliente = value; }
         }
 
@@ -865,7 +865,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string EstadoPedido
         {
-            get { return estadopedido.Trim(); }
+            get { return estadopedido; }
             set { estadopedido = value; }
         }
 
@@ -875,7 +875,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string IdVendedor
         {
-            get { return idvendedor.Trim(); }
+            get { return idvendedor; }
             set { idvendedor = value; }
         }
 
@@ -885,7 +885,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string CedulaVendedor
         {
-            get { return cedulavendedor.Trim(); }
+            get { return cedulavendedor; }
             set { cedulavendedor = value; }
         }
 
@@ -896,7 +896,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string NumeroFactura
         {
-            get { return numerofactura.Trim(); }
+            get { return numerofactura; }
             set { numerofactura = value; }
         }
 
@@ -926,7 +926,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string IdLider
         {
-            get { return idlider.Trim(); }
+            get { return idlider; }
             set { idlider = value; }
         }
 
@@ -947,7 +947,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string NumeroFac
         {
-            get { return numerofac.Trim(); }
+            get { return numerofac; }
             set { numerofac = value; }
         }
 
@@ -957,7 +957,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string IdCodigoCorto
         {
-            get { return idcodigocorto.ToUpper(); }
+            get { return idcodigocorto; }
             set { idcodigocorto = value; }
         }
 
@@ -1018,7 +1018,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Portal
         {
-            get { return portal.ToUpper(); }
+            get { return portal; }
             set { portal = value; }
         }
 
@@ -1108,7 +1108,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string UsuarioDigito
         {
-            get { return usuariodigito.Trim(); }
+            get { return usuariodigito; }
             set { usuariodigito = value; }
         }
 
@@ -1151,7 +1151,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string MotivoAnulacion
         {
-            get { return _motivoAnulcion.Trim(); }
+            get { return _motivoAnulcion; }
             set { _motivoAnulcion = value; }
         }
 
@@ -1161,7 +1161,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string DescripcionAnulacion
         {
-            get { return _descripcionanulcion.Trim(); }
+            get { return _descripcionanulcion; }
             set { _descripcionanulcion = value; }
         }
 
@@ -1171,7 +1171,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Asistente
         {
-            get { return _asistente.Trim(); }
+            get { return _asistente; }
             set { _asistente = value; }
         }
 
@@ -1181,10 +1181,38 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string NombreAnulo
         {
-            get { return _nombreanulo.Trim(); }
+            get { return _nombreanulo; }
             set { _nombreanulo = value; }
         }
+
         //FIN GAVL  
+
+        public virtual Error Error
+        {
+            get;
+            set;
+        }
+
+        private bool excentoiva;
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool ExcentoIVA
+        {
+            get { return excentoiva; }
+            set { excentoiva = value; }
+        }
+
+        private string codciudadcliente;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string CodCiudadCliente
+        {
+            get { return codciudadcliente; }
+            set { codciudadcliente = value; }
+        }
+        
 
         #endregion
 

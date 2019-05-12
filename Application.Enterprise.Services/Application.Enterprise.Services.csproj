@@ -188,6 +188,7 @@
     <Compile Include="Controllers\ParroquiaController.cs" />
     <Compile Include="Controllers\CantonController.cs" />
     <Compile Include="Controllers\CatalogoController.cs" />
+    <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ProvinciaController.cs" />
     <Compile Include="Controllers\TipoDocumentoController.cs" />
     <Compile Include="Controllers\LiderController.cs" />

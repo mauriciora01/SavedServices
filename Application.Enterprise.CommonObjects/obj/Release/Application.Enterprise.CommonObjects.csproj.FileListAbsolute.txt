@@ -3,3 +3,8 @@ C:\ProyectosVS\TradingSolution\Application.Enterprise.CommonObjects\bin\Release\
 C:\ProyectosVS\TradingSolution\Application.Enterprise.CommonObjects\obj\Release\Application.Enterprise.CommonObjects.csprojAssemblyReference.cache
 C:\ProyectosVS\TradingSolution\Application.Enterprise.CommonObjects\obj\Release\Application.Enterprise.CommonObjects.csproj.CoreCompileInputs.cache
 C:\ProyectosVS\TradingSolution\Application.Enterprise.CommonObjects\obj\Release\Application.Enterprise.CommonObjects.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Release\Application.Enterprise.CommonObjects.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Release\ObjetosComunes.xml
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Release\Application.Enterprise.CommonObjects.csprojAssemblyReference.cache
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Release\Application.Enterprise.CommonObjects.csproj.CoreCompileInputs.cache
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Release\Application.Enterprise.CommonObjects.dll

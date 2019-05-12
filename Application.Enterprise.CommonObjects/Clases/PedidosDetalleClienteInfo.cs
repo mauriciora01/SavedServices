@@ -17,7 +17,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Numero
         {
-            get { return numero.Trim(); }
+            get { return numero; }
             set { numero = value; }
         }
 
@@ -27,7 +27,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Id
         {
-            get { return id.Trim(); }
+            get { return id; }
             set { id = value; }
         }
 
@@ -37,7 +37,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Referencia
         {
-            get { return referencia.Trim(); }
+            get { return referencia; }
             set { referencia = value; }
         }
 
@@ -47,7 +47,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Descripcion
         {
-            get { return descripcion.Trim(); }
+            get { return descripcion; }
             set { descripcion = value; }
         }
 
@@ -107,7 +107,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string CentroCostos
         {
-            get { return ccostos.Trim(); }
+            get { return ccostos; }
             set { ccostos = value; }
         }
 
@@ -117,7 +117,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Lote
         {
-            get { return lote.Trim(); }
+            get { return lote; }
             set { lote = value; }
         }
 
@@ -187,7 +187,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string ConceptoContable
         {
-            get { return conceptocontable.Trim(); }
+            get { return conceptocontable; }
             set { conceptocontable = value; }
         }
 
@@ -207,7 +207,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Grupo
         {
-            get { return grupo.Trim(); }
+            get { return grupo; }
             set { grupo = value; }
         }
 
@@ -248,7 +248,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Catalogo
         {
-            get { return catalogo.Trim(); }
+            get { return catalogo; }
             set { catalogo = value; }
         }
 
@@ -258,7 +258,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string NumeroPedidoPadre
         {
-            get { return numeropedidopadre.Trim(); }
+            get { return numeropedidopadre; }
             set { numeropedidopadre = value; }
         }
 
@@ -293,7 +293,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string IdCodigoCorto
         {
-            get { return idcodigocorto.ToUpper(); }
+            get { return idcodigocorto; }
             set { idcodigocorto = value; }
         }
 
@@ -314,7 +314,7 @@ namespace Application.Enterprise.CommonObjects
 
         public string Nit
         {
-            get { return nit.Trim(); }
+            get { return nit; }
             set { nit = value; }
         }
 
@@ -330,7 +330,7 @@ namespace Application.Enterprise.CommonObjects
 
         public string Zona
         {
-            get { return zona.Trim(); }
+            get { return zona; }
             set { zona = value; }
         }
 
@@ -338,7 +338,7 @@ namespace Application.Enterprise.CommonObjects
 
         public string Campana
         {
-            get { return campana.Trim(); }
+            get { return campana; }
             set { campana = value; }
         }
 
@@ -363,7 +363,7 @@ namespace Application.Enterprise.CommonObjects
 
         public string Mailgroup
         {
-            get { return mailgroup.Trim(); }
+            get { return mailgroup; }
             set { mailgroup = value; }
         }
 
@@ -399,7 +399,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string UnidadNegocio
         {
-            get { return unineg.Trim(); }
+            get { return unineg; }
             set { unineg = value; }
         }
 
@@ -485,7 +485,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string CodigoRapidoSustituto
         {
-            get { return codigorapidosustituto.ToUpper(); }
+            get { return codigorapidosustituto; }
             set { codigorapidosustituto = value; }
         }
 
@@ -497,6 +497,70 @@ namespace Application.Enterprise.CommonObjects
         {
             get { return prodestrella; }
             set { prodestrella = value; }
+        }
+
+        public virtual Error Error
+        {
+            get;
+            set;
+        }
+
+        //--------------------------------------------
+        private decimal subtotal;
+        public decimal SubTotal
+        {
+            get
+            {
+                return subtotal;
+            }
+            set { subtotal = value; }
+        }
+
+        private decimal subtotalpreciocat;
+        public decimal SubTotalPrecioCat
+        {
+            get
+            {
+                return subtotalpreciocat;
+            }
+            set { subtotalpreciocat = value; }
+        }
+
+        private decimal iva;
+        public decimal IVA
+        {
+            get
+            {
+                return iva;
+            }
+            set { iva = value; }
+        }
+
+        private decimal ivapreciocat;
+        public decimal IVAPrecioCat
+        {
+            get
+            {
+                return ivapreciocat;
+            }
+            set { ivapreciocat = value; }
+        }
+
+        
+        private decimal totalpreciocat;
+        public decimal TotalPrecioCat
+        {
+            get
+            {
+                return totalpreciocat;
+            }
+            set { totalpreciocat = value; }
+        }
+
+        public virtual PedidosClienteInfo PedidosClienteInfo
+        {
+            get;
+            set;
         }
 
     }

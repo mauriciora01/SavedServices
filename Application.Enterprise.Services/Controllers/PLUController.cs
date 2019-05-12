@@ -63,6 +63,7 @@ namespace Application.Enterprise.Services.Controllers
                     objPLU.IdZona = ObjPLUInfo.SessionEmpresaria.IdZona.Trim().ToUpper();
                     objPLU.PLU = objCatalogoPluInfo.PLU;
                     objPLU.Referencia = objCatalogoPluInfo.Referencia.Trim().ToUpper();
+                    objPLU.Campana = "0919"; //MRG: Cambiar por la campana cargada.
 
                     objPLUPrecioCat = module.ListxArticulosxPLUxTipoPrecio(objCatalogoPluInfo.PLU, ((int)TipoPrecioEnum.PrecioCatalogo).ToString());
 
@@ -196,7 +197,8 @@ namespace Application.Enterprise.Services.Controllers
                     objPLU.CodigoRapido = ObjPLUInfo.CodigoRapido.ToUpper();
                 }
             }
-
+            ObjPLUInfo.SessionEmpresaria.Campana = "0919"; //MRG: Cambiar por la campana cargada.
+            ObjPLUInfo.SessionEmpresaria.Catalogo = "124"; //MRG: Cambiar por la campana cargada.
             objPLU.SessionEmpresaria = ObjPLUInfo.SessionEmpresaria;
 
             return objPLU;
