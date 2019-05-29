@@ -742,5 +742,44 @@ namespace Application.Enterprise.Data
 
             return j;
         }
+
+
+        public InventarioInfo ListSaldosBodegaxPLUxEmpresaria(string bodega, int intPLU)
+        {
+            this.db.SetParameterValue(this.commandInventario, "i_operation", 'S');
+            this.db.SetParameterValue(this.commandInventario, "i_option", 'G');
+            this.db.SetParameterValue(this.commandInventario, "i_plu", intPLU);
+            this.db.SetParameterValue(this.commandInventario, "i_inv_bodega", bodega);
+            IDataReader dr = null;
+            InventarioInfo inventario = null;
+            try
+            {
+                dr = this.db.ExecuteReader(this.commandInventario);
+                while (true)
+                {
+                    if (!dr.Read())
+                    {
+                        break;
+                    }
+                    inventario = Factory.GetInventario(dr);
+                }
+            }
+            catch (Exception exception)
+            {
+                Trace.WriteLine($"NIVI Error: {exception.Message} , NameSpace: {MethodBase.GetCurrentMethod().DeclaringType.Namespace}, Clase: {MethodBase.GetCurrentMethod().DeclaringType.Name}, Metodo: {MethodBase.GetCurrentMethod().Name} ");
+                if (ExceptionPolicy.HandleException(exception, "DataAccess Policy"))
+                {
+                    throw;
+                }
+            }
+            finally
+            {
+                if (!ReferenceEquals(dr, null))
+                {
+                    dr.Close();
+                }
+            }
+            return inventario;
+        }
     }
 }

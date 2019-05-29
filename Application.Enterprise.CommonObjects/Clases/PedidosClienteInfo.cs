@@ -1212,7 +1212,47 @@ namespace Application.Enterprise.CommonObjects
             get { return codciudadcliente; }
             set { codciudadcliente = value; }
         }
-        
+
+        private bool oktransencabezadopedido;
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool okTransEncabezadoPedido
+        {
+            get { return oktransencabezadopedido; }
+            set { oktransencabezadopedido = value; }
+        }
+
+        private bool oktransdetallepedido;
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool okTransDetallePedido
+        {
+            get { return oktransdetallepedido; }
+            set { oktransdetallepedido = value; }
+        }
+
+        private int puntosusar;
+        /// <summary>
+        /// 
+        /// </summary>
+        public int PuntosUsar
+        {
+            get { return puntosusar; }
+            set { puntosusar = value; }
+        }
+
+        private int totalpuntospedido;
+        /// <summary>
+        /// 
+        /// </summary>
+        public int TotalPuntosPedido
+        {
+            get { return totalpuntospedido; }
+            set { totalpuntospedido = value; }
+        }
+
 
         #endregion
 

@@ -244,6 +244,7 @@
     <Compile Include="Clases\ProcesamientosTipoInfo.cs" />
     <Compile Include="Clases\ProductosCatalogoInfo.cs" />
     <Compile Include="Clases\PuntoReordenInfo.cs" />
+    <Compile Include="Clases\PuntosInfo.cs" />
     <Compile Include="Clases\PuntosTotalEmpreInfo.cs" />
     <Compile Include="Clases\RegionalesInfo.cs" />
     <Compile Include="Clases\RegionxZonaInfo.cs" />
@@ -410,6 +411,7 @@
     <Compile Include="Interfaces\IProcesamientosTipo.cs" />
     <Compile Include="Interfaces\IProductosCatalogo.cs" />
     <Compile Include="Interfaces\IPuntoReorden.cs" />
+    <Compile Include="Interfaces\IPuntos.cs" />
     <Compile Include="Interfaces\IRegionales.cs" />
     <Compile Include="Interfaces\IRegionxZona.cs" />
     <Compile Include="Interfaces\IReglas.cs" />
@@ -425,6 +427,7 @@
     <Compile Include="Interfaces\IReporteVentas.cs" />
     <Compile Include="Interfaces\IReservaEnLinea.cs" />
     <Compile Include="Interfaces\IReservaEnLineaDevolucion.cs" />
+    <Compile Include="Interfaces\IReservaEnLineaGlod.cs" />
     <Compile Include="Interfaces\IRetencionIca.cs" />
     <Compile Include="Interfaces\ISaldos.cs" />
     <Compile Include="Interfaces\ISaldosBodega.cs" />

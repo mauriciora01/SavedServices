@@ -8,7 +8,7 @@ namespace Application.Enterprise.CommonObjects
     /// <summary>
     /// 
     /// </summary>
-    
+
     public class PLUInfo
     {
         private int plu;
@@ -279,7 +279,26 @@ namespace Application.Enterprise.CommonObjects
         }
 
 
-        
+        private int precioPuntos;
+        public int PrecioPuntos
+        {
+            get { return precioPuntos; }
+            set { precioPuntos = value; }
+        }
 
+        private decimal pagopuntos;
+        public decimal Pagopuntos
+        {
+            get { return pagopuntos; }
+            set { pagopuntos = value; }
+        }
+
+
+        private int activo;
+        public int Activo
+        {
+            get { return activo; }
+            set { activo = value; }
+        }
     }
 }

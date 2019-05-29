@@ -11,6 +11,7 @@ using System.Web.Http;
 using static Application.Enterprise.CommonObjects.Enumerations;
 using System.Web.Http.Cors;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Application.Enterprise.Services.Controllers
 {
@@ -270,6 +271,7 @@ namespace Application.Enterprise.Services.Controllers
             if (IdPedido != null && IdPedido != "")
             {
                 objPedidosClienteInfo.Numero = IdPedido;
+                objPedidosClienteInfo.okTransEncabezadoPedido = true;
             }
 
             else
@@ -593,6 +595,7 @@ namespace Application.Enterprise.Services.Controllers
                     if (InsertarRegistro)
                     {
                         IdPedidoDetalle = objPedidosDetalleCliente.Insert(objPedidosDetalleClienteInfo);
+                        objPedidosClienteInfo.okTransDetallePedido = true;
                     }
 
                     okGuardar = true;
@@ -1224,6 +1227,605 @@ namespace Application.Enterprise.Services.Controllers
 
 
         }
+
+
+        [HttpGet]
+        [HttpPost]
+        public void ValidarPedidoReserva(List<PedidosDetalleClienteInfo> ObjPedidosDetalleClienteInfoRequest)
+        {
+            PedidosClienteInfo objPedidosClienteInfo = new PedidosClienteInfo();
+            string NumeroDocumento = "";
+            string Catalogo = "";
+            string NumeroPedido = "";
+         
+
+            if (ObjPedidosDetalleClienteInfoRequest.Count > 0)
+            {
+                objPedidosClienteInfo = ObjPedidosDetalleClienteInfoRequest[0].PedidosClienteInfo;
+                NumeroDocumento = objPedidosClienteInfo.Nit;
+                Catalogo = objPedidosClienteInfo.Codigo;
+                NumeroPedido = objPedidosClienteInfo.Numero;              
+            }
+                       
+            if (this.ValidarPedidoSinFacturar(NumeroDocumento, Catalogo, NumeroPedido, false))
+            {
+                string str = "";
+                str = new PuntosBo().getPedidoActivo(NumeroDocumento.Trim());
+                //base.Response.Redirect("ErrorReserva.aspx?IdPedido=" + str + "&Nit=" + this.txt_nodocumento.Text);
+            }
+            else
+            {
+                //this.AdicionarFleteYPremios = true;
+                //this.ProcessRequest("GuardarPedido");
+                //this.insertarAmarre();
+                
+                PedidosClienteInfo objGuardarEncabezadoPedidoOk = GuardarEncabezadoPedido(objPedidosClienteInfo);
+
+                if (objGuardarEncabezadoPedidoOk != null)
+                {
+                    if (objGuardarEncabezadoPedidoOk.okTransEncabezadoPedido)
+                    {
+                        PedidosClienteInfo objGuardarDetallePedidoOk = GuardarDetallePedido(ObjPedidosDetalleClienteInfoRequest);
+
+                        if (objGuardarDetallePedidoOk != null)
+                        {
+
+                            if (objGuardarDetallePedidoOk.okTransDetallePedido)
+                            {
+                                bool recogertienda = false;
+                                if (objPedidosClienteInfo.TipoEnvio == 1)
+                                {
+                                    recogertienda = true;
+                                }
+
+                                if (GuardarPedidoReservaEnLinea(NumeroPedido, "002", recogertienda, objPedidosClienteInfo.Nit, objPedidosClienteInfo.PuntosUsar, objPedidosClienteInfo.TotalPuntosPedido, objPedidosClienteInfo.Zona, objPedidosClienteInfo.Usuario))
+                                {
+                                    EnviarCorreo(objPedidosClienteInfo.Nit, objPedidosClienteInfo.IdVendedor, objPedidosClienteInfo.Numero, objPedidosClienteInfo.TotalPrecioCatalogo.ToString());
+                                    //this.RealizoReserva = true;
+                                    //base.Response.Redirect("ValidarPedidoEnviadoEmpresaria.aspx?IdPedido=" + this.IdPedido + "&Nit=" + this.txt_nodocumento.Text);
+                                    //this.RadToolbar1.Items[0].Enabled = false;
+                                    //this.RadToolbar1.Items[1].Enabled = false;
+                                    //this.BtnEnviar.Enabled = false;
+                                    //this.BtnGuardarBorrador.Enabled = false;
+                                }
+                                else
+                                {
+                                    //this.RadWindowManager1.RadAlert("<font color=red><b>Su reserva NO pudo ser almacenada, por favor comuniquese con el area de CCN de Niviglobal y verifique su pedido para evitar inconvenientes de envio.</b></font>", 330, 130, "SVDN - Pedidos", "MensajeSistema", "../images/warning.gif");
+                                    //this.RadToolbar1.Items[0].Enabled = false;
+                                    //this.RadToolbar1.Items[1].Enabled = false;
+                                    //this.BtnEnviar.Enabled = false;
+                                    //this.BtnGuardarBorrador.Enabled = false;
+                                    //this.RealizoReserva = true;
+                                }
+                            }
+
+                        }
+                        
+                    }
+                }               
+            }
+        }
+
+        public bool GuardarPedidoReservaEnLinea(string NumeroPedido, string bodegaEmpresaria, bool recogePedidoTienda, string NumeroDocumento, int PuntosUsar, int totalPedidoPuntosIn, string IdZona, string NombreUsuario)
+        {
+            //TODO: Cambiar a configuracion desde tabla parametros
+            bool sisPuntosAct = true;
+
+            string bodega = "";
+            if (bodegaEmpresaria != "")
+            {
+                bodega =bodegaEmpresaria;
+            }
+            int cobrarFlete = 1;
+            bool flag5 = recogePedidoTienda;
+            if (!flag5)
+            {
+                flag5 = recogePedidoTienda != true;
+                if (!flag5)
+                {
+                    cobrarFlete = 0;
+                }
+            }
+
+
+            ReservaEnLineaGlod glod = new ReservaEnLineaGlod("conexion");
+            PedidosCliente cliente = new PedidosCliente("conexion");
+            bool flag = false;
+            try
+            {
+                if (glod.RealizarReservaEnLineaDifBodega(NumeroPedido, bodega, cobrarFlete) == "")
+                {
+                    return flag;
+                }
+                else if (sisPuntosAct != false)
+                {
+                    flag5 = sisPuntosAct;
+                    if (flag5)
+                    {
+                        try
+                        {
+                            PuntosBo bo = new PuntosBo();
+                           
+                            decimal valorPuntos = bo.getvalorPuntoEnSoles();
+                            int totalPedidoPuntos = 0;
+                            int totalDescuentoPuntos = 0;
+                            int bonopuntosganar = 0;
+                            decimal descuentoporpuntos = 0;
+                            int cantpuntosGastados = 0;
+                            string text = NumeroDocumento;
+                            if (totalPedidoPuntosIn>0)
+                            {
+                                totalPedidoPuntos = totalPedidoPuntosIn;
+                            }
+                           
+                            if (flag5)
+                            {
+                                totalDescuentoPuntos = PuntosUsar;
+                            }
+                            this.gastarPuntos(cantpuntosGastados, text, PuntosUsar, NumeroPedido);
+                            this.acumularPuntosxEstado(totalPedidoPuntos, totalDescuentoPuntos, bonopuntosganar, descuentoporpuntos, text, NumeroPedido,"");
+                            this.agregarDescuentoPuntos(valorPuntos, totalPedidoPuntos, totalDescuentoPuntos, NumeroPedido);
+                            this.actualizarEncabezadoPuntosxCedula(text);
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+
+
+                #region  "VERIFICA DESMANTELADORA"
+
+
+                bool Desmanteladora;
+                bool result;
+
+                ParametrosInfo ObjParametrosInfo = new ParametrosInfo();
+               Parametros ObjParametros = new Parametros("conexion");
+
+                ObjParametrosInfo = ObjParametros.ListxId((int)ParametrosEnum.BloquearPedidosDesmantelados);
+
+
+                if (ObjParametrosInfo.Valor == "SI")
+                {
+                    Cliente module = new Cliente("conexion");
+
+
+                    Desmanteladora = module.BuscaDemanteladora(NumeroDocumento,IdZona);
+
+                    if (Desmanteladora == true)
+                    {
+                        //Se Actualiza El estado del pedido debido a que la empresaria tiene un estado de desmanteladora
+                        result = cliente.UpdateEstadoDesmanteladoPedido(NumeroPedido, NumeroDocumento, IdZona, NombreUsuario);
+                        if (result == false)
+                        {
+                            //RadAjaxManager1.ResponseScripts.Add("callAlertGenerico('No se pudo actualizar el estado del pedido " + IdPedido + " a desmateladora, Porfavor contacte a soporte de Informatica Niviglobal.');");
+                        }
+
+                    }
+
+                }
+                #endregion
+
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Valida si existe un pedido de una empresaria para obligar a seleccionarlo por la lista de pedidos.
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidarPedidoSinFacturar(string NumeroDocumento, string Catalogo, string NumeroPedido, bool ZonaMultiPedidos)
+        {
+            bool ExistePedido = false;
+            string Campana = "";
+
+            List<PedidosClienteInfo> objPedidosClienteInfo = new List<PedidosClienteInfo>();
+            Business.PedidosCliente objPedidosCliente = new Business.PedidosCliente("conexion");
+
+            CampanaInfo objCampanaInfo = new CampanaInfo();
+            Business.Campana objCampana = new Business.Campana("conexion");
+
+            if (Campana != "")
+            {
+                objCampanaInfo = objCampana.ListxCampana(Campana);
+            }
+            else
+            {
+                objCampanaInfo = objCampana.ListxGetDate();
+            }
+
+            //Validar si existe un pedido sin facturar de esa empresaria.
+            objPedidosClienteInfo = objPedidosCliente.ListxPedidoSinFacturarxParaReservar(NumeroDocumento, objCampanaInfo.Campana, Catalogo, NumeroPedido);
+
+            //Si existe el pedido se asigna el id del pedido.
+            if (objPedidosClienteInfo != null && objPedidosClienteInfo.Count > 0)
+            {
+                //1212121212121212121212121212121212121212121212121212121212121212121212121212121212121212121212
+                //Valida si la zona no es multipedidos se debe mostrar mensaje.
+                if (ZonaMultiPedidos == false)
+                {
+                    ////////// PREVENTA JUTA
+                    if (objCampanaInfo!=null)
+                    {
+                        PedidosClienteInfo objPedidosClienteInfo1 = new PedidosClienteInfo();
+                        objPedidosClienteInfo1 = objPedidosCliente.ListxPedidoPreventa(NumeroDocumento, objCampanaInfo.Campana);
+                        if (objPedidosClienteInfo1 != null)
+                        {
+                            if (objPedidosClienteInfo1.Numero.Trim() != "")
+                            {
+                                //RadWindowManager1.RadAlert("La empresaria tiene activo el Pedido No: <font color=red><b>" + objPedidosClienteInfo1.Numero + "</b></font> del <b>" + rcb_catalogo.Text.ToLower() + "</b>.<br><br>Por favor cancele el valor total para seguir realizando pedidos.", 330, 130, "SVDN - Pedidos", "MensajeSistema", "../images/warning.gif");
+                                ExistePedido = true;
+                            }
+                            else
+                            {
+                                ExistePedido = false;
+                            }
+                        }
+                        else
+                        {
+                            ExistePedido = false;
+                        }
+                        //---------------------------------------------------------------------------------------------------------------
+                    }
+                    else
+                    {
+                        //Mesaje de Advertencia.              
+                        //RadWindowManager1.RadAlert("La empresaria tiene activo el Pedido No: <font color=red><b>" + objPedidosClienteInfo[0].Numero + "</b></font> del <b>" + Catalogo.ToLower() + "</b>.<br><br>Por favor cancele el valor total para seguir realizando pedidos.", 330, 130, "SVDN - Pedidos", "MensajeSistema", "../images/warning.gif");
+
+                        ExistePedido = true;
+                    }
+
+
+                    /// CODIGO ANTERIOR
+                    ///  //Mesaje de Advertencia.              
+                    ///RadWindowManager1.RadAlert("La empresaria tiene activo el Pedido No: <font color=red><b>" + objPedidosClienteInfo[0].Numero + "</b></font> del <b>" + rcb_catalogo.Text.ToLower() + "</b>.<br><br>Por favor cancele el valor total para seguir realizando pedidos.", 330, 130, "SVDN - Pedidos", "MensajeSistema", "../images/warning.gif");
+                    ///ExistePedido = true;
+                }
+                else
+                {
+                    if (objCampanaInfo!=null)
+                    {
+                        PedidosClienteInfo objPedidosClienteInfo1 = new PedidosClienteInfo();
+                        objPedidosClienteInfo1 = objPedidosCliente.ListxPedidoPreventa(NumeroDocumento, objCampanaInfo.Campana);
+                        if (objPedidosClienteInfo1 != null)
+                        {
+                            if (objPedidosClienteInfo1.Numero.Trim() != "")
+                            {
+                                //RadWindowManager1.RadAlert("La empresaria tiene activo el Pedido No: <font color=red><b>" + objPedidosClienteInfo1.Numero + "</b></font> del <b>" + rcb_catalogo.Text.ToLower() + "</b>.<br><br>Por favor cancele el valor total para seguir realizando pedidos.", 330, 130, "SVDN - Pedidos", "MensajeSistema", "../images/warning.gif");
+                                ExistePedido = true;
+                            }
+                            else
+                            {
+                                ExistePedido = false;
+                            }
+                        }
+                        else
+                        {
+                            ExistePedido = false;
+                        }
+                        //---------------------------------------------------------------------------------------------------------------
+                    }
+                    else
+                    {
+                        ExistePedido = false;
+                    }
+                }
+                //1212121212121212121212121212121212121212121212121212121212121212121212121212121212121212121212
+            }
+            else
+            {              
+                PedidosClienteInfo info2 = new PedidosClienteInfo();
+                info2 = objPedidosCliente.ListxPedidoPreventa(NumeroDocumento, objCampanaInfo.Campana);
+                if (ReferenceEquals(info2, null))
+                {
+                    ExistePedido = false;
+                }
+                else if (info2.Numero.Trim() == "")
+                {
+                    ExistePedido = false;
+                }
+                else
+                {
+                    //this.RadWindowManager1.RadAlert("La empresaria tiene activo el Pedido No: <font color=red><b>" + info2.Numero + "</b></font> del <b>" + this.rcb_catalogo.Text.ToLower() + "</b>.<br><br>Por favor cancele el valor total para seguir realizando pedidos.", 330, 130, "SVDN - Pedidos", "MensajeSistema", "../images/warning.gif");
+                    ExistePedido = true;
+                }
+            }
+
+            return ExistePedido;
+        }
+
+        /// <summary>
+        /// Envia el correo electronico a la empresaria y a la gerente de zona.
+        /// </summary>
+        private void EnviarCorreo(string NumeroDocumento, string IdVendedor, string NumeroPedido, string TotalPedido)
+        {
+            //INICIO GAVL 16/04/2014 PARAMETRO PARA ENVIA INFORMACION DEL PEDIDO A EMPRESARIA
+            ParametrosInfo ObjParametrosInfo = new ParametrosInfo();
+            Business.Parametros ObjParametros = new Business.Parametros("conexion");
+            //FIN GAVL 
+
+            ////si esta en alguna zona de ximena martinez envie correo
+            //if (Session["IdZona"].ToString() == "1101" || Session["IdZona"].ToString() == "1102" || Session["IdZona"].ToString() == "1103" || Session["IdZona"].ToString() == "1201" || Session["IdZona"].ToString() == "1202" || Session["IdZona"].ToString() == "1203" || Session["IdZona"].ToString() == "1204" || Session["IdZona"].ToString() == "1301" || Session["IdZona"].ToString() == "1302" || Session["IdZona"].ToString() == "1303" || Session["IdZona"].ToString() == "1304" || Session["IdZona"].ToString() == "1401" || Session["IdZona"].ToString() == "1402" || Session["IdZona"].ToString() == "1403" || Session["IdZona"].ToString() == "1404" || Session["IdZona"].ToString() == "1405" || Session["IdZona"].ToString() == "1406")
+            //{
+            //--------------------------------------------------------------------------------------------------------------
+            //Enviar Correo electronico
+            bool vsemailOk = false;
+
+           Business.Cliente ObjCliente = new Business.Cliente("conexion");
+            ClienteInfo ObjClienteInfo = ObjCliente.ListxNIT(NumeroDocumento);
+
+            string NombreEmpresaria = "";
+            string EmailEmpresaria = "";
+
+            if (ObjClienteInfo != null)
+            {
+                NombreEmpresaria = ObjClienteInfo.Nombre1 + " " + ObjClienteInfo.Nombre2 + " " + ObjClienteInfo.Apellido1 + " " + ObjClienteInfo.Apellido2;
+                //EmailEmpresaria = ObjClienteInfo.Email;
+                //INICIO GAVL 16/04/2014 PARAMETRO PARA ENVIA INFORMACIÓN DEL PEDIDO A EMPRESARIA
+                ObjParametrosInfo = ObjParametros.ListxId((int)ParametrosEnum.EnviaCorroEmpresaria);
+
+                if (ObjParametrosInfo.Valor == "SI")
+                {
+                    if (ValidaCorreo(ObjClienteInfo.Email.Trim()) == true)
+                    {
+                        EmailEmpresaria = ObjClienteInfo.Email;
+
+                    }
+
+                }
+
+                //FIN GAVL
+            }
+
+            string EmailGerente = "";
+
+            if (IdVendedor != null && IdVendedor != "")
+            {
+                Business.Vendedor ObjVendedor = new Business.Vendedor("conexion");
+                VendedorInfo ObjVendedorInfo = ObjVendedor.ListxIdVendedor(IdVendedor);
+
+                //EmailGerente = ObjVendedorInfo.EmailNivi;
+                EmailGerente = "ramosgilmauricio@gmail.com";//TODO: comentar esta linea cuando se ponga en produccion.
+            }
+
+            string EmailsPara = "";
+
+            if (EmailGerente != "" && EmailEmpresaria != "")
+            {
+                EmailsPara = EmailGerente + "," + EmailEmpresaria;
+            }
+            else if (EmailGerente == "" && EmailEmpresaria != "")
+            {
+                EmailsPara = EmailEmpresaria;
+            }
+            else if (EmailGerente != "" && EmailEmpresaria == "")
+            {
+                EmailsPara = EmailGerente;
+            }
+
+            EmailsPara = "ramosgilmauricio@gmail.com"; //TODO: comentar esta linea cuando se ponga en produccion.
+
+            Mail objSmtpMail = new Mail();
+            SmtpMailInfo objSmtpMailInfo = new SmtpMailInfo();
+            //Configurar parametros para enviar correo.
+            objSmtpMailInfo = objSmtpMail.ConfigurarParametros((int)TipoMailEnum.Pedido, EmailsPara, "", "", NombreEmpresaria, NumeroPedido, TotalPedido);
+            //Enviar E-Mail
+            vsemailOk = objSmtpMail.SendMail(objSmtpMailInfo);
+
+            //SE HABILITRA SI SE REQUEIRE MOSTRAR EL ERROR DE FALLO DE ENVIO DE CORREO.
+            //if (!vsemailOk)
+            //{
+            //    //---------------------------------------------------------------------------------------------------------------
+            //    //Mensaje de error
+            //    LiteralControl ltr = new LiteralControl();
+            //    ltr.Text = "<style type=\"text/css\" rel=\"stylesheet\">" + @".radalert { background-image: url(../images/error.png) !important; } </style> ";
+            //    this.Page.Header.Controls.Add(ltr);
+
+            //    RadAjaxManager1.ResponseScripts.Add("callAlertGenerico('No se pudo enviar E-Mail con información de pago, por favor intente guardar de nuevo el pedido.');");
+            //}
+            //--------------------------------------------------------------------------------------------------------------
+            //}
+
+        }
+
+        /// <summary>
+        /// GAVL Validar  Correo
+        /// </summary>
+        /// <param name="Correo"></param>
+        /// <returns></returns>
+        public bool ValidaCorreo(string Correo)
+        {
+            bool oktrans = false;
+
+            Regex r = new Regex(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
+            if (r.IsMatch(Correo))
+            {
+                oktrans = true;
+            }
+
+            return oktrans;
+
+        }
+
+
+
+        #region "Puntos"
+        public void actualizarTotalpagermenospuntos(string NumeroDocumento, string BodegaEmpresaria, List<PLUInfo> PLUList, int PuntosUsar, decimal totalPagarEmprep)
+        {
+            Inventario inventario = new Inventario("conexion");
+            InventarioInfo objA = new InventarioInfo();
+            int num = 0;
+            int num2 = 0;
+            decimal d = 0M;
+            int num4 = new PuntosBo().getPuntosEfectivoEmpresaria(NumeroDocumento);
+            string bodega = "";
+            if (BodegaEmpresaria != null)
+            {
+                bodega = BodegaEmpresaria;
+            }
+            int num6 = 0;
+            while (true)
+            {
+                if (num6 >= PLUList.Count)
+                {
+                    int num1;
+                    if (totalPagarEmprep > 0)
+                    {
+                        d = totalPagarEmprep;
+                    }
+                    if ((PuntosUsar != 0) && (PuntosUsar >=1))
+                    {
+                        num2 = PuntosUsar;
+                        if (PuntosUsar > num4)
+                        {
+                            //this.LabelPuntosaUsar.ForeColor = System.Drawing.Color.Tomato;
+                            //this.LabelPuntosaUsar.Text = "<strong>Ingresa una cantidad menor a los puntos efectivos : " + num4 + "</strong>";
+                            //this.RadNumericPuntosUsar.Text = "0";
+                            return;
+                        }
+                        if (PuntosUsar > num)
+                        {
+                            //this.LabelPuntosaUsar.ForeColor = System.Drawing.Color.Tomato;
+                           // this.LabelPuntosaUsar.Text = "<strong>Ingresa una cantidad menor al valor del pedido en puntos: " + num + "</strong>";
+                           // this.RadNumericPuntosUsar.Text = "0";
+                            d = Math.Round(d, 0);
+                            //this.RadComboBoxTotalpagardespuesPuntos.Items.Insert(0, new RadComboBoxItem("$ " + d, "1"));
+                            //this.RadComboBoxTotalpagardespuesPuntos.SelectedIndex = 0;
+                        }
+                    }
+                    if (num4 == 0)
+                    {
+                       // this.LabelPuntosaUsar.ForeColor = System.Drawing.Color.Tomato;
+                       // this.LabelPuntosaUsar.Text = "<strong>No tienes puntos efectivos</strong>";
+                       // this.RadNumericPuntosUsar.Text = "0";
+                        d = Math.Round(d, 0);
+                        //this.RadComboBoxTotalpagardespuesPuntos.Items.Insert(0, new RadComboBoxItem("$ " + d, "1"));
+                       // this.RadComboBoxTotalpagardespuesPuntos.SelectedIndex = 0;
+                    }
+                    if (((num4 <= 0) || (num2 > num)) || (d <= 0M))
+                    {
+                        num1 = 1;
+                    }
+                    else
+                    {
+                        //num1 = (int)(num <= 0);
+                    }
+                    /*if (num1 == 0)
+                    {
+                        //this.LabelPuntosaUsar.Text = "\x00bfCuantos Puntos Usaras?";
+                        d = Math.Round((decimal)(d - ((d / num) * num2)), 0);
+                        //this.RadComboBoxTotalpagardespuesPuntos.Text = "";
+                        //this.RadComboBoxTotalpagardespuesPuntos.Items.Clear();
+                        //this.RadComboBoxTotalpagardespuesPuntos.ClearSelection();
+                        //this.RadComboBoxTotalpagardespuesPuntos.Items.Insert(0, new RadComboBoxItem("$ " + d, "1"));
+                        //this.RadComboBoxTotalpagardespuesPuntos.SelectedIndex = 0;
+                    }*/
+                    //this.Session["totalPedidoPuntos"] = num;
+                    return;
+                }
+                objA = inventario.ListSaldosBodegaxPLUxEmpresaria(bodega, PLUList[num6].PLU);
+                if (!ReferenceEquals(objA, null) && (objA.Saldo > 0M))
+                {
+                    num += Convert.ToInt32(PLUList[num6].Pagopuntos);
+                }
+                num6++;
+            }
+        }
+
+        public void gastarPuntos(int cantpuntosGastados, string cedula, int PuntosUsar, string NumeroPedido)
+        {
+            PuntosBo bo = new PuntosBo();
+            try
+            {
+                if (PuntosUsar > 0)
+                {
+                    cantpuntosGastados = Convert.ToInt32(PuntosUsar);
+                }
+                if (cantpuntosGastados > 0)
+                {
+                    bo.insertarDetalleGastoPuntos(NumeroPedido, cedula, cantpuntosGastados);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        public void acumularPuntosxEstado(decimal totalPedidoPuntos, decimal totalDescuentoPuntos, decimal bonopuntosganar, decimal descuentoporpuntos, string cedula, string NumeroPedido, string IdGrupoLogin)
+        {
+            Parametros parametros = new Parametros();
+            decimal num2 = Convert.ToDecimal(parametros.ListxId(0x30).Valor.Replace(".", ","));
+            int cumpleminimoparapuntos = 0;
+            int puntosGanadosPedido = 0;
+
+            if (num2 <= 0)
+            {
+                cumpleminimoparapuntos = 1;
+            }
+
+            if (cumpleminimoparapuntos== 0)
+            {
+                puntosGanadosPedido = 0;
+            }
+            else if (cumpleminimoparapuntos != 1)
+            {
+                puntosGanadosPedido= 0;
+            }
+            else
+            {
+                PuntosBo bo = new PuntosBo();
+                try
+                {
+                    if (IdGrupoLogin == "")
+                    {
+                        bo.insertarDetalleGananciaPuntos(NumeroPedido, cedula, 0, 0M, 1);
+                    }
+                    else if (IdGrupoLogin == Convert.ToString(50))
+                    {
+                        bo.insertarDetalleGananciaPuntos(NumeroPedido, cedula, 0, 0M, 2);
+                    }
+                    else
+                    {
+                        bo.insertarDetalleGananciaPuntos(NumeroPedido, cedula, 0, 0M, 1);
+                    }
+                }
+                catch
+                {
+                }
+            }
+        }
+
+        public void agregarDescuentoPuntos(decimal valorPuntos, int totalPedidoPuntos, int totalDescuentoPuntos, string NumeroPedido)
+        {
+            PuntosBo bo = new PuntosBo();
+            try
+            {
+                if (totalDescuentoPuntos != totalPedidoPuntos)
+                {
+                    decimal num = valorPuntos * totalDescuentoPuntos;
+                    bo.agregarDescuentoPuntos(NumeroPedido, num);
+                }
+                else if (totalPedidoPuntos > 0)
+                {
+                    bo.agregarDescuento100(NumeroPedido);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        public void actualizarEncabezadoPuntosxCedula(string cedula)
+        {
+            new PuntosBo().actualizarEncabezadoPuntosCliente(cedula);
+        }
+        #endregion
 
     }
 }

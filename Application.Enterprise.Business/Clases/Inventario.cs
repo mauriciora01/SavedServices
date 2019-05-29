@@ -240,5 +240,8 @@ namespace Application.Enterprise.Business
         {
             return module.BuscaFechaProducto(intPLU, campana);
         }
+
+        public InventarioInfo ListSaldosBodegaxPLUxEmpresaria(string bodega, int intPLU) =>
+            this.module.ListSaldosBodegaxPLUxEmpresaria(bodega, intPLU);
     }
 }

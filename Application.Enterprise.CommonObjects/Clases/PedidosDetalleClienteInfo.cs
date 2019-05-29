@@ -561,7 +561,7 @@ namespace Application.Enterprise.CommonObjects
         {
             get;
             set;
-        }
+        }               
 
     }
 }

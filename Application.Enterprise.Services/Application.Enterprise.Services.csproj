@@ -184,6 +184,7 @@
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ParametrosController.cs" />
     <Compile Include="Controllers\CiudadController.cs" />
+    <Compile Include="Controllers\PedidosDecompilado.cs" />
     <Compile Include="Controllers\PLUController.cs" />
     <Compile Include="Controllers\ParroquiaController.cs" />
     <Compile Include="Controllers\CantonController.cs" />

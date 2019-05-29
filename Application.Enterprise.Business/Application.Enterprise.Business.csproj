@@ -239,6 +239,7 @@
     <Compile Include="Clases\ProcesamientosTipo.cs" />
     <Compile Include="Clases\ProductosCatalogo.cs" />
     <Compile Include="Clases\PuntoReorden.cs" />
+    <Compile Include="Clases\PuntosBo.cs" />
     <Compile Include="Clases\Regionales.cs" />
     <Compile Include="Clases\RegionxZona.cs" />
     <Compile Include="Clases\Reglas.cs" />
@@ -254,6 +255,7 @@
     <Compile Include="Clases\ReporteVentas.cs" />
     <Compile Include="Clases\ReservaEnLinea.cs" />
     <Compile Include="Clases\ReservaEnLineaDevolucion.cs" />
+    <Compile Include="Clases\ReservaEnLineaGlod.cs" />
     <Compile Include="Clases\RetencionIca.cs" />
     <Compile Include="Clases\Saldos.cs" />
     <Compile Include="Clases\SaldosBodega.cs" />
