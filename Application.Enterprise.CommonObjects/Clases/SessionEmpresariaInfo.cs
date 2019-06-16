@@ -141,6 +141,18 @@
             set;
         }
 
+        public virtual int PuntosEmpresaria
+        {
+            get;
+            set;
+        }
+
+        public virtual decimal ValorPuntos
+        {
+            get;
+            set;
+        }
+
         public virtual Error Error
         {
             get;

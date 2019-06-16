@@ -15,15 +15,17 @@
 
         public ReservaEnLineaGlod()
         {
-            string name = "conexion";
-            this.db = DatabaseFactory.CreateDatabase(name);
-            this.Config();
+            string dataBase = "conexion"; //TODO: quitar
+
+            db = DatabaseFactory.CreateDatabase(dataBase); //TODO: cambiar a db = DatabaseFactory.CreateDatabase(); por que no se tiene el conexionstrign
+            Config();
         }
 
         public ReservaEnLineaGlod(string dataBase)
         {
-            this.db = DatabaseFactory.CreateDatabase(dataBase);
-            this.Config();
+            DatabaseProviderFactory factory = new DatabaseProviderFactory();
+            db = factory.Create(dataBase);
+            Config();
         }
 
         private void Config()

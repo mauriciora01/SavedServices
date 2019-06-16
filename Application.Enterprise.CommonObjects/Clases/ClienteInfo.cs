@@ -1430,6 +1430,16 @@ namespace Application.Enterprise.CommonObjects
             set { empresarialider = value; }
         }
 
+        private string bodega;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Bodega
+        {
+            get { return bodega; }
+            set { bodega = value; }
+        }
+
 
     }
 }

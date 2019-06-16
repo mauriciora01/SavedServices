@@ -1231,7 +1231,7 @@ namespace Application.Enterprise.Services.Controllers
 
         [HttpGet]
         [HttpPost]
-        public void ValidarPedidoReserva(List<PedidosDetalleClienteInfo> ObjPedidosDetalleClienteInfoRequest)
+        public PedidosClienteInfo ValidarPedidoReserva(List<PedidosDetalleClienteInfo> ObjPedidosDetalleClienteInfoRequest)
         {
             PedidosClienteInfo objPedidosClienteInfo = new PedidosClienteInfo();
             string NumeroDocumento = "";
@@ -1250,22 +1250,21 @@ namespace Application.Enterprise.Services.Controllers
             if (this.ValidarPedidoSinFacturar(NumeroDocumento, Catalogo, NumeroPedido, false))
             {
                 string str = "";
-                str = new PuntosBo().getPedidoActivo(NumeroDocumento.Trim());
+                str = new PuntosBo("conexion").getPedidoActivo(NumeroDocumento.Trim());
                 //base.Response.Redirect("ErrorReserva.aspx?IdPedido=" + str + "&Nit=" + this.txt_nodocumento.Text);
             }
             else
             {
-                //this.AdicionarFleteYPremios = true;
-                //this.ProcessRequest("GuardarPedido");
-                //this.insertarAmarre();
-                
-                PedidosClienteInfo objGuardarEncabezadoPedidoOk = GuardarEncabezadoPedido(objPedidosClienteInfo);
+                  
+                //PedidosClienteInfo objGuardarEncabezadoPedidoOk = GuardarEncabezadoPedido(objPedidosClienteInfo);
+                PedidosClienteInfo objGuardarEncabezadoPedidoOk = objPedidosClienteInfo;
 
                 if (objGuardarEncabezadoPedidoOk != null)
                 {
                     if (objGuardarEncabezadoPedidoOk.okTransEncabezadoPedido)
                     {
-                        PedidosClienteInfo objGuardarDetallePedidoOk = GuardarDetallePedido(ObjPedidosDetalleClienteInfoRequest);
+                        //PedidosClienteInfo objGuardarDetallePedidoOk = GuardarDetallePedido(ObjPedidosDetalleClienteInfoRequest);
+                        PedidosClienteInfo objGuardarDetallePedidoOk = objPedidosClienteInfo;
 
                         if (objGuardarDetallePedidoOk != null)
                         {
@@ -1304,6 +1303,8 @@ namespace Application.Enterprise.Services.Controllers
                     }
                 }               
             }
+
+            return objPedidosClienteInfo;
         }
 
         public bool GuardarPedidoReservaEnLinea(string NumeroPedido, string bodegaEmpresaria, bool recogePedidoTienda, string NumeroDocumento, int PuntosUsar, int totalPedidoPuntosIn, string IdZona, string NombreUsuario)
@@ -1344,7 +1345,7 @@ namespace Application.Enterprise.Services.Controllers
                     {
                         try
                         {
-                            PuntosBo bo = new PuntosBo();
+                            PuntosBo bo = new PuntosBo("conexion");
                            
                             decimal valorPuntos = bo.getvalorPuntoEnSoles();
                             int totalPedidoPuntos = 0;
@@ -1367,7 +1368,7 @@ namespace Application.Enterprise.Services.Controllers
                             this.agregarDescuentoPuntos(valorPuntos, totalPedidoPuntos, totalDescuentoPuntos, NumeroPedido);
                             this.actualizarEncabezadoPuntosxCedula(text);
                         }
-                        catch
+                        catch(Exception ex)
                         {
                         }
                     }
@@ -1611,7 +1612,7 @@ namespace Application.Enterprise.Services.Controllers
 
             EmailsPara = "ramosgilmauricio@gmail.com"; //TODO: comentar esta linea cuando se ponga en produccion.
 
-            Mail objSmtpMail = new Mail();
+            Mail objSmtpMail = new Mail("conexion");
             SmtpMailInfo objSmtpMailInfo = new SmtpMailInfo();
             //Configurar parametros para enviar correo.
             objSmtpMailInfo = objSmtpMail.ConfigurarParametros((int)TipoMailEnum.Pedido, EmailsPara, "", "", NombreEmpresaria, NumeroPedido, TotalPedido);
@@ -1663,7 +1664,7 @@ namespace Application.Enterprise.Services.Controllers
             int num = 0;
             int num2 = 0;
             decimal d = 0M;
-            int num4 = new PuntosBo().getPuntosEfectivoEmpresaria(NumeroDocumento);
+            int num4 = new PuntosBo("conexion").getPuntosEfectivoEmpresaria(NumeroDocumento);
             string bodega = "";
             if (BodegaEmpresaria != null)
             {
@@ -1740,7 +1741,7 @@ namespace Application.Enterprise.Services.Controllers
 
         public void gastarPuntos(int cantpuntosGastados, string cedula, int PuntosUsar, string NumeroPedido)
         {
-            PuntosBo bo = new PuntosBo();
+            PuntosBo bo = new PuntosBo("conexion");
             try
             {
                 if (PuntosUsar > 0)
@@ -1759,10 +1760,13 @@ namespace Application.Enterprise.Services.Controllers
 
         public void acumularPuntosxEstado(decimal totalPedidoPuntos, decimal totalDescuentoPuntos, decimal bonopuntosganar, decimal descuentoporpuntos, string cedula, string NumeroPedido, string IdGrupoLogin)
         {
-            Parametros parametros = new Parametros();
-            decimal num2 = Convert.ToDecimal(parametros.ListxId(0x30).Valor.Replace(".", ","));
+            Parametros parametros = new Parametros("conexion");
+            decimal num2 = Convert.ToDecimal(parametros.ListxId(0x30).Valor.Replace(".", ",")); //0x30= 48 decimal
             int cumpleminimoparapuntos = 0;
             int puntosGanadosPedido = 0;
+
+            if (totalPedidoPuntos > num2)
+                cumpleminimoparapuntos = 1;
 
             if (num2 <= 0)
             {
@@ -1779,7 +1783,7 @@ namespace Application.Enterprise.Services.Controllers
             }
             else
             {
-                PuntosBo bo = new PuntosBo();
+                PuntosBo bo = new PuntosBo("conexion");
                 try
                 {
                     if (IdGrupoLogin == "")
@@ -1795,7 +1799,7 @@ namespace Application.Enterprise.Services.Controllers
                         bo.insertarDetalleGananciaPuntos(NumeroPedido, cedula, 0, 0M, 1);
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
                 }
             }
@@ -1803,7 +1807,7 @@ namespace Application.Enterprise.Services.Controllers
 
         public void agregarDescuentoPuntos(decimal valorPuntos, int totalPedidoPuntos, int totalDescuentoPuntos, string NumeroPedido)
         {
-            PuntosBo bo = new PuntosBo();
+            PuntosBo bo = new PuntosBo("conexion");
             try
             {
                 if (totalDescuentoPuntos != totalPedidoPuntos)
@@ -1823,7 +1827,7 @@ namespace Application.Enterprise.Services.Controllers
 
         public void actualizarEncabezadoPuntosxCedula(string cedula)
         {
-            new PuntosBo().actualizarEncabezadoPuntosCliente(cedula);
+            new PuntosBo("conexion").actualizarEncabezadoPuntosCliente(cedula);
         }
         #endregion
 

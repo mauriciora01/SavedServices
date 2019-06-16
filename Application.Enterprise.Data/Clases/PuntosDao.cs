@@ -18,15 +18,17 @@
 
         public PuntosDao()
         {
-            string name = "conexion";
-            this.db = DatabaseFactory.CreateDatabase(name);
-            this.Config();
+            string dataBase = "conexion"; //TODO: quitar
+
+            db = DatabaseFactory.CreateDatabase(dataBase); //TODO: cambiar a db = DatabaseFactory.CreateDatabase(); por que no se tiene el conexionstrign
+            Config();
         }
 
         public PuntosDao(string dataBase)
         {
-            this.db = DatabaseFactory.CreateDatabase(dataBase);
-            this.Config();
+            DatabaseProviderFactory factory = new DatabaseProviderFactory();
+            db = factory.Create(dataBase);
+            Config();
         }
 
         public void actualizarDetalleGananciaPuntos(string idpedido, string cedula, int puntos)

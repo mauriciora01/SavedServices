@@ -176,6 +176,10 @@ namespace Application.Enterprise.Services.Controllers
                 ObjSessionEmpresariaInfo.TallaPrendaSuperior = objClienteInfo.TallaPrendaSuperior;
                 ObjSessionEmpresariaInfo.TallaPrendaInferior = objClienteInfo.TallaPrendaInferior;
                 ObjSessionEmpresariaInfo.TallaCalzado = objClienteInfo.TallaCalzado;
+                ObjSessionEmpresariaInfo.PuntosEmpresaria = this.actualizarTotalpagermenospuntos(ObjClienteInfoNit.Nit, "002", new List<PLUInfo>(), 0, 9);
+
+                PuntosBo bo = new PuntosBo("conexion");
+                ObjSessionEmpresariaInfo.ValorPuntos = bo.getvalorPuntoEnSoles();
 
                 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
                 //Se valida si la ciudad del cliente es exento de iva.
@@ -475,6 +479,89 @@ namespace Application.Enterprise.Services.Controllers
         }
 
 
+        #region "Puntos"
+        public int actualizarTotalpagermenospuntos(string NumeroDocumento, string BodegaEmpresaria, List<PLUInfo> PLUList, int PuntosUsar, decimal totalPagarEmprep)
+        {
+            Inventario inventario = new Inventario("conexion");
+            InventarioInfo objA = new InventarioInfo();
+            int num = 0;
+            int num2 = 0;
+            decimal d = 0M;
+            int num4 = new PuntosBo("conexion").getPuntosEfectivoEmpresaria(NumeroDocumento);
+            string bodega = "";
+            if (BodegaEmpresaria != null)
+            {
+                bodega = BodegaEmpresaria;
+            }
+            int num6 = 0;
+            while (true)
+            {
+                if (num6 >= PLUList.Count)
+                {
+                    int num1;
+                    if (totalPagarEmprep > 0)
+                    {
+                        d = totalPagarEmprep;
+                    }
+                    if ((PuntosUsar != 0) && (PuntosUsar >= 1))
+                    {
+                        num2 = PuntosUsar;
+                        if (PuntosUsar > num4)
+                        {
+                            //this.LabelPuntosaUsar.ForeColor = System.Drawing.Color.Tomato;
+                            //this.LabelPuntosaUsar.Text = "<strong>Ingresa una cantidad menor a los puntos efectivos : " + num4 + "</strong>";
+                            //this.RadNumericPuntosUsar.Text = "0";
+                            return 0;
+                        }
+                        if (PuntosUsar > num)
+                        {
+                            //this.LabelPuntosaUsar.ForeColor = System.Drawing.Color.Tomato;
+                            // this.LabelPuntosaUsar.Text = "<strong>Ingresa una cantidad menor al valor del pedido en puntos: " + num + "</strong>";
+                            // this.RadNumericPuntosUsar.Text = "0";
+                            d = Math.Round(d, 0);
+                            //this.RadComboBoxTotalpagardespuesPuntos.Items.Insert(0, new RadComboBoxItem("$ " + d, "1"));
+                            //this.RadComboBoxTotalpagardespuesPuntos.SelectedIndex = 0;
+                        }
+                    }
+                    if (num4 == 0)
+                    {
+                        // this.LabelPuntosaUsar.ForeColor = System.Drawing.Color.Tomato;
+                        // this.LabelPuntosaUsar.Text = "<strong>No tienes puntos efectivos</strong>";
+                        // this.RadNumericPuntosUsar.Text = "0";
+                        d = Math.Round(d, 0);
+                        //this.RadComboBoxTotalpagardespuesPuntos.Items.Insert(0, new RadComboBoxItem("$ " + d, "1"));
+                        // this.RadComboBoxTotalpagardespuesPuntos.SelectedIndex = 0;
+                    }
+                    if (((num4 <= 0) || (num2 > num)) || (d <= 0M))
+                    {
+                        num1 = 1;
+                    }
+                    else
+                    {
+                        //num1 = (int)(num <= 0);
+                    }
+                    /*if (num1 == 0)
+                    {
+                        //this.LabelPuntosaUsar.Text = "\x00bfCuantos Puntos Usaras?";
+                        d = Math.Round((decimal)(d - ((d / num) * num2)), 0);
+                        //this.RadComboBoxTotalpagardespuesPuntos.Text = "";
+                        //this.RadComboBoxTotalpagardespuesPuntos.Items.Clear();
+                        //this.RadComboBoxTotalpagardespuesPuntos.ClearSelection();
+                        //this.RadComboBoxTotalpagardespuesPuntos.Items.Insert(0, new RadComboBoxItem("$ " + d, "1"));
+                        //this.RadComboBoxTotalpagardespuesPuntos.SelectedIndex = 0;
+                    }*/
+                    //this.Session["totalPedidoPuntos"] = num;
+                    return num4;
+                }
+                objA = inventario.ListSaldosBodegaxPLUxEmpresaria(bodega, PLUList[num6].PLU);
+                if (!ReferenceEquals(objA, null) && (objA.Saldo > 0M))
+                {
+                    num += Convert.ToInt32(PLUList[num6].Pagopuntos);
+                }
+                num6++;
+            }
+        }
+        #endregion
 
     }
 }
