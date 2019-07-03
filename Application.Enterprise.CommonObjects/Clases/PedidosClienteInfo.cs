@@ -1185,14 +1185,6 @@ namespace Application.Enterprise.CommonObjects
             set { _nombreanulo = value; }
         }
 
-        //FIN GAVL  
-
-        public virtual Error Error
-        {
-            get;
-            set;
-        }
-
         private bool excentoiva;
         /// <summary>
         /// 
@@ -1243,17 +1235,22 @@ namespace Application.Enterprise.CommonObjects
             set { puntosusar = value; }
         }
 
-        private int totalpuntospedido;
+        //OJO MRG: SI RECIBE UN DECIMAL EN UN INT SE REVIENTA EL ENVIO AL API. LAS PROPIEDADES DEBEN SER DEL TIPO QUE SE ENVIAR DESDE ANGULAR.
+        private decimal totalpuntospedido;
         /// <summary>
         /// 
         /// </summary>
-        public int TotalPuntosPedido
+        public decimal TotalPuntosPedido
         {
             get { return totalpuntospedido; }
             set { totalpuntospedido = value; }
         }
 
-
+        public virtual Error Error
+        {
+            get;
+            set;
+        }
         #endregion
 
     }

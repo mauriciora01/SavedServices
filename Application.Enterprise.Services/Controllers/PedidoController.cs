@@ -294,7 +294,7 @@ namespace Application.Enterprise.Services.Controllers
             return objPedidosClienteInfo;
         }
 
-
+       
         [HttpGet]
         [HttpPost]
         public PedidosClienteInfo GuardarDetallePedido(List<PedidosDetalleClienteInfo> ObjPedidosDetalleClienteInfoRequest)
@@ -1307,7 +1307,7 @@ namespace Application.Enterprise.Services.Controllers
             return objPedidosClienteInfo;
         }
 
-        public bool GuardarPedidoReservaEnLinea(string NumeroPedido, string bodegaEmpresaria, bool recogePedidoTienda, string NumeroDocumento, int PuntosUsar, int totalPedidoPuntosIn, string IdZona, string NombreUsuario)
+        public bool GuardarPedidoReservaEnLinea(string NumeroPedido, string bodegaEmpresaria, bool recogePedidoTienda, string NumeroDocumento, int PuntosUsar, decimal totalPedidoPuntosIn, string IdZona, string NombreUsuario)
         {
             //TODO: Cambiar a configuracion desde tabla parametros
             bool sisPuntosAct = true;
@@ -1348,7 +1348,7 @@ namespace Application.Enterprise.Services.Controllers
                             PuntosBo bo = new PuntosBo("conexion");
                            
                             decimal valorPuntos = bo.getvalorPuntoEnSoles();
-                            int totalPedidoPuntos = 0;
+                            decimal totalPedidoPuntos = 0;
                             int totalDescuentoPuntos = 0;
                             int bonopuntosganar = 0;
                             decimal descuentoporpuntos = 0;
@@ -1805,7 +1805,7 @@ namespace Application.Enterprise.Services.Controllers
             }
         }
 
-        public void agregarDescuentoPuntos(decimal valorPuntos, int totalPedidoPuntos, int totalDescuentoPuntos, string NumeroPedido)
+        public void agregarDescuentoPuntos(decimal valorPuntos, decimal totalPedidoPuntos, int totalDescuentoPuntos, string NumeroPedido)
         {
             PuntosBo bo = new PuntosBo("conexion");
             try

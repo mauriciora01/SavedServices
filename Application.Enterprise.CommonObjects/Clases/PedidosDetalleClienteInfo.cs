@@ -499,12 +499,6 @@ namespace Application.Enterprise.CommonObjects
             set { prodestrella = value; }
         }
 
-        public virtual Error Error
-        {
-            get;
-            set;
-        }
-
         //--------------------------------------------
         private decimal subtotal;
         public decimal SubTotal
@@ -561,8 +555,15 @@ namespace Application.Enterprise.CommonObjects
         {
             get;
             set;
-        }               
+        }
 
+
+
+        public virtual Error Error
+        {
+            get;
+            set;
+        }
     }
 }
 
