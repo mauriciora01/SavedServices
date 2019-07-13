@@ -2,13 +2,13 @@ using System;
 
 namespace Application.Enterprise.CommonObjects
 {
-	/// <summary>
-	/// Summary description for Inventarios.
-	/// </summary>
-	
-	public class Enumerations
+    /// <summary>
+    /// Summary description for Inventarios.
+    /// </summary>
+
+    public class Enumerations
     {
-        
+
         public enum TipoDocumento
         {
             CC,
@@ -408,7 +408,10 @@ namespace Application.Enterprise.CommonObjects
 
             /// valor minimo de saldo para empresarias de norte
             /// </summary>
-            saldomin = 36
+            saldomin = 36,
+
+            //Carpeta de imagenes de SAVED
+            CarpetaImagenesSAVED = 77
 
         }
 

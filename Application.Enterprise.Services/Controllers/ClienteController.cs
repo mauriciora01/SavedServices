@@ -176,6 +176,55 @@ namespace Application.Enterprise.Services.Controllers
                 ObjSessionEmpresariaInfo.TallaPrendaSuperior = objClienteInfo.TallaPrendaSuperior;
                 ObjSessionEmpresariaInfo.TallaPrendaInferior = objClienteInfo.TallaPrendaInferior;
                 ObjSessionEmpresariaInfo.TallaCalzado = objClienteInfo.TallaCalzado;
+
+
+                ObjSessionEmpresariaInfo.GrupoDescuento = objClienteInfo.GrupoDescuentoCliente;
+                ObjSessionEmpresariaInfo.BodegaEmpresaria = objClienteInfo.Bodega;
+
+                //Se obtiene la campaña de la fecha actual.
+                Campana ObjCampana = new Campana("conexion");
+                CampanaInfo ObjCampanaInfo = new CampanaInfo();
+                //ObjCampanaInfo = ObjCampana.ListxGetDate();
+
+
+                ObjCampanaInfo = ObjCampana.ListxGetDate();
+                //Se valida que exista una campaña activa.
+                if (ObjCampanaInfo != null)
+                {
+                    ObjSessionEmpresariaInfo.Campana = ObjCampanaInfo.Campana.Trim();
+                    ObjSessionEmpresariaInfo.Catalogo = ObjCampanaInfo.Catalogo.Trim().ToUpper();
+                }
+                else
+                {
+                    ObjSessionEmpresariaInfo.Error = new Error();
+                    ObjSessionEmpresariaInfo.Error.Id = -1;
+                    ObjSessionEmpresariaInfo.Error.Descripcion = "La campaña se encuentra cerrada o no existe.";
+                    ObjSessionEmpresariaInfo.DocumentoEmpresaria = ObjClienteInfoNit.Nit;
+                }
+
+
+                //........................................................................................
+                //Path de imagenes
+
+                ParametrosInfo ObjParametrosInfo = new ParametrosInfo();
+                Parametros ObjParametros = new Parametros("conexion");
+                ObjParametrosInfo = ObjParametros.ListxId((int)ParametrosEnum.CarpetaImagenesSAVED);
+
+                string CarpetaImagenes = "";
+
+                if (ObjParametrosInfo != null)
+                {
+                    CarpetaImagenes = ObjParametrosInfo.Valor;
+                }
+                else
+                {
+                    CarpetaImagenes = "../../../../assets/imagesAplicacion/";
+                }
+
+                ObjSessionEmpresariaInfo.CarpetaImagenes = CarpetaImagenes;
+                //........................................................................................
+
+
                 ObjSessionEmpresariaInfo.PuntosEmpresaria = this.actualizarTotalpagermenospuntos(ObjClienteInfoNit.Nit, "002", new List<PLUInfo>(), 0, 9);
 
                 PuntosBo bo = new PuntosBo("conexion");

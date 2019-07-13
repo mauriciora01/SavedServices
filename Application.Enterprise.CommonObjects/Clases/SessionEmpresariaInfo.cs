@@ -152,6 +152,24 @@
             get;
             set;
         }
+      
+        public virtual string GrupoDescuento
+        {
+            get;
+            set;
+        }
+
+        public virtual string BodegaEmpresaria
+        {
+            get;
+            set;
+        }
+
+        public virtual string CarpetaImagenes
+        {
+            get;
+            set;
+        }
 
         public virtual Error Error
         {

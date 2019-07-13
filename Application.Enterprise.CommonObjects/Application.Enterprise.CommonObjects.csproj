@@ -342,6 +342,7 @@
     <Compile Include="Interfaces\ICostoMercancia.cs" />
     <Compile Include="Interfaces\ICxC.cs" />
     <Compile Include="Interfaces\IDescuento.cs" />
+    <Compile Include="Interfaces\IDescuentoGlod.cs" />
     <Compile Include="Interfaces\IDescuentoPrivilegio.cs" />
     <Compile Include="Interfaces\IDespachos.cs" />
     <Compile Include="Interfaces\IDevoluciones.cs" />

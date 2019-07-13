@@ -294,7 +294,7 @@ namespace Application.Enterprise.Services.Controllers
             return objPedidosClienteInfo;
         }
 
-       
+
         [HttpGet]
         [HttpPost]
         public PedidosClienteInfo GuardarDetallePedido(List<PedidosDetalleClienteInfo> ObjPedidosDetalleClienteInfoRequest)
@@ -1185,7 +1185,8 @@ namespace Application.Enterprise.Services.Controllers
 
             if (ObjPedidosClienteInfoRequest.Campana != null && ObjPedidosClienteInfoRequest.Campana != "")
             {
-                objCampanaInfo = objCampana.ListxCampana(ObjPedidosClienteInfoRequest.Campana);
+                //objCampanaInfo = objCampana.ListxCampana(ObjPedidosClienteInfoRequest.Campana);
+                objCampanaInfo = objCampana.ListxGetDate();
             }
             else
             {
@@ -1215,7 +1216,7 @@ namespace Application.Enterprise.Services.Controllers
 
             if (lista != null && lista.Count > 0)
             {
-                
+
             }
             else
             {
@@ -1237,16 +1238,16 @@ namespace Application.Enterprise.Services.Controllers
             string NumeroDocumento = "";
             string Catalogo = "";
             string NumeroPedido = "";
-         
+
 
             if (ObjPedidosDetalleClienteInfoRequest.Count > 0)
             {
                 objPedidosClienteInfo = ObjPedidosDetalleClienteInfoRequest[0].PedidosClienteInfo;
                 NumeroDocumento = objPedidosClienteInfo.Nit;
                 Catalogo = objPedidosClienteInfo.Codigo;
-                NumeroPedido = objPedidosClienteInfo.Numero;              
+                NumeroPedido = objPedidosClienteInfo.Numero;
             }
-                       
+
             if (this.ValidarPedidoSinFacturar(NumeroDocumento, Catalogo, NumeroPedido, false))
             {
                 string str = "";
@@ -1255,7 +1256,7 @@ namespace Application.Enterprise.Services.Controllers
             }
             else
             {
-                  
+
                 //PedidosClienteInfo objGuardarEncabezadoPedidoOk = GuardarEncabezadoPedido(objPedidosClienteInfo);
                 PedidosClienteInfo objGuardarEncabezadoPedidoOk = objPedidosClienteInfo;
 
@@ -1299,9 +1300,9 @@ namespace Application.Enterprise.Services.Controllers
                             }
 
                         }
-                        
+
                     }
-                }               
+                }
             }
 
             return objPedidosClienteInfo;
@@ -1315,7 +1316,7 @@ namespace Application.Enterprise.Services.Controllers
             string bodega = "";
             if (bodegaEmpresaria != "")
             {
-                bodega =bodegaEmpresaria;
+                bodega = bodegaEmpresaria;
             }
             int cobrarFlete = 1;
             bool flag5 = recogePedidoTienda;
@@ -1346,7 +1347,7 @@ namespace Application.Enterprise.Services.Controllers
                         try
                         {
                             PuntosBo bo = new PuntosBo("conexion");
-                           
+
                             decimal valorPuntos = bo.getvalorPuntoEnSoles();
                             decimal totalPedidoPuntos = 0;
                             int totalDescuentoPuntos = 0;
@@ -1354,21 +1355,21 @@ namespace Application.Enterprise.Services.Controllers
                             decimal descuentoporpuntos = 0;
                             int cantpuntosGastados = 0;
                             string text = NumeroDocumento;
-                            if (totalPedidoPuntosIn>0)
+                            if (totalPedidoPuntosIn > 0)
                             {
                                 totalPedidoPuntos = totalPedidoPuntosIn;
                             }
-                           
+
                             if (flag5)
                             {
                                 totalDescuentoPuntos = PuntosUsar;
                             }
                             this.gastarPuntos(cantpuntosGastados, text, PuntosUsar, NumeroPedido);
-                            this.acumularPuntosxEstado(totalPedidoPuntos, totalDescuentoPuntos, bonopuntosganar, descuentoporpuntos, text, NumeroPedido,"");
+                            this.acumularPuntosxEstado(totalPedidoPuntos, totalDescuentoPuntos, bonopuntosganar, descuentoporpuntos, text, NumeroPedido, "");
                             this.agregarDescuentoPuntos(valorPuntos, totalPedidoPuntos, totalDescuentoPuntos, NumeroPedido);
                             this.actualizarEncabezadoPuntosxCedula(text);
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                         }
                     }
@@ -1382,7 +1383,7 @@ namespace Application.Enterprise.Services.Controllers
                 bool result;
 
                 ParametrosInfo ObjParametrosInfo = new ParametrosInfo();
-               Parametros ObjParametros = new Parametros("conexion");
+                Parametros ObjParametros = new Parametros("conexion");
 
                 ObjParametrosInfo = ObjParametros.ListxId((int)ParametrosEnum.BloquearPedidosDesmantelados);
 
@@ -1392,7 +1393,7 @@ namespace Application.Enterprise.Services.Controllers
                     Cliente module = new Cliente("conexion");
 
 
-                    Desmanteladora = module.BuscaDemanteladora(NumeroDocumento,IdZona);
+                    Desmanteladora = module.BuscaDemanteladora(NumeroDocumento, IdZona);
 
                     if (Desmanteladora == true)
                     {
@@ -1452,7 +1453,7 @@ namespace Application.Enterprise.Services.Controllers
                 if (ZonaMultiPedidos == false)
                 {
                     ////////// PREVENTA JUTA
-                    if (objCampanaInfo!=null)
+                    if (objCampanaInfo != null)
                     {
                         PedidosClienteInfo objPedidosClienteInfo1 = new PedidosClienteInfo();
                         objPedidosClienteInfo1 = objPedidosCliente.ListxPedidoPreventa(NumeroDocumento, objCampanaInfo.Campana);
@@ -1490,7 +1491,7 @@ namespace Application.Enterprise.Services.Controllers
                 }
                 else
                 {
-                    if (objCampanaInfo!=null)
+                    if (objCampanaInfo != null)
                     {
                         PedidosClienteInfo objPedidosClienteInfo1 = new PedidosClienteInfo();
                         objPedidosClienteInfo1 = objPedidosCliente.ListxPedidoPreventa(NumeroDocumento, objCampanaInfo.Campana);
@@ -1520,7 +1521,7 @@ namespace Application.Enterprise.Services.Controllers
                 //1212121212121212121212121212121212121212121212121212121212121212121212121212121212121212121212
             }
             else
-            {              
+            {
                 PedidosClienteInfo info2 = new PedidosClienteInfo();
                 info2 = objPedidosCliente.ListxPedidoPreventa(NumeroDocumento, objCampanaInfo.Campana);
                 if (ReferenceEquals(info2, null))
@@ -1558,7 +1559,7 @@ namespace Application.Enterprise.Services.Controllers
             //Enviar Correo electronico
             bool vsemailOk = false;
 
-           Business.Cliente ObjCliente = new Business.Cliente("conexion");
+            Business.Cliente ObjCliente = new Business.Cliente("conexion");
             ClienteInfo ObjClienteInfo = ObjCliente.ListxNIT(NumeroDocumento);
 
             string NombreEmpresaria = "";
@@ -1680,7 +1681,7 @@ namespace Application.Enterprise.Services.Controllers
                     {
                         d = totalPagarEmprep;
                     }
-                    if ((PuntosUsar != 0) && (PuntosUsar >=1))
+                    if ((PuntosUsar != 0) && (PuntosUsar >= 1))
                     {
                         num2 = PuntosUsar;
                         if (PuntosUsar > num4)
@@ -1693,8 +1694,8 @@ namespace Application.Enterprise.Services.Controllers
                         if (PuntosUsar > num)
                         {
                             //this.LabelPuntosaUsar.ForeColor = System.Drawing.Color.Tomato;
-                           // this.LabelPuntosaUsar.Text = "<strong>Ingresa una cantidad menor al valor del pedido en puntos: " + num + "</strong>";
-                           // this.RadNumericPuntosUsar.Text = "0";
+                            // this.LabelPuntosaUsar.Text = "<strong>Ingresa una cantidad menor al valor del pedido en puntos: " + num + "</strong>";
+                            // this.RadNumericPuntosUsar.Text = "0";
                             d = Math.Round(d, 0);
                             //this.RadComboBoxTotalpagardespuesPuntos.Items.Insert(0, new RadComboBoxItem("$ " + d, "1"));
                             //this.RadComboBoxTotalpagardespuesPuntos.SelectedIndex = 0;
@@ -1702,12 +1703,12 @@ namespace Application.Enterprise.Services.Controllers
                     }
                     if (num4 == 0)
                     {
-                       // this.LabelPuntosaUsar.ForeColor = System.Drawing.Color.Tomato;
-                       // this.LabelPuntosaUsar.Text = "<strong>No tienes puntos efectivos</strong>";
-                       // this.RadNumericPuntosUsar.Text = "0";
+                        // this.LabelPuntosaUsar.ForeColor = System.Drawing.Color.Tomato;
+                        // this.LabelPuntosaUsar.Text = "<strong>No tienes puntos efectivos</strong>";
+                        // this.RadNumericPuntosUsar.Text = "0";
                         d = Math.Round(d, 0);
                         //this.RadComboBoxTotalpagardespuesPuntos.Items.Insert(0, new RadComboBoxItem("$ " + d, "1"));
-                       // this.RadComboBoxTotalpagardespuesPuntos.SelectedIndex = 0;
+                        // this.RadComboBoxTotalpagardespuesPuntos.SelectedIndex = 0;
                     }
                     if (((num4 <= 0) || (num2 > num)) || (d <= 0M))
                     {
@@ -1773,13 +1774,13 @@ namespace Application.Enterprise.Services.Controllers
                 cumpleminimoparapuntos = 1;
             }
 
-            if (cumpleminimoparapuntos== 0)
+            if (cumpleminimoparapuntos == 0)
             {
                 puntosGanadosPedido = 0;
             }
             else if (cumpleminimoparapuntos != 1)
             {
-                puntosGanadosPedido= 0;
+                puntosGanadosPedido = 0;
             }
             else
             {
@@ -1799,7 +1800,7 @@ namespace Application.Enterprise.Services.Controllers
                         bo.insertarDetalleGananciaPuntos(NumeroPedido, cedula, 0, 0M, 1);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                 }
             }

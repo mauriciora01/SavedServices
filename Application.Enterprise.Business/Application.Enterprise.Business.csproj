@@ -163,6 +163,7 @@
     <Compile Include="Clases\CostoMercancia.cs" />
     <Compile Include="Clases\CxC.cs" />
     <Compile Include="Clases\Descuento.cs" />
+    <Compile Include="Clases\DescuentoGlod.cs" />
     <Compile Include="Clases\DescuentoPrivilegio.cs" />
     <Compile Include="Clases\Despachos.cs" />
     <Compile Include="Clases\Device.cs" />

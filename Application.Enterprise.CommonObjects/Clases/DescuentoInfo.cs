@@ -141,5 +141,18 @@ namespace Application.Enterprise.CommonObjects
             set { dsc_prodestrella = value; }
         }
 
+        private string grupocliente;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string GrupoCliente
+        {
+            get { return grupocliente; }
+            set { grupocliente = value; }
+        }
+
+
+        
+
     }
 }
