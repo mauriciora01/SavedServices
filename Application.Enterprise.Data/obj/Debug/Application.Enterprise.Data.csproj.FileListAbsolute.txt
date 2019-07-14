@@ -120,7 +120,6 @@ D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Data\bin\Debug\Applicatio
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Data\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Data\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Data\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
-D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Data\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Data\bin\Debug\Microsoft.Practices.ServiceLocation.xml
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Data\bin\Debug\Microsoft.Practices.Unity.xml
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Data\bin\Debug\Microsoft.Practices.Unity.Configuration.xml

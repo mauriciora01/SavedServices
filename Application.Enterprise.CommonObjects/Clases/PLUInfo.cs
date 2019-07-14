@@ -310,6 +310,16 @@ namespace Application.Enterprise.CommonObjects
             get { return porcentajedescuento; }
             set { porcentajedescuento = value; }
         }
+
+
+        private string imagen;
+
+        public string Imagen
+        {
+            get { return imagen; }
+            set { imagen = value; }
+        }
+
         public virtual SessionEmpresariaInfo SessionEmpresaria
         {
             get;
