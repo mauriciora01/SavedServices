@@ -256,13 +256,7 @@ namespace Application.Enterprise.CommonObjects
         {
             get { return idzona; }
             set { idzona = value; }
-        }
-
-        public virtual Error Error
-        {
-            get;
-            set;
-        }
+        }       
 
         private string usuario;
 
@@ -272,12 +266,13 @@ namespace Application.Enterprise.CommonObjects
             set { usuario = value; }
         }
 
-        public virtual SessionEmpresariaInfo SessionEmpresaria
-        {
-            get;
-            set;
-        }
 
+        private decimal precioempresaria;
+        public decimal PrecioEmpresaria
+        {
+            get { return precioempresaria; }
+            set { precioempresaria = value; }
+        }
 
         private int precioPuntos;
         public int PrecioPuntos
@@ -299,6 +294,42 @@ namespace Application.Enterprise.CommonObjects
         {
             get { return activo; }
             set { activo = value; }
+        }
+
+
+        private bool disponible;
+        public bool Disponible
+        {
+            get { return disponible; }
+            set { disponible = value; }
+        }
+
+        private decimal porcentajedescuento;
+        public decimal PorcentajeDescuento
+        {
+            get { return porcentajedescuento; }
+            set { porcentajedescuento = value; }
+        }
+
+
+        private string imagen;
+
+        public string Imagen
+        {
+            get { return imagen; }
+            set { imagen = value; }
+        }
+
+        public virtual SessionEmpresariaInfo SessionEmpresaria
+        {
+            get;
+            set;
+        }
+
+        public virtual Error Error
+        {
+            get;
+            set;
         }
     }
 }

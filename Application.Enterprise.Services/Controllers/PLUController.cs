@@ -25,7 +25,7 @@ namespace Application.Enterprise.Services.Controllers
         public PLUInfo ListarxCodigoRapido(PLUInfo ObjPLUInfo)
         {
             PLUInfo lista = new PLUInfo();
-           
+
             bool ExcentoIVA = false;
             string CodCiudadCliente = ObjPLUInfo.SessionEmpresaria.CodCiudadCliente.Trim();
             decimal PrecioCat = 0;
@@ -34,7 +34,7 @@ namespace Application.Enterprise.Services.Controllers
             decimal PrecioTotal = 0;
             decimal PrecioUnitario = 0;
             int Cantidad = 1;
-
+            decimal PrecioCatalogo = 0;
 
             PLUInfo objPLU = new PLUInfo();
             PLU module = new PLU("conexion");
@@ -63,9 +63,14 @@ namespace Application.Enterprise.Services.Controllers
                     objPLU.IdZona = ObjPLUInfo.SessionEmpresaria.IdZona.Trim().ToUpper();
                     objPLU.PLU = objCatalogoPluInfo.PLU;
                     objPLU.Referencia = objCatalogoPluInfo.Referencia.Trim().ToUpper();
+<<<<<<< HEAD
                     objPLU.Campana = "0519"; //MRG: Cambiar por la campana cargada.
 
                     objPLUPrecioCat = module.ListxArticulosxPLUxTipoPrecio(objCatalogoPluInfo.PLU, ((int)TipoPrecioEnum.PrecioCatalogo).ToString());
+=======
+                    objPLU.Campana = ObjPLUInfo.SessionEmpresaria.Campana.Trim().ToUpper();
+                    objPLU.PrecioPuntos = objCatalogoPluInfo.PrecioPuntos; // Cuanto vale el articulo en puntos? Revisar J o G
+>>>>>>> 9f3c7c89d3cb256283ceddfb3d7d06fef2ddc272
 
                     if (!ExcentoIVA)
                     {
@@ -82,126 +87,142 @@ namespace Application.Enterprise.Services.Controllers
                         //Si se encuentra exento el iva debe ser 0.
                         if (objArtExcentosxCiudadInfo != null)
                         {
-
-                            PrecioCat = objPLUPrecioCat.PrecioSinIVA;
+                            PrecioCat = objPLU.PrecioSinIVA;
                             IVAPrecioCat = 0;
 
-                            PrecioUnitario = objPLUPrecioCat.PrecioSinIVA;
-
-                            // rcb_preciounitario.Items.Insert(0, new RadComboBoxItem(String.Format("{0:C}", objPLUPrecioCat.PrecioSinIVA), objPLU.PLU.ToString()));
-                            // rcb_preciounitario.SelectedIndex = 0;
-
-                            //rcb_preciototal.Items.Insert(0, new RadComboBoxItem(String.Format("{0:C}", objPLUPrecioCat.PrecioSinIVA), objPLU.PLU.ToString()));
-                            //rcb_preciototal.SelectedIndex = 0;
+                            PrecioUnitario = objPLU.PrecioSinIVA;
+                            PrecioCatalogo = objPLU.PrecioSinIVA;
                         }
                         else
                         {
-                            PrecioCat = objPLUPrecioCat.PrecioSinIVA;
-                            IVAPrecioCat = objPLUPrecioCat.IVA;
+                            PrecioCat = objPLU.PrecioSinIVA;
+                            IVAPrecioCat = objPLU.IVA;
 
-                            PrecioUnitario = objPLUPrecioCat.PrecioConIVA;
-
-
-                            // rcb_preciounitario.Items.Insert(0, new RadComboBoxItem(String.Format("{0:C}", objPLUPrecioCat.PrecioConIVA), objPLU.PLU.ToString()));
-                            //rcb_preciounitario.SelectedIndex = 0;
-
-                            //rcb_preciototal.Items.Insert(0, new RadComboBoxItem(String.Format("{0:C}", objPLUPrecioCat.PrecioConIVA), objPLU.PLU.ToString()));
-                            //rcb_preciototal.SelectedIndex = 0;
+                            PrecioUnitario = objPLU.PrecioConIVA;
+                            PrecioCatalogo = objPLU.PrecioConIVA;
                         }
-
-                        //()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
-                        //()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
                     }
                     else
                     {
-                        PrecioCat = objPLUPrecioCat.PrecioSinIVA;
+                        PrecioCat = objPLU.PrecioSinIVA;
                         IVAPrecioCat = 0;
-
                         PrecioUnitario = objPLU.PrecioSinIVA;
-
-                        //rcb_preciounitario.Items.Insert(0, new RadComboBoxItem(String.Format("{0:C}", objPLU.PrecioSinIVA), objPLU.PLU.ToString()));
-                        //rcb_preciounitario.SelectedIndex = 0;
-
-                        //rcb_preciototal.Items.Insert(0, new RadComboBoxItem(String.Format("{0:C}", objPLU.PrecioSinIVA), objPLU.PLU.ToString()));
-                        //rcb_preciototal.SelectedIndex = 0;
+                        PrecioCatalogo = objPLU.PrecioSinIVA;
                     }
 
                     PrecioTotal = PrecioUnitario * Cantidad;
                     CantidadSeleccionada = Cantidad;
                     objPLU.PrecioTotalConIVA = PrecioTotal;
                     objPLU.Cantidad = Cantidad;
-                    //ValorTotal(Convert.ToInt32(rcb_cantidad.SelectedItem.Value));
+
+                    //---------------------------------------------------------------------------------------
+                    //Descuento y Consulta la disponibilidad de cada articulo.
+
+                    DescuentoGlod glod = new DescuentoGlod("conexion");
+                    DescuentoInfo info3 = new DescuentoInfo();
+                    decimal num = 0M;
+                    string str2 = "";
+                    Inventario inventario = new Inventario("conexion");
+                    InventarioInfo info = new InventarioInfo();
+
+                    string str5 = "";
+                    if (ObjPLUInfo.SessionEmpresaria.GrupoDescuento != null)
+                    {
+                        str5 = ObjPLUInfo.SessionEmpresaria.GrupoDescuento;
+                    }
+                    KardexInfo info5 = new Kardex("conexion").ListxArticuloxPLU(Convert.ToInt32(objCatalogoPluInfo.PLU));
+                    num = this.CalcularDescuentoPrivilegioProdEstrella(info5.UnidadNegocio.Trim(), info5.GrupoProducto.Trim(), ObjPLUInfo.SessionEmpresaria.Campana, objCatalogoPluInfo.CatalogoReal.Trim().ToUpper(), info5.ProdEstrella, objPLU.PrecioTotalConIVA, str5);
+                    str2 = "";
+                    if (ObjPLUInfo.SessionEmpresaria.BodegaEmpresaria != null)
+                    {
+                        str2 = ObjPLUInfo.SessionEmpresaria.BodegaEmpresaria;
+                    }
+                    info = inventario.ListSaldosBodegaxPLUxEmpresaria(str2, Convert.ToInt32(objCatalogoPluInfo.PLU));
+                    decimal num4 = PrecioCatalogo;
+                    decimal num5 = 0M;
+                    if (ReferenceEquals(info, null))
+                    {
+                        num5 = 0M;
+                        num = 0M;
+                        objPLU.Disponible = false;
+                    }
+                    else if (info.Saldo > 0M)
+                    {
+                        //PrecioEmpresaria= objPLU.PrecioTotalConIVA* objPLU.PorcentajeDescuento
+                        num5 = num4 - (num4 * (num / 100M));
+
+                        objPLU.Disponible = true;
+                    }
+                    else
+                    {
+                        num5 = 0M;
+                        num = 0M;
+
+                        objPLU.Disponible = false;
+                    }
+
+                    objPLU.PorcentajeDescuento = num;
+
+
+                    objPLU.PrecioEmpresaria = num5;
+
+
+
+                    objPLU.SessionEmpresaria = new SessionEmpresariaInfo();
+                    objPLU.SessionEmpresaria = ObjPLUInfo.SessionEmpresaria;
+                    //........................................................................................
+                    //Path de imagenes
+
+                    objPLU.SessionEmpresaria.CarpetaImagenes = ObjPLUInfo.SessionEmpresaria.CarpetaImagenes.Trim();
+
+                    /*llenar variable de sesion con el % Descuento asingado en la busqeuda de la cedula
+                        validar path de imagenes para que cargue lo que es y dejar ese path desde bd, sino trae imagenes x default
+                        organizar calculos de detalle articulo con lo obtenido desde aqui
+                        mostrar bien disponible en verde o rojo*/
                 }
-
-                //rcb_cantidad.SelectedValue = "1";
-                //ValorTotal(Convert.ToInt32(rcb_cantidad.SelectedItem.Value));
-
-               
 
             }
             else
             {
+                objPLU.PLU = -1;
 
-                objCatalogoPluInfo = objCatalogoPlu.ListxCodigoRapidoSinCatalogoAgotadoAnunciado(ObjPLUInfo.CodigoRapido.ToUpper());
+                objPLU.Error = new Error();
+                objPLU.Error.Id = -1;
+                objPLU.Error.Descripcion = "No se encontraron resultados. Por favor verifique. Codigo Rapido: " + ObjPLUInfo.CodigoRapido.ToUpper();
+                objPLU.CodigoRapido = ObjPLUInfo.CodigoRapido.ToUpper();
 
-                if (objCatalogoPluInfo != null)
-                {
-
-                    //string IdZona = "";
-
-                    // -----------------------------------------------------------------------------------------------------
-                    /*if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.GerentesZona))
-                    {
-                        IdZona = Session["IdZona"].ToString().Trim();
-                    }
-                    else if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.GerentesRegionales))
-                    {
-                        Cliente objCliente = new Cliente("conexion");
-                        ClienteInfo objClienteInfo = new ClienteInfo();
-
-                        objClienteInfo = objCliente.ListClienteNivixNit(txt_nodocumento.Text);
-
-                        IdZona = objClienteInfo.Zona.Trim();
-                    }*/
-
-                    //Se guarda historial de articulos digitados con estado de agotado anunciado.
-                    CicloxPlu objCicloxPlu = new CicloxPlu("conexion");
-                    CicloxPluInfo objCicloxPluInfo = new CicloxPluInfo();
-
-                    objCicloxPluInfo.Referencia = objCatalogoPluInfo.Referencia.Trim();
-                    objCicloxPluInfo.CCostos = "P000-" + objCatalogoPluInfo.PLU.ToString();
-                    objCicloxPluInfo.PLU = objCatalogoPluInfo.PLU;
-                    objCicloxPluInfo.Usuario = ObjPLUInfo.Usuario.Trim();
-                    objCicloxPluInfo.CodigoRapido = ObjPLUInfo.CodigoRapido.ToUpper();
-                    objCicloxPluInfo.Campana = ObjPLUInfo.Campana;
-                    objCicloxPluInfo.Zona = ObjPLUInfo.IdZona.Trim();
-
-                    int Id = objCicloxPlu.Insert(objCicloxPluInfo);
-
-                    //---------------------------------------------------------------------------------------------------------------
-                    //Mensaje de Advertencia.              
-                    //RadWindowManager1.RadAlert("El articulo se encuentra agotado. <br><b>No disponible para la digitacion.</b>", 330, 130, "SVDN - Pedidos", "MensajeSistema", "../images/warning.gif");
-
-                    objPLU.Error = new Error();
-                    objPLU.Error.Id = -1;
-                    objPLU.Error.Descripcion = "El articulo se encuentra agotado. <br><b>No disponible para la digitacion.</b>. Codigo Rapido: " + ObjPLUInfo.CodigoRapido.ToUpper();
-                    objPLU.CodigoRapido = ObjPLUInfo.CodigoRapido.ToUpper();
-                }
-                else
-                {
-                    objPLU.PLU = -1;
-
-                    objPLU.Error = new Error();
-                    objPLU.Error.Id = -1;
-                    objPLU.Error.Descripcion = "No se encontraron resultados. Por favor verifique. Codigo Rapido: " + ObjPLUInfo.CodigoRapido.ToUpper();
-                    objPLU.CodigoRapido = ObjPLUInfo.CodigoRapido.ToUpper();
-                }
             }
+<<<<<<< HEAD
             ObjPLUInfo.SessionEmpresaria.Campana = "0519"; //MRG: Cambiar por la campana cargada.
             ObjPLUInfo.SessionEmpresaria.Catalogo = "124"; //MRG: Cambiar por la campana cargada.
             objPLU.SessionEmpresaria = ObjPLUInfo.SessionEmpresaria;
+=======
+
+>>>>>>> 9f3c7c89d3cb256283ceddfb3d7d06fef2ddc272
 
             return objPLU;
+        }
+
+
+        private decimal CalcularDescuentoPrivilegioProdEstrella(string UnidadNegocio, string ArtGrupoProducto, string strCampana, string CatalogoReal, bool ProdEstrella, decimal ValorPedido, string grupoCliente)
+        {
+            DescuentoGlod glod = new DescuentoGlod("conexion");
+            DescuentoInfo objA = new DescuentoInfo();
+            DescuentoPrivilegio privilegio = new DescuentoPrivilegio("conexion");
+            DescuentoPrivilegioInfo info2 = new DescuentoPrivilegioInfo();
+            decimal porcentaje = 0;
+
+            objA = glod.ListxValorPedidoProdEstrellaXGrupoCliente(ValorPedido, UnidadNegocio, ArtGrupoProducto, strCampana, false, grupoCliente);
+
+            if (objA != null)
+            {
+                porcentaje = objA.Porcentaje;
+            }
+            else
+            {
+                porcentaje = 0;
+            }
+            return porcentaje;
         }
 
     }

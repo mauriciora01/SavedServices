@@ -92,7 +92,8 @@ namespace Application.Enterprise.Business
 
                 objPedidosClienteInfo = objPedidosCliente.ListPedidoxId(IdPedido);
 
-                objSmtpMailInfo.Asunto = " Campana: " + objPedidosClienteInfo.Campana + " Pedido: " + IdPedido + " Cedula: " + objPedidosClienteInfo.Nit + " Zona: " + objPedidosClienteInfo.Zona + " Gerente: " + objPedidosClienteInfo.Vendedor;
+                //MRG: Corregir por que cuando el pedido se anula se revienta en esta linea por que la consulta no trae los pedidos anulados.
+                //objSmtpMailInfo.Asunto = " Campana: " + objPedidosClienteInfo.Campana + " Pedido: " + IdPedido + " Cedula: " + objPedidosClienteInfo.Nit + " Zona: " + objPedidosClienteInfo.Zona + " Gerente: " + objPedidosClienteInfo.Vendedor;
 
             }
             else if (IdTipoMensaje == (int)TipoMailEnum.RegistroEmpresaria)
@@ -116,7 +117,8 @@ namespace Application.Enterprise.Business
                 objSmtpMailInfo.Asunto = "Advertencia: Negativos en Referencias";
             }
 
-            objSmtpMailInfo.CuerpoMsj = CuerpoMensaje(IdTipoMensaje, strUsuario, strPassword, NombreEmpresaria, IdPedido, ValorPedido); //Usuario y password de empresaria a la que se envia el correo.           
+            //MRG: Corregir por que cuando el pedido se anula se revienta en esta linea por que la consulta no trae los pedidos anulados.
+            //objSmtpMailInfo.CuerpoMsj = CuerpoMensaje(IdTipoMensaje, strUsuario, strPassword, NombreEmpresaria, IdPedido, ValorPedido); //Usuario y password de empresaria a la que se envia el correo.           
             objSmtpMailInfo.ServidorCorreo = ObjMailInfo.ServidorCorreo;
             objSmtpMailInfo.Puerto = ObjMailInfo.Puerto;//*587-465
             objSmtpMailInfo.AutenticacionSSL = ObjMailInfo.AutenticacionSSL;

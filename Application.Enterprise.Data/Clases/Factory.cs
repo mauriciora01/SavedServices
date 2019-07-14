@@ -2687,6 +2687,88 @@ namespace Application.Enterprise.Data
                 System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
             }
 
+            //------------------------------------------------Saved
+            try
+            {
+                m.Whatsapp = Tools.ToString(dr, "Whatsapp");
+            }
+            catch (Exception ex)
+            {
+                m.Whatsapp = "N/A";
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+            }
+
+            try
+            {
+                m.TipoCliente = Tools.ToString(dr, "TipoCliente");
+            }
+            catch (Exception ex)
+            {
+                m.TipoCliente = "N/A";
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+            }
+
+            try
+            {
+                m.TallaPrendaSuperior = Tools.ToString(dr, "TallaPrendaSuperior");
+            }
+            catch (Exception ex)
+            {
+                m.TallaPrendaSuperior = "N/A";
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+            }
+
+            try
+            {
+                m.TallaPrendaInferior = Tools.ToString(dr, "TallaPrendaInferior");
+            }
+            catch (Exception ex)
+            {
+                m.TallaPrendaInferior = "N/A";
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+            }
+
+            try
+            {
+                m.TallaCalzado = Tools.ToString(dr, "TallaCalzado");
+            }
+            catch (Exception ex)
+            {
+                m.TallaCalzado = "N/A";
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+            }
+
+            try
+            {
+                m.TarjetaCD = Tools.ToString(dr, "TarjetaCD");
+            }
+            catch (Exception ex)
+            {
+                m.TarjetaCD = "N/A";
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+            }
+
+            try
+            {
+                m.Bodega = Tools.ToString(dr, "bodega");
+            }
+            catch (Exception ex)
+            {
+                m.TarjetaCD = "N/A";
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+            }
+
+            try
+            {
+                m.GrupoDescuentoCliente = Tools.ToString(dr, "grupocliente");
+            }
+            catch (Exception ex)
+            {
+                m.TarjetaCD = "N/A";
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+            }
+
+
             return m;
         }
 
@@ -5653,8 +5735,6 @@ namespace Application.Enterprise.Data
             {
                 System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
             }
-
-
 
             return m;
         }
@@ -20630,6 +20710,24 @@ namespace Application.Enterprise.Data
                 System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
             }
 
+            try
+            {
+                m.PrecioPuntos = Tools.ToInt32(dr, "precioPuntos");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+            }
+
+            try
+            {
+                m.Imagen = Tools.ToString(dr, "imagen");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+            }
+
             return m;
         }
         #endregion
@@ -27844,7 +27942,7 @@ namespace Application.Enterprise.Data
 
             try
             {
-                m.PrecioPunto = Tools.ToInt32(dr, "preciopuntos");
+                m.PrecioPuntos = Tools.ToInt32(dr, "preciopuntos");
             }
             catch (Exception ex)
             {

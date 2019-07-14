@@ -72,14 +72,14 @@ namespace Application.Enterprise.CommonObjects
         }
 
 
-        private int preciopunto;
+        private int preciopuntos;
         /// <summary>
         /// 
         /// </summary>
-        public int PrecioPunto
+        public int PrecioPuntos
         {
-            get { return preciopunto; }
-            set { preciopunto = value; }
+            get { return preciopuntos; }
+            set { preciopuntos = value; }
         }
     }
 }

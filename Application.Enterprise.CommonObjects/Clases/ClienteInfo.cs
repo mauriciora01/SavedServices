@@ -1384,11 +1384,7 @@ namespace Application.Enterprise.CommonObjects
             set { nombreempresariacompleto = value; }
         }
 
-        public virtual Error Error
-        {
-            get;
-            set;
-        }
+        
 
         private decimal porcentajeivaflete;
         /// <summary>
@@ -1440,6 +1436,21 @@ namespace Application.Enterprise.CommonObjects
             set { bodega = value; }
         }
 
+        private string grupodescuentocliente;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string GrupoDescuentoCliente
+        {
+            get { return grupodescuentocliente; }
+            set { grupodescuentocliente = value; }
+        }
 
+
+        public virtual Error Error
+        {
+            get;
+            set;
+        }
     }
 }
