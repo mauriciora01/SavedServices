@@ -1,5 +1,0 @@
-C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.dll
-C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.pdb
-C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csproj.CoreCompileInputs.cache
-C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.dll
-C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.pdb
