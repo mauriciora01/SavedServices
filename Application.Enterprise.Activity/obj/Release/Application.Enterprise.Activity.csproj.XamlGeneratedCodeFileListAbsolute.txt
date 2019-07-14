@@ -1,4 +1,0 @@
-obj\Release\_Application.Enterprise.Activity.g.cs
-obj\Release\ReportPortfolioActivity.g.cs
-obj\Release\Application.Enterprise.Activity_ReportPortfolioActivity_BeforeInitializeComponentHelper.cs
-D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Activity\obj\Release\Application.Enterprise.Activity_ReportPortfolioActivity_CompiledExpressionRoot.cs

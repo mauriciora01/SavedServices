@@ -1,2 +1,0 @@
-ReportPortfolioActivity.g.xaml
-XamlStaticHelperNamespace._XamlStaticHelper
