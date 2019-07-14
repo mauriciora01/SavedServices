@@ -121,11 +121,11 @@ C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\ReportPo
 C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\Application.Enterprise.Activity_ReportPortfolioActivity_BeforeInitializeComponentHelper.cs
 C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\Application.Enterprise.Activity.csproj.XamlGeneratedCodeFileListAbsolute.txt
 C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\Application.Enterprise.Activity.csproj.XamlGeneratedXamlFileListAbsolute.txt
-C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\Application.Enterprise.Activity.csproj.CopyComplete
-C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\Application.Enterprise.Activity.csproj.CoreCompileInputs.cache
 C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\Application.Enterprise.Activity.csproj.FileListAbsolute.txt
 C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\Application.Enterprise.Activity.csproj.XamlPass2Flag.txt
 C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\Application.Enterprise.Activity.dll
 C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\Application.Enterprise.Activity.pdb
 C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\Application.Enterprise.Activity_ReportPortfolioActivity_CompiledExpressionRoot.cs
 C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\AC2C1ABA-CCF6-44D4-8127-588FD4D0A860-DeferredValidationErrors.xml
+C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\Application.Enterprise.Activity.csproj.CoreCompileInputs.cache
+C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\Application.Enterprise.Activity.csproj.CopyComplete

@@ -63,14 +63,8 @@ namespace Application.Enterprise.Services.Controllers
                     objPLU.IdZona = ObjPLUInfo.SessionEmpresaria.IdZona.Trim().ToUpper();
                     objPLU.PLU = objCatalogoPluInfo.PLU;
                     objPLU.Referencia = objCatalogoPluInfo.Referencia.Trim().ToUpper();
-<<<<<<< HEAD
-                    objPLU.Campana = "0519"; //MRG: Cambiar por la campana cargada.
-
-                    objPLUPrecioCat = module.ListxArticulosxPLUxTipoPrecio(objCatalogoPluInfo.PLU, ((int)TipoPrecioEnum.PrecioCatalogo).ToString());
-=======
                     objPLU.Campana = ObjPLUInfo.SessionEmpresaria.Campana.Trim().ToUpper();
                     objPLU.PrecioPuntos = objCatalogoPluInfo.PrecioPuntos; // Cuanto vale el articulo en puntos? Revisar J o G
->>>>>>> 9f3c7c89d3cb256283ceddfb3d7d06fef2ddc272
 
                     if (!ExcentoIVA)
                     {
@@ -192,13 +186,7 @@ namespace Application.Enterprise.Services.Controllers
                 objPLU.CodigoRapido = ObjPLUInfo.CodigoRapido.ToUpper();
 
             }
-<<<<<<< HEAD
-            ObjPLUInfo.SessionEmpresaria.Campana = "0519"; //MRG: Cambiar por la campana cargada.
-            ObjPLUInfo.SessionEmpresaria.Catalogo = "124"; //MRG: Cambiar por la campana cargada.
-            objPLU.SessionEmpresaria = ObjPLUInfo.SessionEmpresaria;
-=======
 
->>>>>>> 9f3c7c89d3cb256283ceddfb3d7d06fef2ddc272
 
             return objPLU;
         }
