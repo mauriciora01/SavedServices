@@ -1,2 +1,0 @@
-DayOrdersActivity.g.xaml
-XamlStaticHelperNamespace._XamlStaticHelper

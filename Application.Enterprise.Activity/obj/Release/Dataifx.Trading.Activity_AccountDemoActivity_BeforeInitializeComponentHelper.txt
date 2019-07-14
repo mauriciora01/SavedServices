@@ -1,2 +1,0 @@
-AccountDemoActivity.g.xaml
-XamlStaticHelperNamespace._XamlStaticHelper

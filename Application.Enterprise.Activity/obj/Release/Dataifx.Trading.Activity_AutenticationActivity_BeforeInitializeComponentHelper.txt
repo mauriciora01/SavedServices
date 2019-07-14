@@ -1,2 +1,0 @@
-AutenticationActivity.g.xaml
-XamlStaticHelperNamespace._XamlStaticHelper
