@@ -34,6 +34,26 @@ C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\obj\Debug\Applic
 C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\obj\Debug\Application.Enterprise.Business.csproj.CopyComplete
 C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\obj\Debug\Application.Enterprise.Business.dll
 C:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\obj\Debug\Application.Enterprise.Business.pdb
+<<<<<<< HEAD
+=======
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Application.Enterprise.Business.dll.config
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Application.Enterprise.Business.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Application.Enterprise.Business.pdb
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Application.Enterprise.Data.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Application.Enterprise.Data.pdb
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Application.Enterprise.Data.dll.config
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.xml
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\obj\Debug\Application.Enterprise.Business.csprojAssemblyReference.cache
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\obj\Debug\Application.Enterprise.Business.csproj.CoreCompileInputs.cache
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\obj\Debug\Application.Enterprise.Business.csproj.CopyComplete
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\obj\Debug\Application.Enterprise.Business.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Business\obj\Debug\Application.Enterprise.Business.pdb
+>>>>>>> 994b59185f666cbb5699a1afacb23364c80140e9
 C:\Proyectos\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Application.Enterprise.Business.dll.config
 C:\Proyectos\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Application.Enterprise.Business.dll
 C:\Proyectos\SavedServicesNet\Application.Enterprise.Business\bin\Debug\Application.Enterprise.Business.pdb

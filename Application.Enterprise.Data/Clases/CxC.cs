@@ -8,6 +8,7 @@ using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using Application.Enterprise.CommonObjects;
 using System.Reflection;
 using System.Diagnostics;
+using static Application.Enterprise.CommonObjects.Enumerations;
 
 namespace Application.Enterprise.Data
 {
@@ -79,7 +80,9 @@ namespace Application.Enterprise.Data
             db.AddInParameter(commandCxC, "i_hora", DbType.String);
             db.AddInParameter(commandCxC, "i_placa", DbType.String);
             db.AddInParameter(commandCxC, "i_fechasalida", DbType.DateTime);
-
+            db.AddInParameter(commandCxC, "i_codigolider", DbType.String);
+            db.AddInParameter(commandCxC, "i_lider", DbType.String);
+            db.AddInParameter(commandCxC, "i_saldo", DbType.Decimal);
             db.AddOutParameter(commandCxC, "o_err_cod", DbType.Int32, 1000);
             db.AddOutParameter(commandCxC, "o_err_msg", DbType.String, 1000);
 
@@ -136,6 +139,7 @@ namespace Application.Enterprise.Data
             return col;
         }
 
+
         /// <summary>
         /// Lista el saldo de cartera de una empresaria por nit y por mes.
         /// </summary>
@@ -161,7 +165,7 @@ namespace Application.Enterprise.Data
 
                 while (dr.Read())
                 {
-                    m = Factory.GetCxCxNitxMes(dr);                  
+                    m = Factory.GetCxCxNitxMes(dr);
                 }
             }
             catch (Exception ex)
@@ -184,6 +188,57 @@ namespace Application.Enterprise.Data
             }
 
             return m;
+        }
+
+
+        /// <summary>
+        /// Lista el saldo de cartera de Lideres por nit .
+        /// </summary>
+        /// <param name="Vendedor"></param>
+        /// <returns></returns>
+        public List<CxCInfo> ListCxCVendedor(string Vendedor)
+        {
+            db.SetParameterValue(commandCxC, "i_operation", 'S');
+            db.SetParameterValue(commandCxC, "i_option", 'C');
+            db.SetParameterValue(commandCxC, "i_vendedor", Vendedor);
+         
+
+            List<CxCInfo> col = new List<CxCInfo>();
+
+            IDataReader dr = null;
+
+            CxCInfo m = null;
+
+            try
+            {
+                dr = db.ExecuteReader(commandCxC);
+
+                while (dr.Read())
+                {
+                    m = Factory.GetCxCVendedor(dr);
+                    col.Add(m);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+
+                bool rethrow = ExceptionPolicy.HandleException(ex, "DataAccess Policy");
+
+                if (rethrow)
+                {
+                    throw;
+                }
+            }
+            finally
+            {
+                if (dr != null)
+                {
+                    dr.Close();
+                }
+            }
+
+            return col;
         }
 
         #endregion

@@ -16,9 +16,20 @@ C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\A
 C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csproj.CoreCompileInputs.cache
 C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.dll
 C:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.pdb
+<<<<<<< HEAD
 C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.dll
 C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.pdb
 C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csprojAssemblyReference.cache
+=======
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.pdb
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csprojAssemblyReference.cache
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csproj.CoreCompileInputs.cache
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.pdb
+C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.dll
+C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.pdb
+>>>>>>> 994b59185f666cbb5699a1afacb23364c80140e9
 C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csproj.CoreCompileInputs.cache
 C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.dll
 C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.pdb

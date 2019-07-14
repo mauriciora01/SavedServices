@@ -482,7 +482,8 @@ namespace Application.Enterprise.Services.Controllers
 
                     objPedidosDetalleClienteInfo.ValorUnitario = (objPedidosDetalleClienteInfo.Valor) / objPedidosDetalleClienteInfo.Cantidad;
                     objPedidosDetalleClienteInfo.IdCodigoCorto = item.IdCodigoCorto;
-                    objPedidosDetalleClienteInfo.CatalogoReal = item.CatalogoReal;
+                    objPedidosDetalleClienteInfo.CatalogoReal = "691";
+                        ///item.CatalogoReal;
 
                     objPedidosDetalleClienteInfo.UnidadNegocio = objPedidosDetalleClienteInfo.UnidadNegocio;
 
@@ -1229,6 +1230,63 @@ namespace Application.Enterprise.Services.Controllers
 
         }
 
+        [HttpGet]
+        [HttpPost]
+        public List<PedidosClienteInfo> ListxGerenteZonaFacturados(PedidosClienteInfo ObjPedidosClienteInfoRequest)
+        {
+
+            List<PedidosClienteInfo> lista = new List<PedidosClienteInfo>(); ;
+            PedidosCliente module = new PedidosCliente("conexion");
+
+            //--------------------------------------------------------------------------------------------------------
+            CampanaInfo objCampanaInfo = new CampanaInfo();
+            Campana objCampana = new Campana("conexion");
+
+            if (ObjPedidosClienteInfoRequest.Campana != null && ObjPedidosClienteInfoRequest.Campana != "")
+            {
+                objCampanaInfo = objCampana.ListxCampana(ObjPedidosClienteInfoRequest.Campana);
+            }
+            else
+            {
+                objCampanaInfo = objCampana.ListxGetDate();
+            }
+            //--------------------------------------------------------------------------------------------------------
+            lista = module.ListxGerenteZonaFacturados(ObjPedidosClienteInfoRequest.IdVendedor, objCampanaInfo.Campana);
+            /*if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.GerentesZona))
+            {
+                lista = module.ListxGerenteZona(Session["IdVendedor"].ToString(), objCampanaInfo.Campana);
+            }
+            else if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.GerentesRegionales))
+            {
+                lista = module.ListxGerenteRegional(Session["CedulaRegional"].ToString(), objCampanaInfo.Campana);
+            }
+            else if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.Lider))
+            {
+                lista = module.ListPedidosxLider(Session["IdLider"].ToString(), objCampanaInfo.Campana);
+            }
+            //INICIO GAVL ASISTENTES
+            else if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.Asistentes))
+            {
+                lista = module.ListPedidosxAsistente(Session["Asistente"].ToString(), objCampanaInfo.Campana);
+            }
+            //FIN GAVL 
+            */
+
+            if (lista != null && lista.Count > 0)
+            {
+
+            }
+            else
+            {
+                lista = new List<PedidosClienteInfo>();
+            }
+
+
+            return lista;
+
+
+        }
+
 
         [HttpGet]
         [HttpPost]
@@ -1278,7 +1336,7 @@ namespace Application.Enterprise.Services.Controllers
                                     recogertienda = true;
                                 }
 
-                                if (GuardarPedidoReservaEnLinea(NumeroPedido, "002", recogertienda, objPedidosClienteInfo.Nit, objPedidosClienteInfo.PuntosUsar, objPedidosClienteInfo.TotalPuntosPedido, objPedidosClienteInfo.Zona, objPedidosClienteInfo.Usuario))
+                                if (GuardarPedidoReservaEnLinea(NumeroPedido, "370", recogertienda, objPedidosClienteInfo.Nit, objPedidosClienteInfo.PuntosUsar, objPedidosClienteInfo.TotalPuntosPedido, objPedidosClienteInfo.Zona, objPedidosClienteInfo.Usuario))
                                 {
                                     EnviarCorreo(objPedidosClienteInfo.Nit, objPedidosClienteInfo.IdVendedor, objPedidosClienteInfo.Numero, objPedidosClienteInfo.TotalPrecioCatalogo.ToString());
                                     //this.RealizoReserva = true;
@@ -1832,5 +1890,10 @@ namespace Application.Enterprise.Services.Controllers
         }
         #endregion
 
-    }
+
+
+        //---------------------------
+        //Mis pedidos facturados
+
+     }
 }

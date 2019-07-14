@@ -54,6 +54,15 @@ namespace Application.Enterprise.Business
             return module.ListxNitxMes(Nit, Mes);
         }
 
+        /// <summary>
+        /// Lista el saldo de cartera de una empresaria por nit y por mes.
+        /// </summary>
+        /// <param name="Vendedor"></param>
+        /// <returns></returns>
+        public List<CxCInfo> ListCxCVendedor(string Vendedor)
+        {
+            return module.ListCxCVendedor(Vendedor);
+        }
         #endregion
     }
 }

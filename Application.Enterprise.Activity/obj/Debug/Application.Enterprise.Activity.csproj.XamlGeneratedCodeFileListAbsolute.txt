@@ -1,0 +1,4 @@
+obj\Debug\_Application.Enterprise.Activity.g.cs
+obj\Debug\ReportPortfolioActivity.g.cs
+obj\Debug\Application.Enterprise.Activity_ReportPortfolioActivity_BeforeInitializeComponentHelper.cs
+C:\Proyectos\SavedServicesNet\Application.Enterprise.Activity\obj\Debug\Application.Enterprise.Activity_ReportPortfolioActivity_CompiledExpressionRoot.cs

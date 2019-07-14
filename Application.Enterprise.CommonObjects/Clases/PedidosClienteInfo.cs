@@ -1132,8 +1132,27 @@ namespace Application.Enterprise.CommonObjects
             set { claseventa = value; }
         }
 
+        private string guia;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Guia
+        {
+            get { return guia; }
+            set { guia = value; }
+        }
+        private string numerodespacho;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Numerodespacho
+        {
+            get { return numerodespacho; }
+            set { numerodespacho = value; }
+        }
+
         #region campor motivos de anulacion
-        
+
         //INICIO GAVL  
         private DateTime _fechaanulacion;
         /// <summary>
