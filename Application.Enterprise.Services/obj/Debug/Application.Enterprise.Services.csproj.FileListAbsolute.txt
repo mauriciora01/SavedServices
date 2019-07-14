@@ -38,6 +38,7 @@ D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Services\bin\Microsoft.Pr
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Services\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Services\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Services\bin\Application.Enterprise.Activity.pdb
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Services\bin\Application.Enterprise.Activity.dll.config
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Services\bin\Application.Enterprise.Business.pdb
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Services\bin\Application.Enterprise.Business.dll.config
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Services\bin\Application.Enterprise.CommonObjects.pdb
@@ -78,4 +79,3 @@ D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Services\obj\Debug\Applic
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Services\obj\Debug\Application.Enterprise.Services.csproj.CopyComplete
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Services\obj\Debug\Application.Enterprise.Services.dll
 D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Services\obj\Debug\Application.Enterprise.Services.pdb
-D:\ProyectosVS\SavedServicesNet\Application.Enterprise.Services\bin\Application.Enterprise.Activity.dll.config
