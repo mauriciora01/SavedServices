@@ -765,8 +765,8 @@ namespace Application.Enterprise.Services.Controllers
             }
 
             //TODO MRG: Cambiar esto para que sea lo q viene de BD.
-            ObjSessionUserInfo.Campana = "0919";
-            ObjSessionUserInfo.Catalogo = "124";
+            ObjSessionUserInfo.Campana = "0619";
+            ObjSessionUserInfo.Catalogo = "691";
 
             var response = Request.CreateResponse<SessionUserInfo>(HttpStatusCode.OK, ObjSessionUserInfo);
             response.Headers.Add("Token", "");

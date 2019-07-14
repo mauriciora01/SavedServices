@@ -17,7 +17,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Numero
         {
-            get { return numero.Trim(); }
+            get { return numero ; }
             set { numero = value; }
         }
 
@@ -27,7 +27,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Zona
         {
-            get { return zona.Trim(); }
+            get { return zona ; }
             set { zona = value; }
         }
 
@@ -37,7 +37,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Mes
         {
-            get { return mes.Trim(); }
+            get { return mes ; }
             set { mes = value; }
         }
 
@@ -57,7 +57,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Nit
         {
-            get { return nit.Trim(); }
+            get { return nit ; }
             set { nit = value; }
         }
 
@@ -87,7 +87,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Vendedor
         {
-            get { return vendedor.Trim(); }
+            get { return vendedor ; }
             set { vendedor = value; }
         }
 
@@ -147,7 +147,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string CuentaContable
         {
-            get { return cuentacontable.Trim(); }
+            get { return cuentacontable ; }
             set { cuentacontable = value; }
         }
 
@@ -167,7 +167,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string EstadoCartera
         {
-            get { return estadocartera.Trim(); }
+            get { return estadocartera ; }
             set { estadocartera = value; }
         }
 
@@ -187,7 +187,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Hora
         {
-            get { return hora.Trim(); }
+            get { return hora ; }
             set { hora = value; }
         }
 
@@ -197,7 +197,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Placa
         {
-            get { return placa.Trim(); }
+            get { return placa ; }
             set { placa = value; }
         }
 
@@ -217,7 +217,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Nombre
         {
-            get { return nombre.Trim(); }
+            get { return nombre ; }
             set { nombre = value; }
         }
 
@@ -227,7 +227,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Apellido1
         {
-            get { return apellido1.Trim(); }
+            get { return apellido1 ; }
             set { apellido1 = value; }
         }
 
@@ -237,7 +237,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Apellido2
         {
-            get { return apellido2.Trim(); }
+            get { return apellido2 ; }
             set { apellido2 = value; }
         }
 
@@ -251,6 +251,34 @@ namespace Application.Enterprise.CommonObjects
             set { saldototal = value; }
         }
 
+        private string codigolider;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Codigolider
+        {
+            get { return codigolider; }
+            set { codigolider = value; }
+        }
 
+        private string lider;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Lider
+        {
+            get { return lider; }
+            set { lider = value; }
+        }
+
+        private decimal saldo;
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal Saldo
+        {
+            get { return saldo; }
+            set { saldo = value; }
+        }
     }
 }

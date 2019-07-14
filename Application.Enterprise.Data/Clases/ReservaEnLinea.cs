@@ -58,6 +58,7 @@ namespace Application.Enterprise.Data
 
             db.AddInParameter(commandReservaEnLinea, "i_operation", DbType.String);
             db.AddInParameter(commandReservaEnLinea, "i_option", DbType.String);
+            db.AddInParameter(commandReservaEnLinea, "i_cobrarEnvio", DbType.Int32);
             db.AddInParameter(commandReservaEnLinea, "i_numeropedido", DbType.String);
             
             //QUITAR PARA QUE FUNCIONE COLOMBIA Y ECUADOR
@@ -87,6 +88,7 @@ namespace Application.Enterprise.Data
                 db.SetParameterValue(commandReservaEnLinea, "i_operation", 'I');
                 db.SetParameterValue(commandReservaEnLinea, "i_option", 'A');
                 db.SetParameterValue(commandReservaEnLinea, "i_numeropedido", NumeroPedido);
+                db.SetParameterValue(commandReservaEnLinea, "i_cobrarEnvio", 1);
 
                 dr = db.ExecuteReader(commandReservaEnLinea);
 

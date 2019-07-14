@@ -4681,6 +4681,7 @@ namespace Application.Enterprise.Data
         /// </summary>
         /// <param name="zona"></param>
         /// <returns></returns>
+        ///  public List<PedidosClienteInfo> List()
         public List<PedidosClienteInfo> ListxGerenteZonaFacturados(string zona, string Campana)
         {
             db.SetParameterValue(commandPedidosCliente, "i_operation", 'S');
