@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.dll
 C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.pdb
 C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csprojAssemblyReference.cache
 C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csproj.CoreCompileInputs.cache
 C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.dll
 C:\Proyectos\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.pdb
+=======
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\bin\Debug\Application.Enterprise.CommonObjects.pdb
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.csproj.CoreCompileInputs.cache
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.dll
+D:\ProyectosVS\SavedServicesNet\Application.Enterprise.CommonObjects\obj\Debug\Application.Enterprise.CommonObjects.pdb
+>>>>>>> 4db6d7c8493c743d1af436789b97f099725dd7d2

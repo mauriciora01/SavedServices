@@ -24,6 +24,8 @@ namespace Application.Enterprise.Services.Controllers
         [HttpPost]
         public PLUInfo ListarxCodigoRapido(PLUInfo ObjPLUInfo)
         {
+            //Mensaje de Prueba
+            //Prueba 2
             PLUInfo lista = new PLUInfo();
 
             bool ExcentoIVA = false;
