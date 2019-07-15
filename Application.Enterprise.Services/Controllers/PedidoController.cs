@@ -483,7 +483,7 @@ namespace Application.Enterprise.Services.Controllers
                     objPedidosDetalleClienteInfo.ValorUnitario = (objPedidosDetalleClienteInfo.Valor) / objPedidosDetalleClienteInfo.Cantidad;
                     objPedidosDetalleClienteInfo.IdCodigoCorto = item.IdCodigoCorto;
                     objPedidosDetalleClienteInfo.CatalogoReal = "691";
-                        ///item.CatalogoReal;
+                    ///item.CatalogoReal;
 
                     objPedidosDetalleClienteInfo.UnidadNegocio = objPedidosDetalleClienteInfo.UnidadNegocio;
 
@@ -550,7 +550,8 @@ namespace Application.Enterprise.Services.Controllers
 
                     objPedidosDetalleClienteInfo.Valor = objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario - (objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario * (dcPorcentaje / 100)); //valor del descuento de 1 solo articulo.
 
-                    objPedidosDetalleClienteInfo.PorcentajeDescuento = dcPorcentaje;
+                    //objPedidosDetalleClienteInfo.PorcentajeDescuento = dcPorcentaje; 
+                    objPedidosDetalleClienteInfo.PorcentajeDescuento = item.PorcentajeDescuento;
 
 
                     decSubTotal = decSubTotal + (objPedidosDetalleClienteInfo.Valor * objPedidosDetalleClienteInfo.Cantidad);
@@ -1895,5 +1896,5 @@ namespace Application.Enterprise.Services.Controllers
         //---------------------------
         //Mis pedidos facturados
 
-     }
+    }
 }
