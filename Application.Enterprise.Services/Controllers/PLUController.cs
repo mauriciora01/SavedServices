@@ -29,6 +29,8 @@ namespace Application.Enterprise.Services.Controllers
             //pruebas 3
             //pruebas 4
             //prueba 5
+            //&& prueba6
+
             PLUInfo lista = new PLUInfo();
 
             bool ExcentoIVA = false;
