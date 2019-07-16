@@ -88,6 +88,18 @@ namespace Application.Enterprise.Services.Controllers
 
             return lista;
         }
-    
+
+        [HttpGet]
+        [HttpPost]
+        public RegionalesInfo RegionalxId(int id)
+        {
+            RegionalesInfo reg = null;
+            Application.Enterprise.Business.Regionales module = new Application.Enterprise.Business.Regionales("conexion");
+
+            reg = module.ListxId(id);           
+
+            return reg;
+        }
+
     }
 }

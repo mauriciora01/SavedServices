@@ -48,7 +48,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Codgereg
         {
-            get { return codge.Trim(); }
+            get { if (codge == null) { return ""; } return codge.Trim(); }
             set { codge = value; }
         }
 
@@ -69,7 +69,7 @@ namespace Application.Enterprise.CommonObjects
 
         public string Usuario
         {
-            get { return usuario.Trim(); }
+            get { if (usuario == null) { return ""; } return usuario.Trim(); }
             set { usuario = value;       }
         }
     }

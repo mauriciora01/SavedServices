@@ -31,6 +31,18 @@ namespace Application.Enterprise.Services.Controllers
             
             return lista;
         }
-    
+
+        [HttpGet]
+        [HttpPost]
+        public ZonaInfo ZonaxId(string id)
+        {
+            ZonaInfo reg = null;
+            Application.Enterprise.Business.Zona module = new Application.Enterprise.Business.Zona("conexion");
+
+            reg = module.ListxIdZona(id);
+
+            return reg;
+        }
+
     }
 }

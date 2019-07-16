@@ -71,6 +71,18 @@ namespace Application.Enterprise.Services.Controllers
             
             return lista;
         }
-           
+
+        [HttpGet]
+        [HttpPost]
+        public VendedorInfo VendedorxId(string id)
+        {
+            VendedorInfo reg = null;
+            Application.Enterprise.Business.Vendedor module = new Application.Enterprise.Business.Vendedor("conexion");
+
+            reg = module.ListxIdVendedor(id);
+
+            return reg;
+        }
+
     }
 }
