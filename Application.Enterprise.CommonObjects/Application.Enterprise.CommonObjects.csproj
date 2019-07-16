@@ -113,6 +113,7 @@
     <Compile Include="Clases\ArtExcentosxCiudadInfo.cs" />
     <Compile Include="Clases\ArticuloExeceptoIvaInfo.cs" />
     <Compile Include="Clases\AsistenteInfo.cs" />
+    <Compile Include="Clases\BodegasInfo.cs" />
     <Compile Include="Clases\AuditoriaInfo.cs" />
     <Compile Include="Clases\AuditoriaNegativosInfo.cs" />
     <Compile Include="Clases\AuditoriaPedidosInfo.cs" />
@@ -311,6 +312,7 @@
     <Compile Include="Interfaces\IArtExcentosxCiudad.cs" />
     <Compile Include="Interfaces\IArticuloExeceptoIva.cs" />
     <Compile Include="Interfaces\IAsistente.cs" />
+    <Compile Include="Interfaces\IBodegas.cs" />
     <Compile Include="Interfaces\IAuditoria.cs" />
     <Compile Include="Interfaces\IAuditoriaNegativos.cs" />
     <Compile Include="Interfaces\IAuditoriaPedidos.cs" />

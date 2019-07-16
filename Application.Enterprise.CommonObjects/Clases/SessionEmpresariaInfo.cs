@@ -171,6 +171,12 @@
             set;
         }
 
+        public virtual BodegasInfo Bodegas
+        {
+            get;
+            set;
+        }
+
         public virtual Error Error
         {
             get;

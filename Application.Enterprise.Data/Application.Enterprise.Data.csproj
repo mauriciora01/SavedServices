@@ -140,6 +140,7 @@
     <Compile Include="Clases\ArtExcentosxCiudad.cs" />
     <Compile Include="Clases\ArticuloExeceptoIva.cs" />
     <Compile Include="Clases\Asistente.cs" />
+    <Compile Include="Clases\Bodegas.cs" />
     <Compile Include="Clases\Auditoria.cs" />
     <Compile Include="Clases\AuditoriaNegativos.cs" />
     <Compile Include="Clases\AuditoriaPedidos.cs" />

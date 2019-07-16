@@ -151,6 +151,8 @@ namespace Application.Enterprise.Services.Controllers
             Cliente objCliente = new Cliente("conexion");
             ClienteInfo objClienteInfo = new ClienteInfo();
 
+          
+
             objClienteInfo = objCliente.ListClienteSVDNxNit(ObjClienteInfoNit.Nit);
 
             if (objClienteInfo != null)
@@ -179,7 +181,30 @@ namespace Application.Enterprise.Services.Controllers
 
 
                 ObjSessionEmpresariaInfo.GrupoDescuento = objClienteInfo.GrupoDescuentoCliente;
-                ObjSessionEmpresariaInfo.BodegaEmpresaria = objClienteInfo.Bodega;
+
+                //..........................................................................
+                //Bodegas
+
+                Bodegas objBodegas = new Bodegas("conexion");
+                BodegasInfo objBodegasInfo = new BodegasInfo();
+
+                ObjSessionEmpresariaInfo.Bodegas = new BodegasInfo();
+                objBodegasInfo = objBodegas.ListxBodega(objClienteInfo.Bodega);
+
+                if (objBodegasInfo != null)
+                {
+                    ObjSessionEmpresariaInfo.Bodegas.Bodega = objBodegasInfo.Bodega;
+                    ObjSessionEmpresariaInfo.Bodegas.Nombre = objBodegasInfo.Nombre;
+                    ObjSessionEmpresariaInfo.BodegaEmpresaria = objBodegasInfo.Bodega+ "- " + objBodegasInfo.Nombre;
+                }
+                else
+                {
+                    ObjSessionEmpresariaInfo.Bodegas.Bodega = "370";
+                    ObjSessionEmpresariaInfo.Bodegas.Nombre = "SIN BODEGA";
+                    ObjSessionEmpresariaInfo.BodegaEmpresaria = "SIN BODEGA";
+                }
+                //..........................................................................
+
 
                 //Se obtiene la campaña de la fecha actual.
                 Campana ObjCampana = new Campana("conexion");

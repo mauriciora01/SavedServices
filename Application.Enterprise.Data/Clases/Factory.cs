@@ -35313,9 +35313,9 @@ namespace Application.Enterprise.Data
         /// Crea un objeto de CxVNits
         /// </summary>
         /// <param name="dr"></param>
-        /*internal static BodegaInfo getbodegas(IDataReader dr)
+        internal static BodegasInfo GetBodegas(IDataReader dr)
         {
-            BodegaInfo m = new BodegaInfo();
+            BodegasInfo m = new BodegasInfo();
 
             try
             {
@@ -35373,7 +35373,7 @@ namespace Application.Enterprise.Data
 
             return m;
         }
-        */
+        
         #endregion
 
         #region PREMIOS
