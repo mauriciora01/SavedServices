@@ -167,7 +167,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string CodCiudad
         {
-            get { return codciudad.Trim(); }
+            get { if (codciudad == null) { return ""; } return codciudad.Trim(); }
             set { codciudad = value; }
         }
 
@@ -177,7 +177,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string CodSector
         {
-            get { return codsector.Trim(); }
+            get { if (codsector == null) { return ""; } return codsector.Trim(); }
             set { codsector = value; }
         }
 
@@ -590,7 +590,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string IdZonaMaestra
         {
-            get { return idzonamaestra.Trim(); }
+            get { if (idzonamaestra == null) { return ""; } return idzonamaestra.Trim(); }
             set { idzonamaestra = value; }
         }
 
@@ -600,7 +600,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Cod_Rango
         {
-            get { return cod_rango.Trim(); }
+            get { if (cod_rango == null) { return ""; } return cod_rango.Trim(); }
             set { cod_rango = value; }
         }
 
@@ -610,7 +610,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string TipoZona
         {
-            get { return tipozona.Trim(); }
+            get { if (tipozona == null) { return ""; } return tipozona.Trim(); }
             set { tipozona = value; }
         }
 
@@ -630,7 +630,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Vendedor
         {
-            get { return vendedor.Trim(); }
+            get { if (vendedor == null) { return ""; } return vendedor.Trim(); }
             set { vendedor = value; }
         }
 
@@ -640,7 +640,7 @@ namespace Application.Enterprise.CommonObjects
         /// </summary>
         public string Zona_Mtra
         {
-            get { return zona_mtra.Trim(); }
+            get { if (zona_mtra == null) { return ""; } return zona_mtra.Trim(); }
             set { zona_mtra = value; }
         }
 
