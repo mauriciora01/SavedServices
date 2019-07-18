@@ -199,9 +199,9 @@ namespace Application.Enterprise.Services.Controllers
                 }
                 else
                 {
-                    ObjSessionEmpresariaInfo.Bodegas.Bodega = "370";
-                    ObjSessionEmpresariaInfo.Bodegas.Nombre = "SIN BODEGA";
-                    ObjSessionEmpresariaInfo.BodegaEmpresaria = "SIN BODEGA";
+                    ObjSessionEmpresariaInfo.Bodegas.Bodega = "";
+                    ObjSessionEmpresariaInfo.Bodegas.Nombre = "";
+                    ObjSessionEmpresariaInfo.BodegaEmpresaria = "";
                 }
                 //..........................................................................
 

@@ -64,7 +64,7 @@ namespace Application.Enterprise.Services.Controllers
                     objPLU.PLU = objCatalogoPluInfo.PLU;
                     objPLU.Referencia = objCatalogoPluInfo.Referencia.Trim().ToUpper();
                     objPLU.Campana = ObjPLUInfo.SessionEmpresaria.Campana.Trim().ToUpper();
-                    objPLU.PrecioPuntos = objCatalogoPluInfo.PrecioPuntos; // Cuanto vale el articulo en puntos? Revisar J o G
+                    objPLU.PrecioPuntos = objPLU.PrecioPuntos;
 
                     if (!ExcentoIVA)
                     {
@@ -127,9 +127,9 @@ namespace Application.Enterprise.Services.Controllers
                     KardexInfo info5 = new Kardex("conexion").ListxArticuloxPLU(Convert.ToInt32(objCatalogoPluInfo.PLU));
                     num = this.CalcularDescuentoPrivilegioProdEstrella(info5.UnidadNegocio.Trim(), info5.GrupoProducto.Trim(), ObjPLUInfo.SessionEmpresaria.Campana, objCatalogoPluInfo.CatalogoReal.Trim().ToUpper(), info5.ProdEstrella, objPLU.PrecioTotalConIVA, str5);
                     str2 = "";
-                    if (ObjPLUInfo.SessionEmpresaria.BodegaEmpresaria != null)
+                    if (ObjPLUInfo.SessionEmpresaria.Bodegas != null)
                     {
-                        str2 = ObjPLUInfo.SessionEmpresaria.BodegaEmpresaria;
+                        str2 = ObjPLUInfo.SessionEmpresaria.Bodegas.Bodega;
                     }
                     info = inventario.ListSaldosBodegaxPLUxEmpresaria(str2, Convert.ToInt32(objCatalogoPluInfo.PLU));
                     decimal num4 = PrecioCatalogo;

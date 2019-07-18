@@ -308,6 +308,11 @@ namespace Application.Enterprise.Services.Controllers
             string Campana = "";
             string Catalogo = "";
             bool okGuardar = false;
+            bool AdicionarFlete = false;
+            string CodCiudadDespacho = "";
+            string TipoEnvio = "";
+            string Usuario = "";
+            string IdLider = "";
 
             if (ObjPedidosDetalleClienteInfoRequest.Count > 0)
             {
@@ -318,6 +323,10 @@ namespace Application.Enterprise.Services.Controllers
                 IdZona = objPedidosClienteInfo.Zona;
                 Campana = objPedidosClienteInfo.Campana;
                 Catalogo = objPedidosClienteInfo.Codigo;
+                CodCiudadDespacho = objPedidosClienteInfo.CiudadDespacho;
+                TipoEnvio = objPedidosClienteInfo.TipoEnvio.ToString();
+                Usuario = objPedidosClienteInfo.Usuario;
+                IdLider = objPedidosClienteInfo.IdLider; //MRG: Verificar que si se cargue el id cuando se elige lider.
             }
 
 
@@ -364,38 +373,14 @@ namespace Application.Enterprise.Services.Controllers
                 foreach (PedidosDetalleClienteInfo item in ObjPedidosDetalleClienteInfoRequest)
                 {
                     PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = AdicionarDetallePedido(Convert.ToInt32(item.PLU), Convert.ToDecimal(item.Cantidad), (item.CodigoRapidoSustituto == "&NBSP;" || item.CodigoRapidoSustituto == "&nbsp;") ? "" : item.CodigoRapidoSustituto, Convert.ToInt32(item.PLUSustituto), IdZona, CodCiudadCliente);
-
-
+                    
                     if (ExcentoIVA)
                     {
                         objPedidosDetalleClienteInfo.TarifaIVA = 0; // si es excento debe ser 0% el IVA.
                     }
                     else
                     {
-                        //Este trozo de codigo se debe quedar aqui.
-                        if (item.IdCodigoCorto == "FL00")
-                        {
-                            objPedidosDetalleClienteInfo.Grupo = "FT0001"; // Grupo del flete en colombia para flete.
-                        }
-
                         objPedidosDetalleClienteInfo.TarifaIVA = ConsultarIVA(objPedidosDetalleClienteInfo.Grupo); //Tarifa iva = 16% ej.
-                    }
-
-                    //Este trozo de codigo se debe quedar aqui.
-                    if (item.IdCodigoCorto == "FL00")
-                    {
-                        objPedidosDetalleClienteInfo.Referencia = "FT0001";
-                        objPedidosDetalleClienteInfo.Descripcion = "MANEJO LOGISTICO - CIUDAD: " + CodCiudadCliente;
-                        objPedidosDetalleClienteInfo.Grupo = "FT0001"; // Grupo del flete en colombia para flete.
-                        objPedidosDetalleClienteInfo.CentroCostos = IdZona;
-                        objPedidosDetalleClienteInfo.ConceptoContable = "005";
-                        objPedidosDetalleClienteInfo.CodigoUbicacion = "P000"; //para flete en colombia.
-                        //*objPedidosDetalleClienteInfo.Valor = Convert.ToDecimal(item.PrecioCatalogoTotalConIVA / (1 + (objPedidosDetalleClienteInfo.TarifaIVA / 100)));
-                        //MRG: el PrecioCatalogoTotalConIVA debe ser el del flete seleccionado, se debe validar que no sea 1,75 pasar desde que se selecciona en los datos de envio.
-                        objPedidosDetalleClienteInfo.Valor = Convert.ToDecimal(Convert.ToDecimal("1,75") / (1 + (objPedidosDetalleClienteInfo.TarifaIVA / 100)));
-                        objPedidosDetalleClienteInfo.Cantidad = 1;
-                        objPedidosDetalleClienteInfo.PLU = 3357;
-
                     }
 
                     //()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
@@ -482,7 +467,7 @@ namespace Application.Enterprise.Services.Controllers
 
                     objPedidosDetalleClienteInfo.ValorUnitario = (objPedidosDetalleClienteInfo.Valor) / objPedidosDetalleClienteInfo.Cantidad;
                     objPedidosDetalleClienteInfo.IdCodigoCorto = item.IdCodigoCorto;
-                    objPedidosDetalleClienteInfo.CatalogoReal = "691";
+                    objPedidosDetalleClienteInfo.CatalogoReal = "691"; //MRG: corregir a catalogo desde BD
                     ///item.CatalogoReal;
 
                     objPedidosDetalleClienteInfo.UnidadNegocio = objPedidosDetalleClienteInfo.UnidadNegocio;
@@ -563,25 +548,13 @@ namespace Application.Enterprise.Services.Controllers
                     //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
                     //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-                    //si es flete se debe pasar la cantidad pedida y la cantidad en 1.
-                    if (item.IdCodigoCorto == "FL00")
-                    {
-                        objPedidosDetalleClienteInfo.CantidadPedida = 1;
-                        objPedidosDetalleClienteInfo.CatalogoReal = Catalogo;
-
-                        objPedidosDetalleClienteInfo.ValorPrecioCatalogo = objPedidosDetalleClienteInfo.ValorUnitario;
-                        objPedidosDetalleClienteInfo.IVAPrecioCatalogo = ((objPedidosDetalleClienteInfo.ValorPrecioCatalogo) * (ConsultarIVA(objPedidosDetalleClienteInfo.Grupo) / 100));
-                    }
 
                     //()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
                     //Este trozo valida si no se desea guardar esta linea del detalle del pedido.
                     // Si la variable InsertarRegistro es false no se ingresa el registro.
                     bool InsertarRegistro = true;
 
-                    if (item.IdCodigoCorto == "FL00")
-                    {
-                        InsertarRegistro = false;
-                    }
+                
                     //()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
 
                     string IdPedidoDetalle = "";
@@ -598,14 +571,62 @@ namespace Application.Enterprise.Services.Controllers
                     {
                         IdPedidoDetalle = objPedidosDetalleCliente.Insert(objPedidosDetalleClienteInfo);
                         objPedidosClienteInfo.okTransDetallePedido = true;
+                        AdicionarFlete = true;
                     }
 
                     okGuardar = true;
                 }
 
+                //===============================================================================================
+                //Agregar flete x ciudad.
+                PedidosDetalleClienteInfo objPedidosDetalleClienteInfoFlete = new PedidosDetalleClienteInfo();
+                bool InsertarFlete = true;
+
+                if (AdicionarFlete)
+                {
+                    if (CodCiudadDespacho != null)
+                    {
+
+                        //Sino tiene ciudad de despacho se asigna el flete x zona.
+                        if (CodCiudadDespacho != "")
+                        {
+                            objPedidosDetalleClienteInfoFlete = AdicionarFletePedidoConCiudad(true, IdPedido, CodCiudadDespacho, IdZona, ExcentoIVA, Usuario, Catalogo);
+                        }
+                        else
+                        {
+                            //GAVL DETALLE FLETE LIDER Y POR ZONA
+                            if (TipoEnvio == "2")
+                            {
+                                objPedidosDetalleClienteInfoFlete = AdicionarFletePedidoConZona(true, IdPedido, CodCiudadCliente, IdZona, ExcentoIVA, Usuario, Catalogo);
+                            }
+                            else if (TipoEnvio == "3")
+                            {
+                                objPedidosDetalleClienteInfoFlete = AdicionarFletePedidoConLider(true, IdPedido, CodCiudadCliente, IdZona, ExcentoIVA, Usuario, IdLider, Catalogo);
+                            }
+                            else if (TipoEnvio == "4") //Punto de venta. NO DEBE ADICIONA FLETE
+                            {
+                                InsertarFlete = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        objPedidosDetalleClienteInfoFlete = AdicionarFletePedidoConCiudad(true, IdPedido, CodCiudadDespacho, IdZona, ExcentoIVA, Usuario, Catalogo);
+                    }
+
+                    //MRG: Aqui se inserta el flete x empresaria, x lider, x zona
+                    if (InsertarFlete)
+                    {
+                        string IdPedidoDetalle = objPedidosDetalleCliente.Insert(objPedidosDetalleClienteInfoFlete);
+
+                        AdicionarFlete = false;
+                    }
+                    
+                }
+                //===============================================================================================
                 //MRG: Revisar codigo de aqui para abajo para ver si aplican las reglas de premios de bienvenida y catalogos. Actualizar los totales del pedido.
                 /*
-              
+
                 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
                 //[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
                 //Agregar flete x ciudad.
@@ -904,69 +925,13 @@ namespace Application.Enterprise.Services.Controllers
                 objPedidosDetalleClienteInfo.Grupo = objKardexInfo.Grupo;
                 objPedidosDetalleClienteInfo.ConceptoContable = objKardexInfo.ConceptoContable;
 
-
-
-                //Si es flete debe traer el valor de la tabla zonas.
-                if (objKardexInfo.PLU == 3357) // 3357 PLU de flete nivi colombia. 
-                {
-                    objZonaInfo = objZona.ListxIdZona(IdZona.Trim());
-
-                    if (objZonaInfo != null)
-                    {
-
-                        //*SubTotal = SubTotal + objZonaInfo.ValorFlete;
-                        //lbl_subtotal.Text = String.Format("{0:C}", SubTotal);
-
-                        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                        //Precio Catalogo
-                        //*SubTotalPrecioCat = SubTotalPrecioCat + objZonaInfo.ValorFlete; ;
-                        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                    }
-                }
-                else
-                {
-
-                    //*SubTotal = SubTotal + (objKardexInfo.PrecioUno * objPedidosDetalleClienteInfo.Cantidad);
-                    //lbl_subtotal.Text = String.Format("{0:C}", SubTotal);
-
-                    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                    //Precio Catalogo
-                    //*SubTotalPrecioCat = SubTotalPrecioCat + (objKardexInfo.PrecioBaseVenta * objPedidosDetalleClienteInfo.Cantidad);
-                    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                }
-
                 //MRG: Cometar este y hacer el codigo de abajo q sigues despues de esta linea.
                 objZonaInfo = objZona.ListxIdZona(IdZona);
+               
 
-                /*if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.GerentesZona) || Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.Lider))
-                {
-                    objZonaInfo = objZona.ListxIdZona(Session["IdZona"].ToString());
-                }
-                else if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.GerentesRegionales))
-                {
-                    NIVI.SVDN.Business.Rules.Cliente objCliente = new NIVI.SVDN.Business.Rules.Cliente("conexion");
-                    NIVI.SVDN.Common.Entities.ClienteInfo objClienteInfo = new NIVI.SVDN.Common.Entities.ClienteInfo();
-
-                    objClienteInfo = objCliente.ListClienteSVDNxNit(txt_nodocumento.Text);
-
-                    if (objClienteInfo != null)
-                    {
-                        Session["IdZona"] = objClienteInfo.Zona;
-                     
-
-                        objZonaInfo = objZona.ListxIdZona(Session["IdZona"].ToString());
-                    }
-                    else
-                    {
-                        RadAjaxManager1.ResponseScripts.Add("callAlertGenerico('No se pudo asignar la zona, Porfavor contacte a soporte de Informatica Niviglobal.');");
-                    }
-                }*/
-
-                //()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
                 //()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
                 ArtExcentosxCiudad objArtExcentosxCiudad = new ArtExcentosxCiudad("conexion");
                 ArtExcentosxCiudadInfo objArtExcentosxCiudadInfo = new ArtExcentosxCiudadInfo();
-                //()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
                 //()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
 
                 decimal iva_subtotal = 0;
@@ -1894,7 +1859,262 @@ namespace Application.Enterprise.Services.Controllers
 
 
         //---------------------------
-        //Mis pedidos facturados
+        //Metodo de Flete      
+
+        /// <summary>
+        /// Crea el detalle de un pedido con ciudad.
+        /// </summary>
+        /// <param name="IdPedido"></param>
+        /// <param name="objPremiosArticulosInfo"></param>
+        /// <returns></returns>
+        private PedidosDetalleClienteInfo CrearFleteDetallePedido(string IdPedido, decimal ValorFlete, string IdZona, int Excluido, string CodCiudad, decimal PorcentajeIVA, decimal ValorFleteFull, bool TipoFlete, string LocalizacionFlete)
+        {
+    
+            PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = new PedidosDetalleClienteInfo();
+
+            objPedidosDetalleClienteInfo.Numero = IdPedido;
+            //objPedidosDetalleClienteInfo.Id = IdPedido;
+            objPedidosDetalleClienteInfo.Referencia = "FT0001";
+            objPedidosDetalleClienteInfo.Descripcion = "MANEJO LOGISTICO - "+ LocalizacionFlete+": " + CodCiudad;
+                      
+
+            //*objPedidosDetalleClienteInfo.Cantidad = Cantidad; //unidades pedidas del articulo
+            objPedidosDetalleClienteInfo.Cantidad = 1;
+            objPedidosDetalleClienteInfo.Descuento = 0;
+            objPedidosDetalleClienteInfo.Anulado = 0;
+
+            if (Excluido == 1)
+            {
+                objPedidosDetalleClienteInfo.TarifaIVA = 0;
+            }
+            else
+            {
+                //objPedidosDetalleClienteInfo.TarifaIVA = Convert.ToDecimal(objParametros.ListxId((int)ParametrosEnum.ValorIVACOP).Valor);
+                objPedidosDetalleClienteInfo.TarifaIVA = PorcentajeIVA;
+            }
+
+            objPedidosDetalleClienteInfo.Lote = "P000-3357";
+            objPedidosDetalleClienteInfo.Ensamblado = 0;
+            //*objPedidosDetalleClienteInfo.CantidadPedida = Cantidad; //unidades pedidas del articulo                   
+            //objPedidosDetalleClienteInfo.CantidadPedida = PedidoDetalleListTemp[i].Cantidad;
+            objPedidosDetalleClienteInfo.CantidadPedida = 1; //Se envia cero para el arreglo del inventario.
+            objPedidosDetalleClienteInfo.IdDocumentoFuente = "Fec: " + DateTime.Now.ToString();
+            objPedidosDetalleClienteInfo.CodigoUbicacion = "P000"; //Bodega = 002
+            objPedidosDetalleClienteInfo.PLU = 3357; // PLU en colombia de costo logistico FL000001                          
+            objPedidosDetalleClienteInfo.NumeroEnvio = 0;
+            objPedidosDetalleClienteInfo.ConceptoContable = "005";
+            objPedidosDetalleClienteInfo.CentroCostos = IdZona;
+            objPedidosDetalleClienteInfo.Grupo = "FT0001"; // Grupo del flete.
+            objPedidosDetalleClienteInfo.Imagen = "Flete Asignado desde SAVED. Fecha: " + DateTime.Now.ToString();
+            objPedidosDetalleClienteInfo.CantidadNivelServicio = 0;
+
+
+            //si el tipo flete es true es por que es flete normal.
+            if (TipoFlete)
+            {
+                objPedidosDetalleClienteInfo.ValorPrecioCatalogo = ValorFlete;
+                objPedidosDetalleClienteInfo.ValorUnitario = ValorFlete;
+                objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario = ValorFlete;
+                objPedidosDetalleClienteInfo.Valor= ValorFlete;
+            }
+            else
+            {
+                objPedidosDetalleClienteInfo.ValorPrecioCatalogo = ValorFleteFull;
+                objPedidosDetalleClienteInfo.ValorUnitario = ValorFleteFull;
+                objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario = ValorFleteFull;
+                objPedidosDetalleClienteInfo.Valor = ValorFleteFull;
+            }
+
+            objPedidosDetalleClienteInfo.IVAPrecioCatalogo = objPedidosDetalleClienteInfo.TarifaIVA;
+            objPedidosDetalleClienteInfo.Catalogo = "N/A";
+            objPedidosDetalleClienteInfo.NumeroPedidoPadre = IdPedido;
+
+            objPedidosDetalleClienteInfo.IdCodigoCorto = "FL00";
+            objPedidosDetalleClienteInfo.UnidadNegocio = "01";
+
+            return objPedidosDetalleClienteInfo;
+        }
+
+        private PedidosDetalleClienteInfo AdicionarFletePedidoConCiudad(bool TipoFlete, string NumeroPedido, string CodCiudadDespacho, string IdZona, bool ExcentoIVA, string Usuario, string CatalogoReal)
+        {
+            Ciudad ObjCiudad = new Ciudad("conexion");
+            CiudadInfo ObjCiudadInfo = new CiudadInfo();
+
+            ObjCiudadInfo = ObjCiudad.ListCiudadxId(CodCiudadDespacho);
+
+            if (ObjCiudadInfo != null)
+            {
+                //Crear el detalle del flete para el pedido.
+                PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = CrearFleteDetallePedido(NumeroPedido, ObjCiudadInfo.ValorFlete, IdZona, ObjCiudadInfo.ExcluidoIVA, CodCiudadDespacho, ObjCiudadInfo.IVA, ObjCiudadInfo.ValorFleteFull, TipoFlete, "CIUDAD");
+
+                PLUInfo objPLU = new PLUInfo();
+
+                //objPLU.PLU = Convert.ToInt32(rcb_codigorapido.SelectedItem.Value);
+                objPLU.PLU = Convert.ToInt32(objPedidosDetalleClienteInfo.PLU);
+                objPLU.CodigoRapido = "FL00";
+                objPLU.FechaCreacion = DateTime.Now;
+                objPLU.CatalogoReal = CatalogoReal;
+                objPedidosDetalleClienteInfo.CatalogoReal = CatalogoReal;
+
+                if (ExcentoIVA == true)
+                {
+                    objPedidosDetalleClienteInfo.TarifaIVA = 0;
+                }
+
+                objPLU.NombreProducto = objPedidosDetalleClienteInfo.Descripcion;
+                objPLU.PrecioConIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) + (Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) * objPedidosDetalleClienteInfo.TarifaIVA / 100);
+                objPLU.PrecioTotalConIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) + (Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) * objPedidosDetalleClienteInfo.TarifaIVA / 100);
+                objPLU.Cantidad = 1;
+
+                objPLU.IVAPrecioCatalogo = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor);
+                objPLU.PrecioCatalogoSinIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor);
+
+                objPLU.PrecioCatalogoTotalConIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) + Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) * (Convert.ToDecimal(objPedidosDetalleClienteInfo.TarifaIVA) / 100);
+
+                return objPedidosDetalleClienteInfo;
+            }
+            else
+            {
+                AuditoriaInfo objAuditoriaInfo = new AuditoriaInfo();
+                Auditoria objAuditoria = new Auditoria("conexion");
+
+                objAuditoriaInfo.Proceso = "No se creo el flete para el Pedido: " + NumeroPedido + " , Debido a que no se encuentran los parametros de la ciudad configurados correctamente.";
+                objAuditoriaInfo.Usuario = Usuario.Trim();
+                objAuditoriaInfo.FechaSistema = DateTime.Now;
+                objAuditoria.Insert(objAuditoriaInfo);
+                //Mesaje de Advertencia.              
+                //RadWindowManager1.RadAlert("No se puede crear flete para esta ciudad ya que no se encuentra configurado.<br />Por favor comuniquese con Inteligencia Comercial - IDN Niviglobal.", 330, 130, "SVDN - Pedidos", "MensajeSistema", "../images/warning.gif");
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// MRG ADICIONA PEDIDO POR DIRECTOR (ZONA)
+        /// </summary>
+        /// <param name="TipoFlete"></param>
+        /// <param name="NumeroPedidoCiudad"></param>
+        /// <returns></returns>
+        private PedidosDetalleClienteInfo AdicionarFletePedidoConZona(bool TipoFlete, string NumeroPedido, string CodCiudadCliente, string IdZona, bool ExcentoIVA, string Usuario, string CatalogoReal)
+        {
+            ParametrosInfo ObjParametrosInfo = new ParametrosInfo();
+            Parametros ObjParametros = new Parametros("conexion");
+            ZonaInfo objZonaInfo = new ZonaInfo();
+            Zona objZona = new Zona("conexion");
+            decimal FleteIva;
+
+
+
+            ObjParametrosInfo = ObjParametros.ListxId((int)ParametrosEnum.ValorIVACOP);
+            FleteIva = Convert.ToDecimal(ObjParametrosInfo.Valor.ToString());
+            objZonaInfo = objZona.ListxIdZona(IdZona);
+
+            if (objZonaInfo != null)
+            {
+                //Crear el detalle del flete para el pedido.
+                PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = CrearFleteDetallePedido(NumeroPedido, objZonaInfo.ValorFlete, IdZona, objZonaInfo.Excluido, CodCiudadCliente, FleteIva, 0, TipoFlete, "ZONA");
+
+                PLUInfo objPLU = new PLUInfo();
+
+                //objPLU.PLU = Convert.ToInt32(rcb_codigorapido.SelectedItem.Value);
+                objPLU.PLU = Convert.ToInt32(objPedidosDetalleClienteInfo.PLU);
+                objPLU.CodigoRapido = "FL00";
+                objPLU.FechaCreacion = DateTime.Now;
+                objPLU.CatalogoReal = CatalogoReal;
+                objPedidosDetalleClienteInfo.CatalogoReal = CatalogoReal;
+
+                if (ExcentoIVA == true)
+                {
+                    objPedidosDetalleClienteInfo.TarifaIVA = 0;
+                }
+
+                objPLU.NombreProducto = objPedidosDetalleClienteInfo.Descripcion;
+                objPLU.PrecioConIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) + (Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) * objPedidosDetalleClienteInfo.TarifaIVA / 100);
+                objPLU.PrecioTotalConIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) + (Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) * objPedidosDetalleClienteInfo.TarifaIVA / 100);
+                objPLU.Cantidad = 1;
+
+                objPLU.IVAPrecioCatalogo = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor);
+                objPLU.PrecioCatalogoSinIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor);
+
+                objPLU.PrecioCatalogoTotalConIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) + Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) * (Convert.ToDecimal(objPedidosDetalleClienteInfo.TarifaIVA) / 100);
+                              
+
+                return objPedidosDetalleClienteInfo;
+            }
+            else
+            {
+                AuditoriaInfo objAuditoriaInfo = new AuditoriaInfo();
+                Auditoria objAuditoria = new Auditoria("conexion");
+
+                objAuditoriaInfo.Proceso = "No se creo el flete para el Pedido: " + NumeroPedido + " , Debido a que no se encuentran los parametros de la ciudad configurados correctamente.";
+                objAuditoriaInfo.Usuario = Usuario;
+                objAuditoriaInfo.FechaSistema = DateTime.Now;
+                objAuditoria.Insert(objAuditoriaInfo);
+                //Mesaje de Advertencia.              
+                //RadWindowManager1.RadAlert("No se puede crear flete para esta ciudad ya que no se encuentra configurado.<br />Por favor comuniquese con Inteligencia Comercial - IDN Niviglobal.", 330, 130, "SVDN - Pedidos", "MensajeSistema", "../images/warning.gif");
+                return null;
+            }
+        }
+
+
+        /// <summary>
+        /// MRG ADICIONA VALOR DE FLETE PARA LOS LIDERES 
+        /// </summary>
+        /// <param name="TipoFlete"></param>
+        /// <param name="NumeroPedidoCiudad"></param>
+        /// <returns></returns>
+        private PedidosDetalleClienteInfo AdicionarFletePedidoConLider(bool TipoFlete, string NumeroPedido, string CodCiudadCliente, string IdZona, bool ExcentoIVA, string Usuario, string IdLider, string CatalogoReal)
+        {
+            FleteLider ObjFleteLider = new FleteLider("conexion");
+            FleteLiderInfo ObjFleteliderInfo = new FleteLiderInfo();
+
+            ObjFleteliderInfo = ObjFleteLider.List(IdLider);
+
+            if (ObjFleteliderInfo != null)
+            {
+                //Crear el detalle del flete para el pedido.
+                PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = CrearFleteDetallePedido(NumeroPedido, ObjFleteliderInfo.Valor, IdZona, ObjFleteliderInfo.Excluido, CodCiudadCliente, ObjFleteliderInfo.Iva, ObjFleteliderInfo.ValorFleteFull, TipoFlete, "LIDER");
+
+                PLUInfo objPLU = new PLUInfo();
+
+                //objPLU.PLU = Convert.ToInt32(rcb_codigorapido.SelectedItem.Value);
+                objPLU.PLU = Convert.ToInt32(objPedidosDetalleClienteInfo.PLU);
+                objPLU.CodigoRapido = "FL00";
+                objPLU.FechaCreacion = DateTime.Now;
+                objPLU.CatalogoReal = CatalogoReal;
+                objPedidosDetalleClienteInfo.CatalogoReal = CatalogoReal;
+
+                if (ExcentoIVA == true)
+                {
+                    objPedidosDetalleClienteInfo.TarifaIVA = 0;
+                }
+
+                objPLU.NombreProducto = objPedidosDetalleClienteInfo.Descripcion;
+                objPLU.PrecioConIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) + (Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) * objPedidosDetalleClienteInfo.TarifaIVA / 100);
+                objPLU.PrecioTotalConIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) + (Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) * objPedidosDetalleClienteInfo.TarifaIVA / 100);
+                objPLU.Cantidad = 1;
+
+                objPLU.IVAPrecioCatalogo = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor);
+                objPLU.PrecioCatalogoSinIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor);
+
+                objPLU.PrecioCatalogoTotalConIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) + Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) * (Convert.ToDecimal(objPedidosDetalleClienteInfo.TarifaIVA) / 100);
+
+                return objPedidosDetalleClienteInfo;
+            }
+            else
+            {
+                AuditoriaInfo objAuditoriaInfo = new AuditoriaInfo();
+                Auditoria objAuditoria = new Auditoria("conexion");
+
+                objAuditoriaInfo.Proceso = "No se creo el flete para el Pedido: " + NumeroPedido + " , Debido a que no se encuentran los parametros de la ciudad configurados correctamente.";
+                objAuditoriaInfo.Usuario = Usuario;
+                objAuditoriaInfo.FechaSistema = DateTime.Now;
+                objAuditoria.Insert(objAuditoriaInfo);
+                //Mesaje de Advertencia.              
+                //RadWindowManager1.RadAlert("No se puede crear flete para esta ciudad ya que no se encuentra configurado.<br />Por favor comuniquese con Inteligencia Comercial - IDN Niviglobal.", 330, 130, "SVDN - Pedidos", "MensajeSistema", "../images/warning.gif");
+                return null;
+            }
+        }
 
     }
 }
