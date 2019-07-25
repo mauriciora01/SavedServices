@@ -320,6 +320,50 @@ namespace Application.Enterprise.CommonObjects
             set { imagen = value; }
         }
 
+        private bool excentoiva;
+        public bool ExcentoIVA
+        {
+            get { return excentoiva; }
+            set { excentoiva = value; }
+        }
+
+        private decimal precioempresariasiniva;
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal PrecioEmpresariaSinIVA
+        {
+            get { return precioempresariasiniva; }
+            set { precioempresariasiniva = value; }
+        }
+
+        private decimal valoriva;
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal ValorIVA
+        {
+            get { return valoriva; }
+            set { valoriva = value; }
+        }
+
+        private decimal ivaprecioempresaria;
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal IVAPrecioEmpresaria
+        {
+            get { return ivaprecioempresaria; }
+            set { ivaprecioempresaria = value; }
+        }
+
+        private int puntosganados;
+        public int PuntosGanados
+        {
+            get { return puntosganados; }
+            set { puntosganados = value; }
+        }
+
         public virtual SessionEmpresariaInfo SessionEmpresaria
         {
             get;

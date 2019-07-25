@@ -412,11 +412,13 @@ namespace Application.Enterprise.Services.Controllers
                     objPedidosDetalleClienteInfo.Numero = IdPedido;
                     objPedidosDetalleClienteInfo.Referencia = objPedidosDetalleClienteInfo.Referencia;
                     objPedidosDetalleClienteInfo.Descripcion = objPedidosDetalleClienteInfo.Descripcion.Replace("<b>", "").Replace("</b>", ""); //articulo + color + talla
-                    objPedidosDetalleClienteInfo.Valor = objPedidosDetalleClienteInfo.Valor; //valor de 1 solo articulo sin iva
+                    objPedidosDetalleClienteInfo.Valor = item.Valor; //valor de 1 solo articulo sin iva
                     objPedidosDetalleClienteInfo.Cantidad = objPedidosDetalleClienteInfo.Cantidad;
                     objPedidosDetalleClienteInfo.Descuento = 0;
                     objPedidosDetalleClienteInfo.Anulado = 0;
 
+                    objPedidosDetalleClienteInfo.PuntosGanados = item.PuntosGanados;
+                    objPedidosDetalleClienteInfo.PorcentajeDescuentoPuntos = item.PorcentajeDescuentoPuntos;
 
                     objPedidosDetalleClienteInfo.Lote = objPedidosDetalleClienteInfo.CentroCostos;
                     objPedidosDetalleClienteInfo.Ensamblado = 0;
@@ -465,7 +467,7 @@ namespace Application.Enterprise.Services.Controllers
                     objPedidosDetalleClienteInfo.Catalogo = Catalogo;
                     objPedidosDetalleClienteInfo.NumeroPedidoPadre = IdPedido;
 
-                    objPedidosDetalleClienteInfo.ValorUnitario = (objPedidosDetalleClienteInfo.Valor) / objPedidosDetalleClienteInfo.Cantidad;
+                    objPedidosDetalleClienteInfo.ValorUnitario = (item.Valor) / item.Cantidad;
                     objPedidosDetalleClienteInfo.IdCodigoCorto = item.IdCodigoCorto;
                     objPedidosDetalleClienteInfo.CatalogoReal = "691"; //MRG: corregir a catalogo desde BD
                     ///item.CatalogoReal;
@@ -531,9 +533,9 @@ namespace Application.Enterprise.Services.Controllers
 
                     }
 
-                    objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario = objPedidosDetalleClienteInfo.ValorPrecioCatalogo / objPedidosDetalleClienteInfo.Cantidad; //valor unitario precio cat SIN IVA
+                    objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario = item.ValorPrecioCatalogo / item.Cantidad; //valor unitario precio cat SIN IVA
 
-                    objPedidosDetalleClienteInfo.Valor = objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario - (objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario * (dcPorcentaje / 100)); //valor del descuento de 1 solo articulo.
+                    //objPedidosDetalleClienteInfo.Valor = objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario - (objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario * (dcPorcentaje / 100)); //valor del descuento de 1 solo articulo.
 
                     //objPedidosDetalleClienteInfo.PorcentajeDescuento = dcPorcentaje; 
                     objPedidosDetalleClienteInfo.PorcentajeDescuento = item.PorcentajeDescuento;

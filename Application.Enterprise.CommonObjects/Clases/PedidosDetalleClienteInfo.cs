@@ -551,6 +551,32 @@ namespace Application.Enterprise.CommonObjects
             set { totalpreciocat = value; }
         }
 
+        private int puntosganados;
+        /// <summary>
+        /// 
+        /// </summary>
+        public int PuntosGanados
+        {
+            get
+            {
+                return puntosganados;
+            }
+            set { puntosganados = value; }
+        }
+
+        private decimal porcentajedescuentopuntos;
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal PorcentajeDescuentoPuntos
+        {
+            get
+            {
+                return porcentajedescuentopuntos;
+            }
+            set { porcentajedescuentopuntos = value; }
+        }
+
         public virtual PedidosClienteInfo PedidosClienteInfo
         {
             get;

@@ -26,7 +26,7 @@ namespace Application.Enterprise.Services.Controllers
         {
             PLUInfo lista = new PLUInfo();
 
-            bool ExcentoIVA = false;
+            bool ExcentoIVA = false; //MRG: Arreglar esta bandera para que se ponga en true si hay IVA x ciudad x zona x articulo x cliente.
             string CodCiudadCliente = ObjPLUInfo.SessionEmpresaria.CodCiudadCliente.Trim();
             decimal PrecioCat = 0;
             decimal IVAPrecioCat = 0;
@@ -35,6 +35,7 @@ namespace Application.Enterprise.Services.Controllers
             decimal PrecioUnitario = 0;
             int Cantidad = 1;
             decimal PrecioCatalogo = 0;
+            decimal ValorIVA = 0;
 
             PLUInfo objPLU = new PLUInfo();
             PLU module = new PLU("conexion");
@@ -65,6 +66,7 @@ namespace Application.Enterprise.Services.Controllers
                     objPLU.Referencia = objCatalogoPluInfo.Referencia.Trim().ToUpper();
                     objPLU.Campana = ObjPLUInfo.SessionEmpresaria.Campana.Trim().ToUpper();
                     objPLU.PrecioPuntos = objPLU.PrecioPuntos;
+                    objPLU.PuntosGanados = objPLU.PuntosGanados;
 
                     if (!ExcentoIVA)
                     {
@@ -85,7 +87,8 @@ namespace Application.Enterprise.Services.Controllers
                             IVAPrecioCat = 0;
 
                             PrecioUnitario = objPLU.PrecioSinIVA;
-                            PrecioCatalogo = objPLU.PrecioSinIVA;
+                            //PrecioCatalogo = objPLU.PrecioSinIVA;
+                            ValorIVA = 0;
                         }
                         else
                         {
@@ -93,7 +96,8 @@ namespace Application.Enterprise.Services.Controllers
                             IVAPrecioCat = objPLU.IVA;
 
                             PrecioUnitario = objPLU.PrecioConIVA;
-                            PrecioCatalogo = objPLU.PrecioConIVA;
+                            //PrecioCatalogo = objPLU.PrecioConIVA;
+                            ValorIVA = objPLU.IVA;
                         }
                     }
                     else
@@ -101,12 +105,12 @@ namespace Application.Enterprise.Services.Controllers
                         PrecioCat = objPLU.PrecioSinIVA;
                         IVAPrecioCat = 0;
                         PrecioUnitario = objPLU.PrecioSinIVA;
-                        PrecioCatalogo = objPLU.PrecioSinIVA;
+                        //PrecioCatalogo = objPLU.PrecioSinIVA;
+                        ValorIVA = 0;
                     }
 
                     PrecioTotal = PrecioUnitario * Cantidad;
-                    CantidadSeleccionada = Cantidad;
-                    objPLU.PrecioTotalConIVA = PrecioTotal;
+                    CantidadSeleccionada = Cantidad;                    
                     objPLU.Cantidad = Cantidad;
 
                     //---------------------------------------------------------------------------------------
@@ -114,51 +118,75 @@ namespace Application.Enterprise.Services.Controllers
 
                     DescuentoGlod glod = new DescuentoGlod("conexion");
                     DescuentoInfo info3 = new DescuentoInfo();
-                    decimal num = 0M;
-                    string str2 = "";
+                    decimal descuento = 0M;
+                    string bodegasel = "";
                     Inventario inventario = new Inventario("conexion");
                     InventarioInfo info = new InventarioInfo();
 
-                    string str5 = "";
+                    string grupodscto = "";
                     if (ObjPLUInfo.SessionEmpresaria.GrupoDescuento != null)
                     {
-                        str5 = ObjPLUInfo.SessionEmpresaria.GrupoDescuento;
+                        grupodscto = ObjPLUInfo.SessionEmpresaria.GrupoDescuento;
                     }
                     KardexInfo info5 = new Kardex("conexion").ListxArticuloxPLU(Convert.ToInt32(objCatalogoPluInfo.PLU));
-                    num = this.CalcularDescuentoPrivilegioProdEstrella(info5.UnidadNegocio.Trim(), info5.GrupoProducto.Trim(), ObjPLUInfo.SessionEmpresaria.Campana, objCatalogoPluInfo.CatalogoReal.Trim().ToUpper(), info5.ProdEstrella, objPLU.PrecioTotalConIVA, str5);
-                    str2 = "";
+                    descuento = this.CalcularDescuentoPrivilegioProdEstrella(info5.UnidadNegocio.Trim(), info5.GrupoProducto.Trim(), ObjPLUInfo.SessionEmpresaria.Campana, objCatalogoPluInfo.CatalogoReal.Trim().ToUpper(), info5.ProdEstrella, PrecioUnitario, grupodscto);
+                    bodegasel = "";
                     if (ObjPLUInfo.SessionEmpresaria.Bodegas != null)
                     {
-                        str2 = ObjPLUInfo.SessionEmpresaria.Bodegas.Bodega;
+                        bodegasel = ObjPLUInfo.SessionEmpresaria.Bodegas.Bodega;
                     }
-                    info = inventario.ListSaldosBodegaxPLUxEmpresaria(str2, Convert.ToInt32(objCatalogoPluInfo.PLU));
-                    decimal num4 = PrecioCatalogo;
-                    decimal num5 = 0M;
+                    info = inventario.ListSaldosBodegaxPLUxEmpresaria(bodegasel, Convert.ToInt32(objCatalogoPluInfo.PLU));
+                    decimal punitario = PrecioUnitario; //Ver codigo de arriba xq aqui ya viene sumado o no el IVA excluido.
+                    decimal precioempivadesc = 0M;
+                    decimal precioempsiniva = 0;
+                    decimal ivaprecioempresaria = 0;
                     if (ReferenceEquals(info, null))
                     {
-                        num5 = 0M;
-                        num = 0M;
+                        
+                        descuento = 0M;
                         objPLU.Disponible = false;
+                        precioempsiniva = 0;
+                        ivaprecioempresaria = 0;
+                        precioempsiniva = PrecioCat;
+                        precioempivadesc = PrecioTotal;
                     }
                     else if (info.Saldo > 0M)
                     {
                         //PrecioEmpresaria= objPLU.PrecioTotalConIVA* objPLU.PorcentajeDescuento
-                        num5 = num4 - (num4 * (num / 100M));
+                        precioempivadesc = punitario - (punitario * (descuento / 100M));
 
                         objPLU.Disponible = true;
+
+                        precioempsiniva = PrecioCat - (PrecioCat * (descuento / 100));
+                        //ivaprecioempresaria = (((1 + (objPLU.PorcentajeIVA / 100)) * precioempsiniva) - precioempsiniva);
+                        ivaprecioempresaria = precioempsiniva * ((objPLU.PorcentajeIVA / 100));
                     }
                     else
                     {
-                        num5 = 0M;
-                        num = 0M;
-
+                        
+                        descuento = 0M;
+                        precioempsiniva = 0;
+                        ivaprecioempresaria = 0;
                         objPLU.Disponible = false;
+                        precioempsiniva = PrecioCat;
+                        precioempivadesc = PrecioTotal;
                     }
 
-                    objPLU.PorcentajeDescuento = num;
+                    objPLU.PorcentajeDescuento = descuento;
 
 
-                    objPLU.PrecioEmpresaria = num5;
+                    objPLU.PrecioEmpresaria = precioempivadesc;
+
+                    //-------------------------------------------------------------
+                    //MRG: Se envian los precios del producto PLU con la configuracion de ExcentoIVA IVA.
+                    objPLU.PrecioTotalConIVA = PrecioTotal; //MRG: Este es el valor que se carga en el front en la sesion DetallePedidoService con IVA o sin IVA.
+                    objPLU.PrecioCatalogoSinIVA = objPLU.PrecioSinIVA;
+                    objPLU.PrecioEmpresariaSinIVA = precioempsiniva;
+                    objPLU.IVAPrecioCatalogo = ValorIVA;
+                    objPLU.IVAPrecioEmpresaria = ivaprecioempresaria;
+                    objPLU.PorcentajeIVA = objPLU.PorcentajeIVA;
+                    objPLU.ExcentoIVA = ExcentoIVA;
+                    //-------------------------------------------------------------
 
 
 

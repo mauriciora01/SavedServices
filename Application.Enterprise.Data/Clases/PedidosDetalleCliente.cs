@@ -101,6 +101,9 @@ namespace Application.Enterprise.Data
             db.AddInParameter(commandPedidosDetalleCliente, "i_campanainicio", DbType.String);
             db.AddInParameter(commandPedidosDetalleCliente, "i_catalogoenvio", DbType.String);
 
+            db.AddInParameter(commandPedidosDetalleCliente, "i_puntosganados", DbType.Int32);
+            db.AddInParameter(commandPedidosDetalleCliente, "i_porcentajedctopuntos", DbType.Decimal);
+
             db.AddOutParameter(commandPedidosDetalleCliente, "o_err_cod", DbType.Int32, 1000);
             db.AddOutParameter(commandPedidosDetalleCliente, "o_err_msg", DbType.String, 1000);
 
@@ -1213,7 +1216,8 @@ namespace Application.Enterprise.Data
                 db.SetParameterValue(commandPedidosDetalleCliente, "i_porcentajedescuento", item.PorcentajeDescuento);
                 db.SetParameterValue(commandPedidosDetalleCliente, "i_valorpreciocatalogounitario", item.ValorPrecioCatalogoUnitario);
 
-
+                db.SetParameterValue(commandPedidosDetalleCliente, "i_puntosganados", item.PuntosGanados);
+                db.SetParameterValue(commandPedidosDetalleCliente, "i_porcentajedctopuntos", item.PorcentajeDescuentoPuntos);
 
                 dr = db.ExecuteReader(commandPedidosDetalleCliente);
 
