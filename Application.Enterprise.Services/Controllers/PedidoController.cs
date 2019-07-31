@@ -373,7 +373,7 @@ namespace Application.Enterprise.Services.Controllers
                 foreach (PedidosDetalleClienteInfo item in ObjPedidosDetalleClienteInfoRequest)
                 {
                     PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = AdicionarDetallePedido(Convert.ToInt32(item.PLU), Convert.ToDecimal(item.Cantidad), (item.CodigoRapidoSustituto == "&NBSP;" || item.CodigoRapidoSustituto == "&nbsp;") ? "" : item.CodigoRapidoSustituto, Convert.ToInt32(item.PLUSustituto), IdZona, CodCiudadCliente);
-                    
+
                     if (ExcentoIVA)
                     {
                         objPedidosDetalleClienteInfo.TarifaIVA = 0; // si es excento debe ser 0% el IVA.
@@ -556,7 +556,7 @@ namespace Application.Enterprise.Services.Controllers
                     // Si la variable InsertarRegistro es false no se ingresa el registro.
                     bool InsertarRegistro = true;
 
-                
+
                     //()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
 
                     string IdPedidoDetalle = "";
@@ -623,7 +623,7 @@ namespace Application.Enterprise.Services.Controllers
 
                         AdicionarFlete = false;
                     }
-                    
+
                 }
                 //===============================================================================================
                 //MRG: Revisar codigo de aqui para abajo para ver si aplican las reglas de premios de bienvenida y catalogos. Actualizar los totales del pedido.
@@ -929,7 +929,7 @@ namespace Application.Enterprise.Services.Controllers
 
                 //MRG: Cometar este y hacer el codigo de abajo q sigues despues de esta linea.
                 objZonaInfo = objZona.ListxIdZona(IdZona);
-               
+
 
                 //()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()
                 ArtExcentosxCiudad objArtExcentosxCiudad = new ArtExcentosxCiudad("conexion");
@@ -1264,6 +1264,9 @@ namespace Application.Enterprise.Services.Controllers
             string NumeroDocumento = "";
             string Catalogo = "";
             string NumeroPedido = "";
+            string TipoEnvio = "";
+            int PuntosUsar = 0;
+            string strUsuario = "";
 
 
             if (ObjPedidosDetalleClienteInfoRequest.Count > 0)
@@ -1272,6 +1275,9 @@ namespace Application.Enterprise.Services.Controllers
                 NumeroDocumento = objPedidosClienteInfo.Nit;
                 Catalogo = objPedidosClienteInfo.Codigo;
                 NumeroPedido = objPedidosClienteInfo.Numero;
+                TipoEnvio = objPedidosClienteInfo.TipoEnvio.ToString();
+                PuntosUsar = objPedidosClienteInfo.PuntosUsar;
+                strUsuario = objPedidosClienteInfo.ClaveUsuario;
             }
 
             if (this.ValidarPedidoSinFacturar(NumeroDocumento, Catalogo, NumeroPedido, false))
@@ -1304,7 +1310,7 @@ namespace Application.Enterprise.Services.Controllers
                                     recogertienda = true;
                                 }
 
-                                if (GuardarPedidoReservaEnLinea(NumeroPedido, "370", recogertienda, objPedidosClienteInfo.Nit, objPedidosClienteInfo.PuntosUsar, objPedidosClienteInfo.TotalPuntosPedido, objPedidosClienteInfo.Zona, objPedidosClienteInfo.Usuario))
+                                if (GuardarPedidoReservaEnLinea(NumeroPedido, "370", recogertienda, objPedidosClienteInfo.Nit, PuntosUsar, objPedidosClienteInfo.TotalPuntosPedido, objPedidosClienteInfo.Zona, objPedidosClienteInfo.Usuario, TipoEnvio, ObjPedidosDetalleClienteInfoRequest, strUsuario))
                                 {
                                     EnviarCorreo(objPedidosClienteInfo.Nit, objPedidosClienteInfo.IdVendedor, objPedidosClienteInfo.Numero, objPedidosClienteInfo.TotalPrecioCatalogo.ToString());
                                     //this.RealizoReserva = true;
@@ -1334,10 +1340,67 @@ namespace Application.Enterprise.Services.Controllers
             return objPedidosClienteInfo;
         }
 
-        public bool GuardarPedidoReservaEnLinea(string NumeroPedido, string bodegaEmpresaria, bool recogePedidoTienda, string NumeroDocumento, int PuntosUsar, decimal totalPedidoPuntosIn, string IdZona, string NombreUsuario)
+        public bool GuardarPedidoReservaEnLinea(string NumeroPedido, string bodegaEmpresaria, bool recogePedidoTienda, string NumeroDocumento, int PuntosUsar, decimal totalPedidoPuntosIn, string IdZona, string NombreUsuario, string TipoEnvio, List<PedidosDetalleClienteInfo> ObjPedidosDetalleClienteInfoRequest, string Usuario)
         {
+
+            int cobraTipoEnviorFlete = 1;
+            bool okTrans = false;
+            ReservaEnLineaGlod glod = new ReservaEnLineaGlod("conexion");
+            PedidosCliente cliente = new PedidosCliente("conexion");
+            PuntosSaved objPuntosSaved = new PuntosSaved("conexion");
+            PuntosSavedInfo objPuntosSavedInfo = new PuntosSavedInfo();
+
+            //TipoEnvio = 4, no cobrar flete
+            if (TipoEnvio == "4")
+            {
+                cobraTipoEnviorFlete = 0;
+            }
+
+            if (glod.RealizarReservaEnLineaDifBodega(NumeroPedido, bodegaEmpresaria, cobraTipoEnviorFlete) != "")
+            {
+                okTrans = true;
+
+                foreach (PedidosDetalleClienteInfo item in ObjPedidosDetalleClienteInfoRequest)
+                {
+                    objPuntosSavedInfo.Cantidad = objPuntosSavedInfo.Cantidad + item.PuntosGanados;
+                }
+
+                //Inserta el detalle de puntos por concepto de reserva en linea. Si se cumple con el pedido minimo.
+                if (objPuntosSavedInfo.Cantidad > 0)
+                {
+                    objPuntosSavedInfo.NumeroPedido = NumeroPedido;
+                    objPuntosSavedInfo.Nit = NumeroDocumento;
+                    objPuntosSavedInfo.Tipo = "+";
+                    objPuntosSavedInfo.Cantidad = objPuntosSavedInfo.Cantidad;
+                    objPuntosSavedInfo.Movimiento = ((int)PuntosConceptoEnum.ReservaLinea).ToString();
+                    objPuntosSavedInfo.Procesado = 0;
+                    objPuntosSavedInfo.Usuario = Usuario;
+                    okTrans = objPuntosSaved.InsertDetallePuntos(objPuntosSavedInfo);
+
+                    //Inserta puntos por conceptos adicionales
+                    objPuntosSavedInfo.NumeroPedido = NumeroPedido;
+                    objPuntosSavedInfo.Nit = NumeroDocumento;
+                    okTrans = objPuntosSaved.InsertDetallePuntosAdicionales(objPuntosSavedInfo);
+                }
+
+                //Inserta el detalle de puntos por concepto de puntos compra.
+                if (PuntosUsar > 0)
+                {
+                    objPuntosSavedInfo.NumeroPedido = NumeroPedido;
+                    objPuntosSavedInfo.Nit = NumeroDocumento;
+                    objPuntosSavedInfo.Tipo = "-";
+                    objPuntosSavedInfo.Cantidad = PuntosUsar;
+                    objPuntosSavedInfo.Movimiento = ((int)PuntosConceptoEnum.GastoCompra).ToString();
+                    objPuntosSavedInfo.Procesado = 1;
+                    objPuntosSavedInfo.Usuario = Usuario;
+                    okTrans = objPuntosSaved.InsertDetallePuntos(objPuntosSavedInfo);
+                }
+
+             
+            }
+
             //TODO: Cambiar a configuracion desde tabla parametros
-            bool sisPuntosAct = true;
+            /*bool sisPuntosAct = true;
 
             string bodega = "";
             if (bodegaEmpresaria != "")
@@ -1356,8 +1419,6 @@ namespace Application.Enterprise.Services.Controllers
             }
 
 
-            ReservaEnLineaGlod glod = new ReservaEnLineaGlod("conexion");
-            PedidosCliente cliente = new PedidosCliente("conexion");
             bool flag = false;
             try
             {
@@ -1442,6 +1503,9 @@ namespace Application.Enterprise.Services.Controllers
             {
                 return false;
             }
+            */
+
+            return okTrans;
         }
 
         /// <summary>
@@ -1871,14 +1935,14 @@ namespace Application.Enterprise.Services.Controllers
         /// <returns></returns>
         private PedidosDetalleClienteInfo CrearFleteDetallePedido(string IdPedido, decimal ValorFlete, string IdZona, int Excluido, string CodCiudad, decimal PorcentajeIVA, decimal ValorFleteFull, bool TipoFlete, string LocalizacionFlete)
         {
-    
+
             PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = new PedidosDetalleClienteInfo();
 
             objPedidosDetalleClienteInfo.Numero = IdPedido;
             //objPedidosDetalleClienteInfo.Id = IdPedido;
             objPedidosDetalleClienteInfo.Referencia = "FT0001";
-            objPedidosDetalleClienteInfo.Descripcion = "MANEJO LOGISTICO - "+ LocalizacionFlete+": " + CodCiudad;
-                      
+            objPedidosDetalleClienteInfo.Descripcion = "MANEJO LOGISTICO - " + LocalizacionFlete + ": " + CodCiudad;
+
 
             //*objPedidosDetalleClienteInfo.Cantidad = Cantidad; //unidades pedidas del articulo
             objPedidosDetalleClienteInfo.Cantidad = 1;
@@ -1917,7 +1981,7 @@ namespace Application.Enterprise.Services.Controllers
                 objPedidosDetalleClienteInfo.ValorPrecioCatalogo = ValorFlete;
                 objPedidosDetalleClienteInfo.ValorUnitario = ValorFlete;
                 objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario = ValorFlete;
-                objPedidosDetalleClienteInfo.Valor= ValorFlete;
+                objPedidosDetalleClienteInfo.Valor = ValorFlete;
             }
             else
             {
@@ -2039,7 +2103,7 @@ namespace Application.Enterprise.Services.Controllers
                 objPLU.PrecioCatalogoSinIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor);
 
                 objPLU.PrecioCatalogoTotalConIVA = Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) + Convert.ToDecimal(objPedidosDetalleClienteInfo.Valor) * (Convert.ToDecimal(objPedidosDetalleClienteInfo.TarifaIVA) / 100);
-                              
+
 
                 return objPedidosDetalleClienteInfo;
             }

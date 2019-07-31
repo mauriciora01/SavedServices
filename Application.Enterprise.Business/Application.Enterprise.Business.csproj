@@ -193,6 +193,7 @@
     <Compile Include="Clases\InventarioMkt.cs" />
     <Compile Include="Clases\Kardex.cs" />
     <Compile Include="Clases\LiberarMemoriaSQL.cs" />
+    <Compile Include="Clases\PuntosSaved.cs" />
     <Compile Include="Clases\Lider.cs" />
     <Compile Include="Clases\Lideres.cs" />
     <Compile Include="Clases\Localidad.cs" />
