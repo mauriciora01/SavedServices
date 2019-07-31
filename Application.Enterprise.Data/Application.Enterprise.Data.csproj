@@ -210,6 +210,7 @@
     <Compile Include="Clases\Localidad.cs" />
     <Compile Include="Clases\Mail.cs" />
     <Compile Include="Clases\MailGroup.cs" />
+    <Compile Include="Clases\PuntosSaved.cs" />
     <Compile Include="Clases\MailPlan.cs" />
     <Compile Include="Clases\MailPlanActividad.cs" />
     <Compile Include="Clases\MailPlanActividadDetalle.cs" />

@@ -658,5 +658,28 @@ namespace Application.Enterprise.CommonObjects
             Rojo = 3
         }
 
+
+        public enum PuntosConceptoEnum : int
+        {
+            IncrementoPuntosxEstado = 1,
+            PuntosExpirados = 2,
+            DecrementoPuntosAnulacion = 3,
+            OtorgadoMercadeo = 4,
+            GastoCompra = 5,
+            CompraPortalEmpresarias = 6,
+            IncrementoConsecutividad3 = 7,
+            IncrementoConsecutividad6 = 8,
+            RegistroEmpresarias = 9,
+            IncrementoNivelPedido = 10,
+            Pruebas = 11,
+            VencimientoPuntos = 12,
+            RestaPuntosDevolucion = 13,
+            PuntosRecuperadosAnulacionPedido = 14,
+            PuntosRecuperadosDevolucionPedido = 15,
+            ReservaLinea = 16,
+            IncrementoNivelCantidad = 17,
+            PortalSaved = 18
+        }
+
     }
 }

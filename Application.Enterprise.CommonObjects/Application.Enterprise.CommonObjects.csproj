@@ -194,6 +194,7 @@
     <Compile Include="Clases\KardexInfo.cs" />
     <Compile Include="Clases\LiberarMemoriaSQLInfo.cs" />
     <Compile Include="Clases\LideresInfo.cs" />
+    <Compile Include="Clases\PuntosSavedInfo.cs" />
     <Compile Include="Clases\LiderInfo.cs" />
     <Compile Include="Clases\LocalidadInfo.cs" />
     <Compile Include="Clases\MailGroupInfo.cs" />
@@ -372,6 +373,7 @@
     <Compile Include="Interfaces\IInventarioMkt.cs" />
     <Compile Include="Interfaces\IKardex.cs" />
     <Compile Include="Interfaces\ILiberarMemoriaSQL.cs" />
+    <Compile Include="Interfaces\IPuntosSaved.cs" />
     <Compile Include="Interfaces\ILider.cs" />
     <Compile Include="Interfaces\ILideres.cs" />
     <Compile Include="Interfaces\ILocalidad.cs" />
