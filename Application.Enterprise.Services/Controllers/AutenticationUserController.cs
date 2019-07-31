@@ -628,13 +628,39 @@ namespace Application.Enterprise.Services.Controllers
                     */
                     #endregion
                     #region "EMPRESARIAS"
-                    /*else if (ObjUsuarioInfo.IdGrupo == Convert.ToString((int)NIVI.Application.Enterprise.CommonObjects.GruposUsuariosEnum.EmpresariasWeb))
+                    else if (ObjUsuarioInfo.IdGrupo == Convert.ToString((int)Application.Enterprise.CommonObjects.Enumerations.GruposUsuariosEnum.EmpresariasWeb))
                     {
-                        string radalertscript = "<script language='javascript'>function f(){callAlert('Credenciales invalidas. Por favor intente de nuevo.'); Sys.Application.remove_load(f);}; Sys.Application.add_load(f);</script>";
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "radalert", radalertscript);
+                        Application.Enterprise.CommonObjects.UsuarioVendedorInfo ObjUsuarioVendedorInfo = new Application.Enterprise.CommonObjects.UsuarioVendedorInfo();
+                        Application.Enterprise.Business.UsuarioVendedor ObjUsuarioVendedor = new Application.Enterprise.Business.UsuarioVendedor("conexion");
 
+                        ObjUsuarioVendedorInfo = ObjUsuarioVendedor.ListxClave(Application.Enterprise.CommonObjects.Tools.Encrypt(objUser.Passwordd.Trim(), true));
+
+                        if (ObjUsuarioVendedorInfo != null)
+                        {
+                            Application.Enterprise.CommonObjects.VendedorInfo ObjVendedorInfo = new Application.Enterprise.CommonObjects.VendedorInfo();
+                            Application.Enterprise.Business.Vendedor ObjVendedor = new Application.Enterprise.Business.Vendedor("conexion");
+
+                            ObjVendedorInfo = ObjVendedor.ListxCodVendedor(ObjUsuarioVendedorInfo.IdVendedor);
+
+                            if (ObjVendedorInfo != null)
+                            {
+                                ObjSessionUserInfo.Cedula = ObjVendedorInfo.Cedula.ToString().Trim();
+                                //Session["Usuario"] = ObjVendedorInfo.IdVendedor.ToString().Trim();
+                                ObjSessionUserInfo.Usuario = ObjUsuarioInfo.Clave.ToString().Trim();
+                                ObjSessionUserInfo.IdVendedor = ObjVendedorInfo.IdVendedor.ToString().Trim();
+                                ObjSessionUserInfo.IdZona = ObjVendedorInfo.Zona.ToString().Trim();
+                                ObjSessionUserInfo.IdZonaMatriz = ObjVendedorInfo.Zona.ToString();
+                                ObjSessionUserInfo.NombreUsuario = ObjVendedorInfo.Nombre.ToString().Trim();
+                                ObjSessionUserInfo.IdGrupo = Convert.ToString((int)Application.Enterprise.CommonObjects.Enumerations.GruposUsuariosEnum.GerentesZona);
+                                ObjSessionUserInfo.Grupo = ObjUsuarioInfo.NombreGrupo;
+                                ObjSessionUserInfo.Email = ObjVendedorInfo.EmailNivi.ToString().Trim();
+                                ObjSessionUserInfo.MostrarTermyCond = ObjVendedorInfo.MostrarTerminosyCondiciones.ToString();
+
+                                ObjSessionUserInfo.ClaveUsuario = objUser.Passwordd.Trim();
+                            }
+                        }
                     }
-                    */
+
                     #endregion
                     #region "ASISTENTES "
                     /*else if (ObjUsuarioInfo.IdGrupo == Convert.ToString((int)NIVI.Application.Enterprise.CommonObjects.GruposUsuariosEnum.Asistentes))
