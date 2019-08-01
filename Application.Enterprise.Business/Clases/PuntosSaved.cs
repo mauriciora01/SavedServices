@@ -25,16 +25,25 @@ namespace Application.Enterprise.Business
             module = new Application.Enterprise.Data.PuntosSaved();
         }
 
-        /// <summary>
-        /// Constructor de la clase.
-        /// </summary>
-        /// <param name="databaseName">Nombre de la Base de Datos.</param>
-        public PuntosSaved(string databaseName)
+            /// <summary>
+            /// Constructor de la clase.
+            /// </summary>
+            /// <param name="databaseName">Nombre de la Base de Datos.</param>
+            public PuntosSaved(string databaseName)
         {
             module = new Application.Enterprise.Data.PuntosSaved(databaseName);
         }
 
         #region Miembros de IPuntosSaved
+
+        /// <summary>
+        /// lista los puntos efectivos de una empresaria
+        /// </summary>
+        /// <returns></returns>
+        public int ConsultarPuntosEfectivosEmpresaria(string nit)
+        {
+            return module.ConsultarPuntosEfectivosEmpresaria(nit);
+        }
 
         /// <summary>
         /// Guarda un InsertDetallePuntos nuevo.

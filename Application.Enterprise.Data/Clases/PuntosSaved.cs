@@ -73,7 +73,38 @@ namespace Application.Enterprise.Data
         #endregion
 
         #region Metodos de PuntosSaved
-        
+
+        /// <summary>
+        /// lista los puntos efectivos de una empresaria
+        /// </summary>
+        /// <returns></returns>
+        public int ConsultarPuntosEfectivosEmpresaria(string nit)
+        {
+            db.SetParameterValue(commandPuntosSaved, "i_operation", 'S');
+            db.SetParameterValue(commandPuntosSaved, "i_option", 'A');
+            db.SetParameterValue(commandPuntosSaved, "i_nit", nit);
+
+            int PuntosEmpresaria = 0;
+
+            try
+            {
+                PuntosEmpresaria = (int)db.ExecuteScalar(commandPuntosSaved);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+
+                bool rethrow = ExceptionPolicy.HandleException(ex, "DataAccess Policy");
+
+                if (rethrow)
+                {
+                    throw;
+                }
+            }
+
+            return PuntosEmpresaria;
+        }
+
         /// <summary>
         /// Guarda un PuntosSaved nuevo.
         /// </summary>
@@ -115,7 +146,7 @@ namespace Application.Enterprise.Data
 
                 }
                 //-----------------------------------------------------------------------------------------------------------------------------
-                               
+
                 okTrans = true;
             }
             catch (Exception ex)
@@ -221,7 +252,7 @@ namespace Application.Enterprise.Data
                 db.SetParameterValue(commandPuntosSaved, "i_option", 'C');
                 db.SetParameterValue(commandPuntosSaved, "i_numeropedido", item.NumeroPedido);
                 db.SetParameterValue(commandPuntosSaved, "i_nit", item.Nit);
-   
+
                 dr = db.ExecuteReader(commandPuntosSaved);
 
                 //-----------------------------------------------------------------------------------------------------------------------------

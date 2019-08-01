@@ -1342,126 +1342,70 @@ namespace Application.Enterprise.Services.Controllers
 
         public bool GuardarPedidoReservaEnLinea(string NumeroPedido, string bodegaEmpresaria, bool recogePedidoTienda, string NumeroDocumento, int PuntosUsar, decimal totalPedidoPuntosIn, string IdZona, string NombreUsuario, string TipoEnvio, List<PedidosDetalleClienteInfo> ObjPedidosDetalleClienteInfoRequest, string Usuario)
         {
-
-            int cobraTipoEnviorFlete = 1;
             bool okTrans = false;
-            ReservaEnLineaGlod glod = new ReservaEnLineaGlod("conexion");
-            PedidosCliente cliente = new PedidosCliente("conexion");
-            PuntosSaved objPuntosSaved = new PuntosSaved("conexion");
-            PuntosSavedInfo objPuntosSavedInfo = new PuntosSavedInfo();
-
-            //TipoEnvio = 4, no cobrar flete
-            if (TipoEnvio == "4")
-            {
-                cobraTipoEnviorFlete = 0;
-            }
-
-            if (glod.RealizarReservaEnLineaDifBodega(NumeroPedido, bodegaEmpresaria, cobraTipoEnviorFlete) != "")
-            {
-                okTrans = true;
-
-                foreach (PedidosDetalleClienteInfo item in ObjPedidosDetalleClienteInfoRequest)
-                {
-                    objPuntosSavedInfo.Cantidad = objPuntosSavedInfo.Cantidad + item.PuntosGanados;
-                }
-
-                //Inserta el detalle de puntos por concepto de reserva en linea. Si se cumple con el pedido minimo.
-                if (objPuntosSavedInfo.Cantidad > 0)
-                {
-                    objPuntosSavedInfo.NumeroPedido = NumeroPedido;
-                    objPuntosSavedInfo.Nit = NumeroDocumento;
-                    objPuntosSavedInfo.Tipo = "+";
-                    objPuntosSavedInfo.Cantidad = objPuntosSavedInfo.Cantidad;
-                    objPuntosSavedInfo.Movimiento = ((int)PuntosConceptoEnum.ReservaLinea).ToString();
-                    objPuntosSavedInfo.Procesado = 0;
-                    objPuntosSavedInfo.Usuario = Usuario;
-                    okTrans = objPuntosSaved.InsertDetallePuntos(objPuntosSavedInfo);
-
-                    //Inserta puntos por conceptos adicionales
-                    objPuntosSavedInfo.NumeroPedido = NumeroPedido;
-                    objPuntosSavedInfo.Nit = NumeroDocumento;
-                    okTrans = objPuntosSaved.InsertDetallePuntosAdicionales(objPuntosSavedInfo);
-                }
-
-                //Inserta el detalle de puntos por concepto de puntos compra.
-                if (PuntosUsar > 0)
-                {
-                    objPuntosSavedInfo.NumeroPedido = NumeroPedido;
-                    objPuntosSavedInfo.Nit = NumeroDocumento;
-                    objPuntosSavedInfo.Tipo = "-";
-                    objPuntosSavedInfo.Cantidad = PuntosUsar;
-                    objPuntosSavedInfo.Movimiento = ((int)PuntosConceptoEnum.GastoCompra).ToString();
-                    objPuntosSavedInfo.Procesado = 1;
-                    objPuntosSavedInfo.Usuario = Usuario;
-                    okTrans = objPuntosSaved.InsertDetallePuntos(objPuntosSavedInfo);
-                }
-
-             
-            }
-
-            //TODO: Cambiar a configuracion desde tabla parametros
-            /*bool sisPuntosAct = true;
-
-            string bodega = "";
-            if (bodegaEmpresaria != "")
-            {
-                bodega = bodegaEmpresaria;
-            }
-            int cobrarFlete = 1;
-            bool flag5 = recogePedidoTienda;
-            if (!flag5)
-            {
-                flag5 = recogePedidoTienda != true;
-                if (!flag5)
-                {
-                    cobrarFlete = 0;
-                }
-            }
-
-
-            bool flag = false;
             try
             {
-                if (glod.RealizarReservaEnLineaDifBodega(NumeroPedido, bodega, cobrarFlete) == "")
+
+                int cobraTipoEnviorFlete = 1;
+                
+                ReservaEnLineaGlod glod = new ReservaEnLineaGlod("conexion");
+                PedidosCliente cliente = new PedidosCliente("conexion");
+                PuntosSaved objPuntosSaved = new PuntosSaved("conexion");
+                PuntosSavedInfo objPuntosSavedInfo = new PuntosSavedInfo();
+
+                //TipoEnvio = 4, no cobrar flete
+                if (TipoEnvio == "4")
                 {
-                    return flag;
+                    cobraTipoEnviorFlete = 0;
                 }
-                else if (sisPuntosAct != false)
+
+                if (glod.RealizarReservaEnLineaDifBodega(NumeroPedido, bodegaEmpresaria, cobraTipoEnviorFlete) != "")
                 {
-                    flag5 = sisPuntosAct;
-                    if (flag5)
+                    okTrans = true;
+
+                    decimal CantidadAprox = 0;
+
+                    foreach (PedidosDetalleClienteInfo item in ObjPedidosDetalleClienteInfoRequest)
                     {
-                        try
-                        {
-                            PuntosBo bo = new PuntosBo("conexion");
-
-                            decimal valorPuntos = bo.getvalorPuntoEnSoles();
-                            decimal totalPedidoPuntos = 0;
-                            int totalDescuentoPuntos = 0;
-                            int bonopuntosganar = 0;
-                            decimal descuentoporpuntos = 0;
-                            int cantpuntosGastados = 0;
-                            string text = NumeroDocumento;
-                            if (totalPedidoPuntosIn > 0)
-                            {
-                                totalPedidoPuntos = totalPedidoPuntosIn;
-                            }
-
-                            if (flag5)
-                            {
-                                totalDescuentoPuntos = PuntosUsar;
-                            }
-                            this.gastarPuntos(cantpuntosGastados, text, PuntosUsar, NumeroPedido);
-                            this.acumularPuntosxEstado(totalPedidoPuntos, totalDescuentoPuntos, bonopuntosganar, descuentoporpuntos, text, NumeroPedido, "");
-                            this.agregarDescuentoPuntos(valorPuntos, totalPedidoPuntos, totalDescuentoPuntos, NumeroPedido);
-                            this.actualizarEncabezadoPuntosxCedula(text);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
+                        CantidadAprox = CantidadAprox + ((item.PuntosGanados - (item.PuntosGanados * (item.PorcentajeDescuentoPuntos / 100))));
                     }
-                }
 
+                    objPuntosSavedInfo.Cantidad = (int)Math.Floor(CantidadAprox);
+
+                    //Inserta el detalle de puntos por concepto de reserva en linea. Si se cumple con el pedido minimo.
+                    if (objPuntosSavedInfo.Cantidad > 0)
+                    {
+                        objPuntosSavedInfo.NumeroPedido = NumeroPedido;
+                        objPuntosSavedInfo.Nit = NumeroDocumento;
+                        objPuntosSavedInfo.Tipo = "+";
+                        objPuntosSavedInfo.Cantidad = objPuntosSavedInfo.Cantidad;
+                        objPuntosSavedInfo.Movimiento = ((int)PuntosConceptoEnum.ReservaLinea).ToString();
+                        objPuntosSavedInfo.Procesado = 0;
+                        objPuntosSavedInfo.Usuario = Usuario;
+                        okTrans = objPuntosSaved.InsertDetallePuntos(objPuntosSavedInfo);
+
+                        //Inserta puntos por conceptos adicionales
+                        objPuntosSavedInfo.NumeroPedido = NumeroPedido;
+                        objPuntosSavedInfo.Nit = NumeroDocumento;
+                        okTrans = objPuntosSaved.InsertDetallePuntosAdicionales(objPuntosSavedInfo);
+                    }
+
+                    //Inserta el detalle de puntos por concepto de puntos compra.
+                    if (PuntosUsar > 0)
+                    {
+                        objPuntosSavedInfo.NumeroPedido = NumeroPedido;
+                        objPuntosSavedInfo.Nit = NumeroDocumento;
+                        objPuntosSavedInfo.Tipo = "-";
+                        objPuntosSavedInfo.Cantidad = PuntosUsar;
+                        objPuntosSavedInfo.Movimiento = ((int)PuntosConceptoEnum.GastoCompra).ToString();
+                        objPuntosSavedInfo.Procesado = 1;
+                        objPuntosSavedInfo.Usuario = Usuario;
+                        okTrans = objPuntosSaved.InsertDetallePuntos(objPuntosSavedInfo);
+                    }
+
+
+                }
+                               
 
                 #region  "VERIFICA DESMANTELADORA"
 
@@ -1497,13 +1441,12 @@ namespace Application.Enterprise.Services.Controllers
                 #endregion
 
 
-                return true;
+                
             }
             catch (Exception)
             {
                 return false;
             }
-            */
 
             return okTrans;
         }
@@ -1744,184 +1687,6 @@ namespace Application.Enterprise.Services.Controllers
             return oktrans;
 
         }
-
-
-
-        #region "Puntos"
-        public void actualizarTotalpagermenospuntos(string NumeroDocumento, string BodegaEmpresaria, List<PLUInfo> PLUList, int PuntosUsar, decimal totalPagarEmprep)
-        {
-            Inventario inventario = new Inventario("conexion");
-            InventarioInfo objA = new InventarioInfo();
-            int num = 0;
-            int num2 = 0;
-            decimal d = 0M;
-            int num4 = new PuntosBo("conexion").getPuntosEfectivoEmpresaria(NumeroDocumento);
-            string bodega = "";
-            if (BodegaEmpresaria != null)
-            {
-                bodega = BodegaEmpresaria;
-            }
-            int num6 = 0;
-            while (true)
-            {
-                if (num6 >= PLUList.Count)
-                {
-                    int num1;
-                    if (totalPagarEmprep > 0)
-                    {
-                        d = totalPagarEmprep;
-                    }
-                    if ((PuntosUsar != 0) && (PuntosUsar >= 1))
-                    {
-                        num2 = PuntosUsar;
-                        if (PuntosUsar > num4)
-                        {
-                            //this.LabelPuntosaUsar.ForeColor = System.Drawing.Color.Tomato;
-                            //this.LabelPuntosaUsar.Text = "<strong>Ingresa una cantidad menor a los puntos efectivos : " + num4 + "</strong>";
-                            //this.RadNumericPuntosUsar.Text = "0";
-                            return;
-                        }
-                        if (PuntosUsar > num)
-                        {
-                            //this.LabelPuntosaUsar.ForeColor = System.Drawing.Color.Tomato;
-                            // this.LabelPuntosaUsar.Text = "<strong>Ingresa una cantidad menor al valor del pedido en puntos: " + num + "</strong>";
-                            // this.RadNumericPuntosUsar.Text = "0";
-                            d = Math.Round(d, 0);
-                            //this.RadComboBoxTotalpagardespuesPuntos.Items.Insert(0, new RadComboBoxItem("$ " + d, "1"));
-                            //this.RadComboBoxTotalpagardespuesPuntos.SelectedIndex = 0;
-                        }
-                    }
-                    if (num4 == 0)
-                    {
-                        // this.LabelPuntosaUsar.ForeColor = System.Drawing.Color.Tomato;
-                        // this.LabelPuntosaUsar.Text = "<strong>No tienes puntos efectivos</strong>";
-                        // this.RadNumericPuntosUsar.Text = "0";
-                        d = Math.Round(d, 0);
-                        //this.RadComboBoxTotalpagardespuesPuntos.Items.Insert(0, new RadComboBoxItem("$ " + d, "1"));
-                        // this.RadComboBoxTotalpagardespuesPuntos.SelectedIndex = 0;
-                    }
-                    if (((num4 <= 0) || (num2 > num)) || (d <= 0M))
-                    {
-                        num1 = 1;
-                    }
-                    else
-                    {
-                        //num1 = (int)(num <= 0);
-                    }
-                    /*if (num1 == 0)
-                    {
-                        //this.LabelPuntosaUsar.Text = "\x00bfCuantos Puntos Usaras?";
-                        d = Math.Round((decimal)(d - ((d / num) * num2)), 0);
-                        //this.RadComboBoxTotalpagardespuesPuntos.Text = "";
-                        //this.RadComboBoxTotalpagardespuesPuntos.Items.Clear();
-                        //this.RadComboBoxTotalpagardespuesPuntos.ClearSelection();
-                        //this.RadComboBoxTotalpagardespuesPuntos.Items.Insert(0, new RadComboBoxItem("$ " + d, "1"));
-                        //this.RadComboBoxTotalpagardespuesPuntos.SelectedIndex = 0;
-                    }*/
-                    //this.Session["totalPedidoPuntos"] = num;
-                    return;
-                }
-                objA = inventario.ListSaldosBodegaxPLUxEmpresaria(bodega, PLUList[num6].PLU);
-                if (!ReferenceEquals(objA, null) && (objA.Saldo > 0M))
-                {
-                    num += Convert.ToInt32(PLUList[num6].Pagopuntos);
-                }
-                num6++;
-            }
-        }
-
-        public void gastarPuntos(int cantpuntosGastados, string cedula, int PuntosUsar, string NumeroPedido)
-        {
-            PuntosBo bo = new PuntosBo("conexion");
-            try
-            {
-                if (PuntosUsar > 0)
-                {
-                    cantpuntosGastados = Convert.ToInt32(PuntosUsar);
-                }
-                if (cantpuntosGastados > 0)
-                {
-                    bo.insertarDetalleGastoPuntos(NumeroPedido, cedula, cantpuntosGastados);
-                }
-            }
-            catch
-            {
-            }
-        }
-
-        public void acumularPuntosxEstado(decimal totalPedidoPuntos, decimal totalDescuentoPuntos, decimal bonopuntosganar, decimal descuentoporpuntos, string cedula, string NumeroPedido, string IdGrupoLogin)
-        {
-            Parametros parametros = new Parametros("conexion");
-            decimal num2 = Convert.ToDecimal(parametros.ListxId(0x30).Valor.Replace(".", ",")); //0x30= 48 decimal
-            int cumpleminimoparapuntos = 0;
-            int puntosGanadosPedido = 0;
-
-            if (totalPedidoPuntos > num2)
-                cumpleminimoparapuntos = 1;
-
-            if (num2 <= 0)
-            {
-                cumpleminimoparapuntos = 1;
-            }
-
-            if (cumpleminimoparapuntos == 0)
-            {
-                puntosGanadosPedido = 0;
-            }
-            else if (cumpleminimoparapuntos != 1)
-            {
-                puntosGanadosPedido = 0;
-            }
-            else
-            {
-                PuntosBo bo = new PuntosBo("conexion");
-                try
-                {
-                    if (IdGrupoLogin == "")
-                    {
-                        bo.insertarDetalleGananciaPuntos(NumeroPedido, cedula, 0, 0M, 1);
-                    }
-                    else if (IdGrupoLogin == Convert.ToString(50))
-                    {
-                        bo.insertarDetalleGananciaPuntos(NumeroPedido, cedula, 0, 0M, 2);
-                    }
-                    else
-                    {
-                        bo.insertarDetalleGananciaPuntos(NumeroPedido, cedula, 0, 0M, 1);
-                    }
-                }
-                catch (Exception ex)
-                {
-                }
-            }
-        }
-
-        public void agregarDescuentoPuntos(decimal valorPuntos, decimal totalPedidoPuntos, int totalDescuentoPuntos, string NumeroPedido)
-        {
-            PuntosBo bo = new PuntosBo("conexion");
-            try
-            {
-                if (totalDescuentoPuntos != totalPedidoPuntos)
-                {
-                    decimal num = valorPuntos * totalDescuentoPuntos;
-                    bo.agregarDescuentoPuntos(NumeroPedido, num);
-                }
-                else if (totalPedidoPuntos > 0)
-                {
-                    bo.agregarDescuento100(NumeroPedido);
-                }
-            }
-            catch
-            {
-            }
-        }
-
-        public void actualizarEncabezadoPuntosxCedula(string cedula)
-        {
-            new PuntosBo("conexion").actualizarEncabezadoPuntosCliente(cedula);
-        }
-        #endregion
-
 
 
         //---------------------------
