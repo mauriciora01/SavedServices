@@ -485,7 +485,7 @@ namespace Application.Enterprise.Services.Controllers
                 Parametros ObjParametros = new Parametros("conexion");
 
                 ObjParametrosInfo = ObjParametros.ListxId((int)ParametrosEnum.ValorIVACOP);
-                decimal PorcentajeIvaFlete = Convert.ToDecimal(ObjParametrosInfo.Valor.ToString());
+                decimal PorcentajeIvaFlete = 0; //Siempre es 0 por que se recoge en punto de venta.
 
                 decimal ValorFleteSinIva = 0;
 
@@ -496,7 +496,7 @@ namespace Application.Enterprise.Services.Controllers
 
                 if (objZonaInfo != null)
                 {
-                    ValorFleteSinIva = objZonaInfo.ValorFlete;
+                    ValorFleteSinIva = 0; //Siempre es 0 por que se recoge en punto de venta.
                     ObjClienteInfoResponse.PorcentajeIvaFlete = PorcentajeIvaFlete;
                     ObjClienteInfoResponse.ValorFleteSinIva = ValorFleteSinIva;
                     ObjClienteInfoResponse.ValorFlete = (ValorFleteSinIva + (PorcentajeIvaFlete * (ValorFleteSinIva / 100)));
