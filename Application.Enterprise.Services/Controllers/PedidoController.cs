@@ -128,6 +128,7 @@ namespace Application.Enterprise.Services.Controllers
 
             objPedidosClienteInfo.ExcentoIVA = ObjPedidosClienteInfoRequest.ExcentoIVA;
             objPedidosClienteInfo.CodCiudadCliente = ObjPedidosClienteInfoRequest.CodCiudadCliente;
+            objPedidosClienteInfo.PuntosUsar = ObjPedidosClienteInfoRequest.PuntosUsar;
 
             //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             //Precio Catalogo

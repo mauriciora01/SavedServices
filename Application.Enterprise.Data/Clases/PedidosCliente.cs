@@ -114,7 +114,7 @@ namespace Application.Enterprise.Data
             db.AddInParameter(commandPedidosCliente, "i_codmotivo", DbType.String);
             db.AddInParameter(commandPedidosCliente, "i_asistente", DbType.String); 
             db.AddInParameter(commandPedidosCliente, "i_NombreAnulo", DbType.String);
-
+            db.AddInParameter(commandPedidosCliente, "i_puntosusados", DbType.Int32);
             // QUITAR PARA QUE FUNCIONE PERU Y ECUADOR
             //db.AddInParameter(commandPedidosCliente, "i_claseventa", DbType.String);                        
 
@@ -1388,7 +1388,9 @@ namespace Application.Enterprise.Data
                 db.SetParameterValue(commandPedidosCliente, "i_tipoenvio", item.TipoEnvio);
                 db.SetParameterValue(commandPedidosCliente, "i_codciudaddespacho", item.CiudadDespacho);
                 db.SetParameterValue(commandPedidosCliente, "i_factusemanal", item.FacturacionSemanal);
-                db.SetParameterValue(commandPedidosCliente, "i_asistente", item.Asistente);  
+                db.SetParameterValue(commandPedidosCliente, "i_asistente", item.Asistente);
+
+                db.SetParameterValue(commandPedidosCliente, "i_puntosusados", item.PuntosUsar);
                 //COMENTAR PARA QUE FUNCIONE PERU Y ECUADOR
                 //db.SetParameterValue(commandPedidosCliente, "i_claseventa", item.Claseventa);
 

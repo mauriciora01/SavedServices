@@ -301,6 +301,41 @@
             
             </summary>
         </member>
+        <member name="T:Application.Enterprise.CommonObjects.BodegasInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.BodegasInfo.Bodega">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.BodegasInfo.Nombre">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.BodegasInfo.CuentaContable">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.BodegasInfo.Estado">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.BodegasInfo.CentroCostos">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.BodegasInfo.VisibleInv">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Application.Enterprise.CommonObjects.AuditoriaInfo">
             <summary>
             
@@ -786,7 +821,7 @@
             
             </summary>
         </member>
-        <member name="P:Application.Enterprise.CommonObjects.CatalogoPluInfo.PrecioPunto">
+        <member name="P:Application.Enterprise.CommonObjects.CatalogoPluInfo.PrecioPuntos">
             <summary>
             
             </summary>
@@ -2168,6 +2203,16 @@
             
             </summary>
         </member>
+        <member name="P:Application.Enterprise.CommonObjects.ClienteInfo.Bodega">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.ClienteInfo.GrupoDescuentoCliente">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:Application.Enterprise.CommonObjects.ClientePuntosEnvioSiesaInfo.F_NUMERO_REG">
             <summary>
             1 | Numero de registro | Numero consecutivo |  Obligatorio: Si | Inicio:1 | Tamaño:7 | Tipo:Numérico
@@ -3041,6 +3086,21 @@
             
             </summary>
         </member>
+        <member name="P:Application.Enterprise.CommonObjects.CxCInfo.Codigolider">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.CxCInfo.Lider">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.CxCInfo.Saldo">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Application.Enterprise.CommonObjects.CxVNitsInfo">
             <summary>
             
@@ -3127,6 +3187,11 @@
             </summary>
         </member>
         <member name="P:Application.Enterprise.CommonObjects.DescuentoInfo.ProdEstrella">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.DescuentoInfo.GrupoCliente">
             <summary>
             
             </summary>
@@ -5196,6 +5261,11 @@
             
             </summary>
         </member>
+        <member name="T:Application.Enterprise.CommonObjects.PuntosSavedInfo">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Application.Enterprise.CommonObjects.LiderInfo">
             <summary>
             
@@ -6029,11 +6099,11 @@
             CANTIDAD MINIMA DE SUSTITUTOS
             </summary>
         </member>
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "F:Application.Enterprise.CommonObjects.Enumerations.ParametrosEnum.ActivacionAutomaticaEmpresarias" -->
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "F:Application.Enterprise.CommonObjects.Enumerations.ParametrosEnum.TiempoLiberarMemoriaSQL" -->
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "F:Application.Enterprise.CommonObjects.Enumerations.ParametrosEnum.ActivarSemaforo" -->
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "F:Application.Enterprise.CommonObjects.Enumerations.ParametrosEnum.ActivarSeleccionBodega" -->
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "F:Application.Enterprise.CommonObjects.Enumerations.ParametrosEnum.saldomin" -->
+        <!-- Badly formed XML comment ignored for member "F:Application.Enterprise.CommonObjects.Enumerations.ParametrosEnum.ActivacionAutomaticaEmpresarias" -->
+        <!-- Badly formed XML comment ignored for member "F:Application.Enterprise.CommonObjects.Enumerations.ParametrosEnum.TiempoLiberarMemoriaSQL" -->
+        <!-- Badly formed XML comment ignored for member "F:Application.Enterprise.CommonObjects.Enumerations.ParametrosEnum.ActivarSemaforo" -->
+        <!-- Badly formed XML comment ignored for member "F:Application.Enterprise.CommonObjects.Enumerations.ParametrosEnum.ActivarSeleccionBodega" -->
+        <!-- Badly formed XML comment ignored for member "F:Application.Enterprise.CommonObjects.Enumerations.ParametrosEnum.saldomin" -->
         <member name="T:Application.Enterprise.CommonObjects.Enumerations.ProcesoClienteEnum">
             <summary>
             Lista de procesos que modificar el historial de un cliente
@@ -6877,6 +6947,16 @@
             
             </summary>
         </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.Guia">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.Numerodespacho">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.FechaAnulacion">
             <summary>
             
@@ -6908,6 +6988,26 @@
             </summary>
         </member>
         <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.CodCiudadCliente">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.okTransEncabezadoPedido">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.okTransDetallePedido">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.PuntosUsar">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.TotalPuntosPedido">
             <summary>
             
             </summary>
@@ -7118,6 +7218,16 @@
             </summary>
         </member>
         <member name="P:Application.Enterprise.CommonObjects.PedidosDetalleClienteInfo.ProdEstrella">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosDetalleClienteInfo.PuntosGanados">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosDetalleClienteInfo.PorcentajeDescuentoPuntos">
             <summary>
             
             </summary>
@@ -7969,6 +8079,21 @@
             </summary>
         </member>
         <member name="P:Application.Enterprise.CommonObjects.PLUInfo.PLUSustituto">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PLUInfo.PrecioEmpresariaSinIVA">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PLUInfo.ValorIVA">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PLUInfo.IVAPrecioEmpresaria">
             <summary>
             
             </summary>
@@ -12886,6 +13011,23 @@
             <param name="asistente"></param>
             <returns></returns>
         </member>
+        <member name="T:Application.Enterprise.CommonObjects.Interfaces.IBodegas">
+            <summary>
+            Interface de Bodegas
+            </summary>
+        </member>
+        <member name="M:Application.Enterprise.CommonObjects.Interfaces.IBodegas.List">
+            <summary>
+            lista todos las Bodegass existentes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Application.Enterprise.CommonObjects.Interfaces.IBodegas.ListxBodega(System.String)">
+            <summary>
+            Guarda un proceso de Bodegas en el sistema.
+            </summary>
+            <param name="item"></param>
+        </member>
         <member name="T:Application.Enterprise.CommonObjects.Interfaces.IAuditoria">
             <summary>
             Interface de Auditoria
@@ -14136,7 +14278,7 @@
             </summary>
             <returns></returns>
         </member>
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "M:Application.Enterprise.CommonObjects.Interfaces.ICliente.ClienteSaldo50Mil(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Application.Enterprise.CommonObjects.Interfaces.ICliente.ClienteSaldo50Mil(System.String)" -->
         <member name="T:Application.Enterprise.CommonObjects.Interfaces.IClienteEcu">
             <summary>
             Interface de Cliente
@@ -15759,6 +15901,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Application.Enterprise.CommonObjects.Interfaces.IPuntosSaved">
+            <summary>
+            Interface de IPuntosSaved
+            </summary>
+        </member>
         <member name="T:Application.Enterprise.CommonObjects.Interfaces.ILider">
             <summary>
             Interface de Lider
@@ -16839,7 +16986,7 @@
             <param name="Vendedor"></param>
             <returns></returns>
         </member>
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "M:Application.Enterprise.CommonObjects.Interfaces.IPedidosCliente.ListxEmpresariaFacturados(System.String,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Application.Enterprise.CommonObjects.Interfaces.IPedidosCliente.ListxEmpresariaFacturados(System.String,System.String)" -->
         <member name="M:Application.Enterprise.CommonObjects.Interfaces.IPedidosCliente.ListxGerenteRegionalFacturados(System.String,System.String)">
             <summary>
             lista todos los Pedidos Facturados de una gerente regional por una campaña.
@@ -16987,7 +17134,7 @@
             <param name="Campana"></param>
             <returns></returns>
         </member>
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "M:Application.Enterprise.CommonObjects.Interfaces.IPedidosCliente.ListxNitFacturados(System.String,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Application.Enterprise.CommonObjects.Interfaces.IPedidosCliente.ListxNitFacturados(System.String,System.String)" -->
         <member name="M:Application.Enterprise.CommonObjects.Interfaces.IPedidosCliente.ListPedidosFacturadosLider(System.String,System.String)">
             <summary>
             lista todos los Pedidos de un lider x zona por una campaña facturados.
@@ -17019,7 +17166,7 @@
             <param name="Nit"></param>
             <returns></returns>
         </member>
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "M:Application.Enterprise.CommonObjects.Interfaces.IPedidosCliente.ListxNitFacturadosEmpresarias(System.String,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Application.Enterprise.CommonObjects.Interfaces.IPedidosCliente.ListxNitFacturadosEmpresarias(System.String,System.String)" -->
         <member name="M:Application.Enterprise.CommonObjects.Interfaces.IPedidosCliente.ListxPedidosProximosAnular">
             <summary>
             Lista todos los pedidos proximos a vencer para anular en el dia actual.
@@ -17064,7 +17211,7 @@
             <param name="Vendedor"></param>
             <returns></returns>
         </member>
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "M:Application.Enterprise.CommonObjects.Interfaces.IPedidosCliente.ListxGerenteZonaFacturadosZonaMaestra(System.String,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Application.Enterprise.CommonObjects.Interfaces.IPedidosCliente.ListxGerenteZonaFacturadosZonaMaestra(System.String,System.String)" -->
         <member name="M:Application.Enterprise.CommonObjects.Interfaces.IPedidosCliente.ListPedidosRetenidosZonaMaestra(System.String,System.String)">
             <summary>
             Lista los pedidos retenidos por cartera, nivel de servicio, desmanteladora para Zona Maestra.
@@ -17574,7 +17721,7 @@
             <param name="IdPedido"></param>
             <returns></returns>
         </member>
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "M:Application.Enterprise.CommonObjects.Interfaces.IPedidosDetalleCliente.ListDetallePedidoReservaGYG(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Application.Enterprise.CommonObjects.Interfaces.IPedidosDetalleCliente.ListDetallePedidoReservaGYG(System.String)" -->
         <member name="M:Application.Enterprise.CommonObjects.Interfaces.IPedidosDetalleCliente.ListPedidoDetallexIdxReserva(System.String)">
             <summary>
             Lista el detalle de un pedido especifico realizado por reserva en linea.
@@ -18841,7 +18988,7 @@
             <param name="regla"></param>
             <returns></returns>
         </member>
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "M:Application.Enterprise.CommonObjects.Interfaces.IReglasJA.UpdateDeleteZona(System.Int32,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Application.Enterprise.CommonObjects.Interfaces.IReglasJA.UpdateDeleteZona(System.Int32,System.String)" -->
         <member name="M:Application.Enterprise.CommonObjects.Interfaces.IReglasJA.ListRegla(System.Int32)">
             <summary>
             listar la regla
@@ -19079,7 +19226,7 @@
             <param name="division"></param>
             <returns></returns>
         </member>
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "M:Application.Enterprise.CommonObjects.Interfaces.IReglasPuntos.traerMisPuntosTotal(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Application.Enterprise.CommonObjects.Interfaces.IReglasPuntos.traerMisPuntosTotal(System.String)" -->
         <member name="M:Application.Enterprise.CommonObjects.Interfaces.IReglasPuntos.AnularPuntos(System.String)">
             <summary>
             Anula los puntos
@@ -19658,8 +19805,8 @@
             <param name="oldPassword"></param>
             <returns></returns>
         </member>
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "M:Application.Enterprise.CommonObjects.Interfaces.IUsuarios.UpdateInactivarUsuario(Application.Enterprise.CommonObjects.UsuariosInfo,System.String)" -->
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "M:Application.Enterprise.CommonObjects.Interfaces.IUsuarios.UpdatePasswordGYG(Application.Enterprise.CommonObjects.UsuariosInfo)" -->
+        <!-- Badly formed XML comment ignored for member "M:Application.Enterprise.CommonObjects.Interfaces.IUsuarios.UpdateInactivarUsuario(Application.Enterprise.CommonObjects.UsuariosInfo,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Application.Enterprise.CommonObjects.Interfaces.IUsuarios.UpdatePasswordGYG(Application.Enterprise.CommonObjects.UsuariosInfo)" -->
         <member name="M:Application.Enterprise.CommonObjects.Interfaces.IUsuarios.UpdatePasswordEmpresaria(Application.Enterprise.CommonObjects.UsuariosInfo,System.String)">
             <summary>
             Realiza el cambio de clave de un usuario del sistema de una empresarias .
@@ -19672,7 +19819,7 @@
             </summary>
             <param name="item"></param>
         </member>
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "M:Application.Enterprise.CommonObjects.Interfaces.IUsuarios.ListxUsuarioGYG(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Application.Enterprise.CommonObjects.Interfaces.IUsuarios.ListxUsuarioGYG(System.String)" -->
         <member name="M:Application.Enterprise.CommonObjects.Interfaces.IUsuarios.ListxUsuarioxCedula(System.String)">
             <summary>
             Devuelve un usuario de gerente de zona consultado por cedula.
@@ -20202,7 +20349,7 @@
             <param name="Zona"></param>
             <returns></returns>
         </member>
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "M:Application.Enterprise.CommonObjects.Interfaces.IZonaxCiudad.ListxZonaGYG(System.String)" -->
-        <!-- El comentario XML con formato incorrecto se ha omitido para el miembro "M:Application.Enterprise.CommonObjects.Interfaces.IZonaxCiudad.ListxZonaGYGxDepartamento(System.String,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Application.Enterprise.CommonObjects.Interfaces.IZonaxCiudad.ListxZonaGYG(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Application.Enterprise.CommonObjects.Interfaces.IZonaxCiudad.ListxZonaGYGxDepartamento(System.String,System.String)" -->
     </members>
 </doc>
