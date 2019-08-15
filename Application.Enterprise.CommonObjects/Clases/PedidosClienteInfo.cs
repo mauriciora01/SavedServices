@@ -1132,24 +1132,7 @@ namespace Application.Enterprise.CommonObjects
             set { claseventa = value; }
         }
 
-        private string guia;
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Guia
-        {
-            get { return guia; }
-            set { guia = value; }
-        }
-        private string numerodespacho;
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Numerodespacho
-        {
-            get { return numerodespacho; }
-            set { numerodespacho = value; }
-        }
+        
 
         #region campor motivos de anulacion
 
@@ -1263,6 +1246,35 @@ namespace Application.Enterprise.CommonObjects
         {
             get { return totalpuntospedido; }
             set { totalpuntospedido = value; }
+        }
+
+        private string guia;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Guia
+        {
+            get { return guia; }
+            set { guia = value; }
+        }
+        private string numerodespacho;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Numerodespacho
+        {
+            get { return numerodespacho; }
+            set { numerodespacho = value; }
+        }
+
+        private bool pagarfletepuntos;
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool PagarFletePuntos
+        {
+            get { return pagarfletepuntos; }
+            set { pagarfletepuntos = value; }
         }
 
         public virtual Error Error

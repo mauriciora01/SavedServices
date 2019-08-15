@@ -314,6 +314,7 @@ namespace Application.Enterprise.Services.Controllers
             string TipoEnvio = "";
             string Usuario = "";
             string IdLider = "";
+            bool PagarFletePuntos = false;
 
             if (ObjPedidosDetalleClienteInfoRequest.Count > 0)
             {
@@ -328,6 +329,7 @@ namespace Application.Enterprise.Services.Controllers
                 TipoEnvio = objPedidosClienteInfo.TipoEnvio.ToString();
                 Usuario = objPedidosClienteInfo.Usuario;
                 IdLider = objPedidosClienteInfo.IdLider; //MRG: Verificar que si se cargue el id cuando se elige lider.
+                PagarFletePuntos = objPedidosClienteInfo.PagarFletePuntos;
             }
 
 
@@ -593,18 +595,18 @@ namespace Application.Enterprise.Services.Controllers
                         //Sino tiene ciudad de despacho se asigna el flete x zona.
                         if (CodCiudadDespacho != "")
                         {
-                            objPedidosDetalleClienteInfoFlete = AdicionarFletePedidoConCiudad(true, IdPedido, CodCiudadDespacho, IdZona, ExcentoIVA, Usuario, Catalogo);
+                            objPedidosDetalleClienteInfoFlete = AdicionarFletePedidoConCiudad(true, IdPedido, CodCiudadDespacho, IdZona, ExcentoIVA, Usuario, Catalogo, PagarFletePuntos);
                         }
                         else
                         {
                             //GAVL DETALLE FLETE LIDER Y POR ZONA
                             if (TipoEnvio == "2")
                             {
-                                objPedidosDetalleClienteInfoFlete = AdicionarFletePedidoConZona(true, IdPedido, CodCiudadCliente, IdZona, ExcentoIVA, Usuario, Catalogo);
+                                objPedidosDetalleClienteInfoFlete = AdicionarFletePedidoConZona(true, IdPedido, CodCiudadCliente, IdZona, ExcentoIVA, Usuario, Catalogo, PagarFletePuntos);
                             }
                             else if (TipoEnvio == "3")
                             {
-                                objPedidosDetalleClienteInfoFlete = AdicionarFletePedidoConLider(true, IdPedido, CodCiudadCliente, IdZona, ExcentoIVA, Usuario, IdLider, Catalogo);
+                                objPedidosDetalleClienteInfoFlete = AdicionarFletePedidoConLider(true, IdPedido, CodCiudadCliente, IdZona, ExcentoIVA, Usuario, IdLider, Catalogo, PagarFletePuntos);
                             }
                             else if (TipoEnvio == "4") //Punto de venta. NO DEBE ADICIONA FLETE
                             {
@@ -614,7 +616,7 @@ namespace Application.Enterprise.Services.Controllers
                     }
                     else
                     {
-                        objPedidosDetalleClienteInfoFlete = AdicionarFletePedidoConCiudad(true, IdPedido, CodCiudadDespacho, IdZona, ExcentoIVA, Usuario, Catalogo);
+                        objPedidosDetalleClienteInfoFlete = AdicionarFletePedidoConCiudad(true, IdPedido, CodCiudadDespacho, IdZona, ExcentoIVA, Usuario, Catalogo, PagarFletePuntos);
                     }
 
                     //MRG: Aqui se inserta el flete x empresaria, x lider, x zona
@@ -1348,7 +1350,7 @@ namespace Application.Enterprise.Services.Controllers
             {
 
                 int cobraTipoEnviorFlete = 1;
-                
+
                 ReservaEnLineaGlod glod = new ReservaEnLineaGlod("conexion");
                 PedidosCliente cliente = new PedidosCliente("conexion");
                 PuntosSaved objPuntosSaved = new PuntosSaved("conexion");
@@ -1406,7 +1408,7 @@ namespace Application.Enterprise.Services.Controllers
 
 
                 }
-                               
+
 
                 #region  "VERIFICA DESMANTELADORA"
 
@@ -1442,7 +1444,7 @@ namespace Application.Enterprise.Services.Controllers
                 #endregion
 
 
-                
+
             }
             catch (Exception)
             {
@@ -1690,16 +1692,12 @@ namespace Application.Enterprise.Services.Controllers
         }
 
 
-        //---------------------------
+        //----------------------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------------------
         //Metodo de Flete      
 
-        /// <summary>
-        /// Crea el detalle de un pedido con ciudad.
-        /// </summary>
-        /// <param name="IdPedido"></param>
-        /// <param name="objPremiosArticulosInfo"></param>
-        /// <returns></returns>
-        private PedidosDetalleClienteInfo CrearFleteDetallePedido(string IdPedido, decimal ValorFlete, string IdZona, int Excluido, string CodCiudad, decimal PorcentajeIVA, decimal ValorFleteFull, bool TipoFlete, string LocalizacionFlete)
+        private PedidosDetalleClienteInfo CrearFleteDetallePedido(string IdPedido, decimal ValorFlete, string IdZona, int Excluido, string CodCiudad, decimal PorcentajeIVA, decimal ValorFleteFull, bool TipoFlete, string LocalizacionFlete, bool PagarFletePuntos)
         {
 
             PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = new PedidosDetalleClienteInfo();
@@ -1764,10 +1762,22 @@ namespace Application.Enterprise.Services.Controllers
             objPedidosDetalleClienteInfo.IdCodigoCorto = "FL00";
             objPedidosDetalleClienteInfo.UnidadNegocio = "01";
 
+            if (PagarFletePuntos)
+            {
+                objPedidosDetalleClienteInfo.PorcentajeDescuento = 100; // Solo 100% para flete.
+                objPedidosDetalleClienteInfo.PorcentajeDescuentoPuntos = 100; // Solo 100% para flete.
+                objPedidosDetalleClienteInfo.Valor = 0;
+            }
+            else
+            {
+                objPedidosDetalleClienteInfo.PorcentajeDescuento = 0;
+                objPedidosDetalleClienteInfo.PorcentajeDescuentoPuntos = 0;
+            }
+
             return objPedidosDetalleClienteInfo;
         }
 
-        private PedidosDetalleClienteInfo AdicionarFletePedidoConCiudad(bool TipoFlete, string NumeroPedido, string CodCiudadDespacho, string IdZona, bool ExcentoIVA, string Usuario, string CatalogoReal)
+        private PedidosDetalleClienteInfo AdicionarFletePedidoConCiudad(bool TipoFlete, string NumeroPedido, string CodCiudadDespacho, string IdZona, bool ExcentoIVA, string Usuario, string CatalogoReal, bool PagarFletePuntos)
         {
             Ciudad ObjCiudad = new Ciudad("conexion");
             CiudadInfo ObjCiudadInfo = new CiudadInfo();
@@ -1777,7 +1787,7 @@ namespace Application.Enterprise.Services.Controllers
             if (ObjCiudadInfo != null)
             {
                 //Crear el detalle del flete para el pedido.
-                PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = CrearFleteDetallePedido(NumeroPedido, ObjCiudadInfo.ValorFlete, IdZona, ObjCiudadInfo.ExcluidoIVA, CodCiudadDespacho, ObjCiudadInfo.IVA, ObjCiudadInfo.ValorFleteFull, TipoFlete, "CIUDAD");
+                PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = CrearFleteDetallePedido(NumeroPedido, ObjCiudadInfo.ValorFlete, IdZona, ObjCiudadInfo.ExcluidoIVA, CodCiudadDespacho, ObjCiudadInfo.IVA, ObjCiudadInfo.ValorFleteFull, TipoFlete, "CIUDAD", PagarFletePuntos);
 
                 PLUInfo objPLU = new PLUInfo();
 
@@ -1820,14 +1830,7 @@ namespace Application.Enterprise.Services.Controllers
             }
         }
 
-
-        /// <summary>
-        /// MRG ADICIONA PEDIDO POR DIRECTOR (ZONA)
-        /// </summary>
-        /// <param name="TipoFlete"></param>
-        /// <param name="NumeroPedidoCiudad"></param>
-        /// <returns></returns>
-        private PedidosDetalleClienteInfo AdicionarFletePedidoConZona(bool TipoFlete, string NumeroPedido, string CodCiudadCliente, string IdZona, bool ExcentoIVA, string Usuario, string CatalogoReal)
+        private PedidosDetalleClienteInfo AdicionarFletePedidoConZona(bool TipoFlete, string NumeroPedido, string CodCiudadCliente, string IdZona, bool ExcentoIVA, string Usuario, string CatalogoReal, bool PagarFletePuntos)
         {
             ParametrosInfo ObjParametrosInfo = new ParametrosInfo();
             Parametros ObjParametros = new Parametros("conexion");
@@ -1844,7 +1847,7 @@ namespace Application.Enterprise.Services.Controllers
             if (objZonaInfo != null)
             {
                 //Crear el detalle del flete para el pedido.
-                PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = CrearFleteDetallePedido(NumeroPedido, objZonaInfo.ValorFlete, IdZona, objZonaInfo.Excluido, CodCiudadCliente, FleteIva, 0, TipoFlete, "ZONA");
+                PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = CrearFleteDetallePedido(NumeroPedido, objZonaInfo.ValorFlete, IdZona, objZonaInfo.Excluido, CodCiudadCliente, FleteIva, 0, TipoFlete, "ZONA", PagarFletePuntos);
 
                 PLUInfo objPLU = new PLUInfo();
 
@@ -1888,14 +1891,7 @@ namespace Application.Enterprise.Services.Controllers
             }
         }
 
-
-        /// <summary>
-        /// MRG ADICIONA VALOR DE FLETE PARA LOS LIDERES 
-        /// </summary>
-        /// <param name="TipoFlete"></param>
-        /// <param name="NumeroPedidoCiudad"></param>
-        /// <returns></returns>
-        private PedidosDetalleClienteInfo AdicionarFletePedidoConLider(bool TipoFlete, string NumeroPedido, string CodCiudadCliente, string IdZona, bool ExcentoIVA, string Usuario, string IdLider, string CatalogoReal)
+        private PedidosDetalleClienteInfo AdicionarFletePedidoConLider(bool TipoFlete, string NumeroPedido, string CodCiudadCliente, string IdZona, bool ExcentoIVA, string Usuario, string IdLider, string CatalogoReal, bool PagarFletePuntos)
         {
             FleteLider ObjFleteLider = new FleteLider("conexion");
             FleteLiderInfo ObjFleteliderInfo = new FleteLiderInfo();
@@ -1905,7 +1901,7 @@ namespace Application.Enterprise.Services.Controllers
             if (ObjFleteliderInfo != null)
             {
                 //Crear el detalle del flete para el pedido.
-                PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = CrearFleteDetallePedido(NumeroPedido, ObjFleteliderInfo.Valor, IdZona, ObjFleteliderInfo.Excluido, CodCiudadCliente, ObjFleteliderInfo.Iva, ObjFleteliderInfo.ValorFleteFull, TipoFlete, "LIDER");
+                PedidosDetalleClienteInfo objPedidosDetalleClienteInfo = CrearFleteDetallePedido(NumeroPedido, ObjFleteliderInfo.Valor, IdZona, ObjFleteliderInfo.Excluido, CodCiudadCliente, ObjFleteliderInfo.Iva, ObjFleteliderInfo.ValorFleteFull, TipoFlete, "LIDER", PagarFletePuntos);
 
                 PLUInfo objPLU = new PLUInfo();
 
@@ -1947,6 +1943,10 @@ namespace Application.Enterprise.Services.Controllers
                 return null;
             }
         }
+
+        //----------------------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------------------
 
     }
 }

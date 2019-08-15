@@ -13,16 +13,16 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>07/14/2019 19:15:25</publishTime>
     </File>
     <File Include="bin/Application.Enterprise.Activity.dll">
-      <publishTime>08/05/2019 21:34:23</publishTime>
+      <publishTime>08/06/2019 22:37:05</publishTime>
     </File>
     <File Include="bin/Application.Enterprise.Activity.dll.config">
       <publishTime>07/14/2019 19:15:19</publishTime>
     </File>
     <File Include="bin/Application.Enterprise.Activity.pdb">
-      <publishTime>08/05/2019 21:34:23</publishTime>
+      <publishTime>08/06/2019 22:37:05</publishTime>
     </File>
     <File Include="bin/Application.Enterprise.Business.dll">
-      <publishTime>08/05/2019 21:34:18</publishTime>
+      <publishTime>08/06/2019 22:37:02</publishTime>
     </File>
     <File Include="bin/Application.Enterprise.Business.dll.config">
       <publishTime>07/14/2019 19:15:19</publishTime>
@@ -31,16 +31,16 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>08/05/2019 21:34:15</publishTime>
     </File>
     <File Include="bin/Application.Enterprise.Data.dll">
-      <publishTime>08/05/2019 21:34:17</publishTime>
+      <publishTime>08/06/2019 22:37:02</publishTime>
     </File>
     <File Include="bin/Application.Enterprise.Data.dll.config">
       <publishTime>07/14/2019 19:15:20</publishTime>
     </File>
     <File Include="bin/Application.Enterprise.Services.dll">
-      <publishTime>08/05/2019 21:34:24</publishTime>
+      <publishTime>08/06/2019 22:37:06</publishTime>
     </File>
     <File Include="bin/Application.Enterprise.Services.pdb">
-      <publishTime>08/05/2019 21:34:24</publishTime>
+      <publishTime>08/06/2019 22:37:06</publishTime>
     </File>
     <File Include="bin/Common.Logging.dll">
       <publishTime>07/14/2019 19:15:20</publishTime>
