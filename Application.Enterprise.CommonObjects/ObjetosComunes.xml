@@ -6947,16 +6947,6 @@
             
             </summary>
         </member>
-        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.Guia">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.Numerodespacho">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.FechaAnulacion">
             <summary>
             
@@ -7008,6 +6998,21 @@
             </summary>
         </member>
         <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.TotalPuntosPedido">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.Guia">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.Numerodespacho">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.PagarFletePuntos">
             <summary>
             
             </summary>

@@ -1,4 +1,5 @@
-﻿using Application.Enterprise.CommonObjects;
+﻿using Application.Enterprise.Business;
+using Application.Enterprise.CommonObjects;
 using Application.Enterprise.Services.Models;
 using System;
 using System.Configuration;
@@ -9,7 +10,7 @@ using System.Web.Http;
 
 namespace Application.Enterprise.Services.Controllers
 {
-    
+
     public class AutenticationUserController : BaseController
     {
         private static Lazy<IAutentication> _Instance = new Lazy<IAutentication>(() => new Autentication());
@@ -19,7 +20,7 @@ namespace Application.Enterprise.Services.Controllers
         public static IAutentication Instance => _Instance.Value;
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public HttpResponseMessage LogInUserbyToken(AutenticationRequest objUser)
         {
             objUser.strIdUser = AutenticationUserController.Instance.GetUserbyToken(objUser.strIdUser);
@@ -29,7 +30,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
 
-        [HttpPost]        
+        [HttpPost]
         public HttpResponseMessage Test(AutenticationRequest jsondata)
         {
             var response = Request.CreateResponse(HttpStatusCode.Moved);
@@ -39,7 +40,7 @@ namespace Application.Enterprise.Services.Controllers
 
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public HttpResponseMessage LogInUserFromDaviHomeBroker(AutenticationRequest objUser)
         {
             try
@@ -136,7 +137,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public HttpResponseMessage AdicionarUsuarioOnline(AutenticationRequest objUser)
         {
             Originator objOriginator = new Originator();
@@ -155,7 +156,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public HttpResponseMessage LogInUser(AutenticationRequest objUser)
         {
             string IpAddress = GetIpClient();
@@ -179,7 +180,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public Originator ValidateToken(AutenticationRequest objUser)
         {
             Originator initialUser = new Originator();
@@ -198,7 +199,7 @@ namespace Application.Enterprise.Services.Controllers
 
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public bool UpdateDisclaimerDate(AutenticationRequest obj)
         {
             //return AutenticationUserController.Instance.UpdateDisclaimerDate(obj.strIdUser); ;
@@ -206,7 +207,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public bool UpdateShowTutorialDate(AutenticationRequest obj)
         {
             //return AutenticationUserController.Instance.UpdateShowTutorialDate(obj.strIdUser);
@@ -218,7 +219,7 @@ namespace Application.Enterprise.Services.Controllers
 
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public bool LogOutUserExternal(string user, string password)
         {
             //return !(AutenticationUserController.Instance.LogOutUser(user, password, true,"",false).existError);
@@ -226,7 +227,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public bool LogOutUserExternalAdmin(string user)
         {
             //return !(AutenticationUserController.Instance.LogOutUserAdmin(user, true).existError);
@@ -234,7 +235,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public bool IsAuthenticated(string user)
         {
             //return AutenticationUserController.Instance.IsAuthenticated(user);
@@ -242,7 +243,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public bool IsAuthenticated(AutenticationRequest obj)
         {
             //return AutenticationUserController.Instance.IsAuthenticated(obj.strIdUser);
@@ -250,7 +251,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public DataTable AuthenticatedUsers(string user)
         {
             //return AutenticationUserController.Instance.AuthenticatedUsers(user);
@@ -258,7 +259,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public string NumAuthenticatedUsers(string user)
         {
             //return AutenticationUserController.Instance.NumAuthenticatedUsers(user);
@@ -266,7 +267,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public string Encrypt(AutenticationRequest obj)
         {
             //return AutenticationUserController.Instance.Encrypt(obj.strIdUser, obj.UseHashing);
@@ -274,7 +275,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public bool RegisterUserIpAddress(AutenticationRequest obj)
         {
             string IpAddress = GetIpClient();
@@ -283,7 +284,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public bool RegisterUserIpAddress(string strUserId)
         {
             string IpAddress = GetIpClient();
@@ -292,7 +293,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public bool IsValidIpAddress(string strUserId)
         {
             string IpAddress = GetIpClient();
@@ -301,7 +302,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public bool IsValidLocalIpAddress(string strUserId)
         {
             string IpAddress = GetIpClient();
@@ -310,7 +311,7 @@ namespace Application.Enterprise.Services.Controllers
         }
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public DataTable GetRegisteredIPAddressByUserExternal(string strIdUser)
         {
             //return AutenticationUserController.Instance.GetRegisteredIPAddressByUserExternal(strIdUser);
@@ -320,7 +321,7 @@ namespace Application.Enterprise.Services.Controllers
 
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public bool DeleteRegisteredIPAddressByUserExternal(string strIdUser, string ipAddress)
         {
             //return AutenticationUserController.Instance.DeleteRegisteredIPAddressByUser(strIdUser, ipAddress);
@@ -342,7 +343,7 @@ namespace Application.Enterprise.Services.Controllers
 
         //Prueba bolsa millonaria
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public HttpResponseMessage LogInUserFromPlay(AutenticationRequest objUser)
         {
             string IpAddress = GetIpClient();
@@ -395,7 +396,7 @@ namespace Application.Enterprise.Services.Controllers
 
 
         [HttpGet]
-        [HttpPost]        
+        [HttpPost]
         public HttpResponseMessage LoginUserPasword(Usuario objUser)
         {
             string IpAddress = GetIpClient();
@@ -630,34 +631,44 @@ namespace Application.Enterprise.Services.Controllers
                     #region "EMPRESARIAS"
                     else if (ObjUsuarioInfo.IdGrupo == Convert.ToString((int)Application.Enterprise.CommonObjects.Enumerations.GruposUsuariosEnum.EmpresariasWeb))
                     {
-                        Application.Enterprise.CommonObjects.UsuarioVendedorInfo ObjUsuarioVendedorInfo = new Application.Enterprise.CommonObjects.UsuarioVendedorInfo();
-                        Application.Enterprise.Business.UsuarioVendedor ObjUsuarioVendedor = new Application.Enterprise.Business.UsuarioVendedor("conexion");
+                        //Application.Enterprise.CommonObjects.UsuarioVendedorInfo ObjUsuarioVendedorInfo = new Application.Enterprise.CommonObjects.UsuarioVendedorInfo();
+                        //Application.Enterprise.Business.UsuarioVendedor ObjUsuarioVendedor = new Application.Enterprise.Business.UsuarioVendedor("conexion");
 
-                        ObjUsuarioVendedorInfo = ObjUsuarioVendedor.ListxClave(Application.Enterprise.CommonObjects.Tools.Encrypt(objUser.Passwordd.Trim(), true));
+                        Application.Enterprise.CommonObjects.VendedorInfo ObjVendedorInfo = new Application.Enterprise.CommonObjects.VendedorInfo();
+                        Application.Enterprise.Business.Vendedor ObjVendedor = new Application.Enterprise.Business.Vendedor("conexion");
 
-                        if (ObjUsuarioVendedorInfo != null)
+
+                        //ObjUsuarioVendedorInfo = ObjUsuarioVendedor.ListxClave(Application.Enterprise.CommonObjects.Tools.Encrypt(objUser.Passwordd.Trim(), true));
+                        ObjVendedorInfo = ObjVendedor.ListVendedorxNitCliente(objUser.UserName.Trim());
+
+                        if (ObjVendedorInfo != null)
                         {
-                            Application.Enterprise.CommonObjects.VendedorInfo ObjVendedorInfo = new Application.Enterprise.CommonObjects.VendedorInfo();
-                            Application.Enterprise.Business.Vendedor ObjVendedor = new Application.Enterprise.Business.Vendedor("conexion");
 
-                            ObjVendedorInfo = ObjVendedor.ListxCodVendedor(ObjUsuarioVendedorInfo.IdVendedor);
+                            Application.Enterprise.CommonObjects.LiderInfo ObjLiderInfo = new Application.Enterprise.CommonObjects.LiderInfo();
+                            Application.Enterprise.Business.Lider ObjLider = new Application.Enterprise.Business.Lider("conexion");
 
-                            if (ObjVendedorInfo != null)
+                            ObjLiderInfo = ObjLider.ListxIdLider(ObjVendedorInfo.IdVendedor);
+
+                            if (ObjLiderInfo != null)
                             {
+
                                 ObjSessionUserInfo.Cedula = ObjVendedorInfo.Cedula.ToString().Trim();
                                 //Session["Usuario"] = ObjVendedorInfo.IdVendedor.ToString().Trim();
                                 ObjSessionUserInfo.Usuario = ObjUsuarioInfo.Clave.ToString().Trim();
                                 ObjSessionUserInfo.IdVendedor = ObjVendedorInfo.IdVendedor.ToString().Trim();
+                                ObjSessionUserInfo.IdLider = ObjLiderInfo.IdLider.ToString().Trim();
                                 ObjSessionUserInfo.IdZona = ObjVendedorInfo.Zona.ToString().Trim();
                                 ObjSessionUserInfo.IdZonaMatriz = ObjVendedorInfo.Zona.ToString();
                                 ObjSessionUserInfo.NombreUsuario = ObjVendedorInfo.Nombre.ToString().Trim();
-                                ObjSessionUserInfo.IdGrupo = Convert.ToString((int)Application.Enterprise.CommonObjects.Enumerations.GruposUsuariosEnum.GerentesZona);
+                                ObjSessionUserInfo.IdGrupo = Convert.ToString((int)Application.Enterprise.CommonObjects.Enumerations.GruposUsuariosEnum.EmpresariasWeb);
                                 ObjSessionUserInfo.Grupo = ObjUsuarioInfo.NombreGrupo;
                                 ObjSessionUserInfo.Email = ObjVendedorInfo.EmailNivi.ToString().Trim();
                                 ObjSessionUserInfo.MostrarTermyCond = ObjVendedorInfo.MostrarTerminosyCondiciones.ToString();
 
                                 ObjSessionUserInfo.ClaveUsuario = objUser.Passwordd.Trim();
+
                             }
+
                         }
                     }
 
@@ -680,43 +691,46 @@ namespace Application.Enterprise.Services.Controllers
                     */
                     #endregion
                     #region "LIDERES"
-                    /*else if ((ObjUsuarioInfo.IdGrupo == Convert.ToString((int)NIVI.Application.Enterprise.CommonObjects.GruposUsuariosEnum.Lider)))
+                    else if ((ObjUsuarioInfo.IdGrupo == Convert.ToString((int)Application.Enterprise.CommonObjects.Enumerations.GruposUsuariosEnum.Lider)))
                     {
 
-                        Session["Asistente"] = ""; //GAVL USUARIO PARA MODULO ASISTENTE
-                        Session["AsistentexZona"] = ""; //GAVL USUARIO PARA MODULO ASISTENTE
+                        //Session["Asistente"] = ""; //GAVL USUARIO PARA MODULO ASISTENTE
+                        //Session["AsistentexZona"] = ""; //GAVL USUARIO PARA MODULO ASISTENTE
 
-                        NIVI.Application.Enterprise.CommonObjects.UsuarioVendedorInfo ObjUsuarioVendedorInfo = new NIVI.Application.Enterprise.CommonObjects.UsuarioVendedorInfo();
+                        Application.Enterprise.CommonObjects.UsuarioVendedorInfo ObjUsuarioVendedorInfo = new Application.Enterprise.CommonObjects.UsuarioVendedorInfo();
                         Application.Enterprise.Business.UsuarioVendedor ObjUsuarioVendedor = new Application.Enterprise.Business.UsuarioVendedor("conexion");
 
-                        ObjUsuarioVendedorInfo = ObjUsuarioVendedor.ListxClave(NIVI.SVDN.Common.Objects.Tools.Encrypt(txtPwd.Value.Trim(), true));
+                        ObjUsuarioVendedorInfo = ObjUsuarioVendedor.ListxClave(Application.Enterprise.CommonObjects.Tools.Encrypt(objUser.Passwordd.Trim(), true));
 
                         if (ObjUsuarioVendedorInfo != null)
                         {
-                            NIVI.Application.Enterprise.CommonObjects.LiderInfo ObjLiderInfo = new NIVI.Application.Enterprise.CommonObjects.LiderInfo();
+                            Application.Enterprise.CommonObjects.LiderInfo ObjLiderInfo = new Application.Enterprise.CommonObjects.LiderInfo();
                             Application.Enterprise.Business.Lider ObjLider = new Application.Enterprise.Business.Lider("conexion");
 
                             ObjLiderInfo = ObjLider.ListxIdLider(ObjUsuarioVendedorInfo.IdVendedor);
 
                             if (ObjLiderInfo != null)
                             {
-                                Session["Cedula"] = ObjLiderInfo.Cedula.ToString().Trim();
+                                ObjSessionUserInfo.Cedula = ObjLiderInfo.Cedula.ToString().Trim();
                                 //Session["Usuario"] = ObjVendedorInfo.IdVendedor.ToString().Trim();
-                                Session["Usuario"] = ObjUsuarioInfo.Clave.ToString().Trim();
-                                Session["IdVendedor"] = ObjLiderInfo.IdVendedor.ToString().Trim();
-                                Session["IdLider"] = ObjLiderInfo.IdLider.ToString().Trim();
-                                Session["IdZona"] = ObjLiderInfo.Zona.ToString().Trim();
-                                Session["IdZonaMatriz"] = ObjLiderInfo.Zona.ToString();
-                                Session["NombreUsuario"] = ObjLiderInfo.Nombres.ToString().Trim().ToUpper();
-                                Session["IdGrupo"] = Convert.ToString((int)NIVI.Application.Enterprise.CommonObjects.GruposUsuariosEnum.Lider);
-                                Session["Grupo"] = ObjUsuarioInfo.NombreGrupo;
-                                Session["Email"] = ObjLiderInfo.Nombres.ToString().Trim();
-                                Session["MostrarTermyCond"] = "0"; //no mostrar terminos y condiciones.
-                                Session["ClaveUsuario"] = txtPwd.Value.Trim();
+                                ObjSessionUserInfo.Usuario = ObjUsuarioInfo.Clave.ToString().Trim();
+                                ObjSessionUserInfo.IdVendedor = ObjLiderInfo.IdVendedor.ToString().Trim();
+                                ObjSessionUserInfo.IdLider = ObjLiderInfo.IdLider.ToString().Trim();
+                                ObjSessionUserInfo.IdZona = ObjLiderInfo.Zona.ToString().Trim();
+                                ObjSessionUserInfo.IdZonaMatriz = ObjLiderInfo.Zona.ToString();
+                                ObjSessionUserInfo.NombreUsuario = ObjLiderInfo.Nombres.ToString().Trim().ToUpper();
+                                ObjSessionUserInfo.IdGrupo = Convert.ToString((int)Application.Enterprise.CommonObjects.Enumerations.GruposUsuariosEnum.Lider);
+                                ObjSessionUserInfo.Grupo = ObjUsuarioInfo.NombreGrupo;
+                                ObjSessionUserInfo.Email = ObjLiderInfo.Nombres.ToString().Trim();
+                                ObjSessionUserInfo.MostrarTermyCond = "0"; //no mostrar terminos y condiciones.
+                                ObjSessionUserInfo.ClaveUsuario = objUser.Passwordd.Trim();
+
+
+
 
                                 //--------------------------------------------------------------------------------------
                                 //Se consulta si la zona es de reserva en linea o no.
-                                NIVI.Application.Enterprise.CommonObjects.ZonasReservaEnLineaInfo ObjZonasReservaEnLineaInfo = new NIVI.Application.Enterprise.CommonObjects.ZonasReservaEnLineaInfo();
+                                /*NIVI.Application.Enterprise.CommonObjects.ZonasReservaEnLineaInfo ObjZonasReservaEnLineaInfo = new NIVI.Application.Enterprise.CommonObjects.ZonasReservaEnLineaInfo();
                                 Application.Enterprise.Business.ZonasReservaEnLinea ObjZonasReservaEnLinea = new Application.Enterprise.Business.ZonasReservaEnLinea("conexion");
 
                                 ObjZonasReservaEnLineaInfo = ObjZonasReservaEnLinea.ListxZona(Session["IdZona"].ToString());
@@ -724,7 +738,7 @@ namespace Application.Enterprise.Services.Controllers
                                 if (ObjZonasReservaEnLineaInfo != null)
                                 {
                                     Session["ZonaReservaEnLinea"] = "true";
-                                }
+                                }*/
                                 //--------------------------------------------------------------------------------------
 
                             }
@@ -737,20 +751,21 @@ namespace Application.Enterprise.Services.Controllers
 
 
 
-                                RadAjaxManager1.ResponseScripts.Add("callAlertGenerico('Las credenciales no corresponden a una zona de Niviglobal. <br />Por favor comuniquese con el area de comercial para verificar sus datos.');");
+                                //RadAjaxManager1.ResponseScripts.Add("callAlertGenerico('Las credenciales no corresponden a una zona de Niviglobal. <br />Por favor comuniquese con el area de comercial para verificar sus datos.');");
 
-                                IngresarOK = false;
+                                ObjSessionUserInfo.Error = new Error();
+                                ObjSessionUserInfo.Error.Id = 1;
+                                ObjSessionUserInfo.Error.Descripcion = "Las credenciales no corresponden a una zona de Niviglobal. <br />Por favor comuniquese con el area de comercial para verificar sus datos.";
                             }
                         }
                         else
                         {
-                            string radalertscript = "<script language='javascript'>function f(){callAlert('Credenciales Invalidas. <br />No se pudo iniciar sesión en el sistema.'); Sys.Application.remove_load(f);}; Sys.Application.add_load(f);</script>";
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "radalert", radalertscript);
-
-                            IngresarOK = false;
+                            ObjSessionUserInfo.Error = new Error();
+                            ObjSessionUserInfo.Error.Id = 1;
+                            ObjSessionUserInfo.Error.Descripcion = "No se pudo iniciar sesion.";
                         }
                     }
-                    */
+
                     #endregion
                     /*else
                     {
@@ -791,9 +806,26 @@ namespace Application.Enterprise.Services.Controllers
             }
 
             //TODO MRG: Cambiar esto para que sea lo q viene de BD.
-            ObjSessionUserInfo.Campana = "0619";
-            ObjSessionUserInfo.Catalogo = "691";
 
+            //--------------------------------------------------------------------------------------------------------
+            CampanaInfo objCampanaInfo = new CampanaInfo();
+            Campana objCampana = new Campana("conexion");
+
+            objCampanaInfo = objCampana.ListxGetDate();
+
+            if (objCampanaInfo != null)
+            {
+                ObjSessionUserInfo.Campana = objCampanaInfo.Campana;
+                ObjSessionUserInfo.Catalogo = objCampanaInfo.Catalogo;
+            }
+            else
+            {
+                ObjSessionUserInfo.Campana = "";
+                ObjSessionUserInfo.Catalogo = "";
+            }
+
+            //--------------------------------------------------------------------------------------------------------
+                       
             var response = Request.CreateResponse<SessionUserInfo>(HttpStatusCode.OK, ObjSessionUserInfo);
             response.Headers.Add("Token", "");
             response.Headers.Add("TokenExpiry", ConfigurationManager.AppSettings["AuthTokenExpiry"]);

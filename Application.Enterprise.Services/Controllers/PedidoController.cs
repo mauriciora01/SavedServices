@@ -472,7 +472,7 @@ namespace Application.Enterprise.Services.Controllers
 
                     objPedidosDetalleClienteInfo.ValorUnitario = (item.Valor) / item.Cantidad;
                     objPedidosDetalleClienteInfo.IdCodigoCorto = item.IdCodigoCorto;
-                    objPedidosDetalleClienteInfo.CatalogoReal = "691"; //MRG: corregir a catalogo desde BD
+                    objPedidosDetalleClienteInfo.CatalogoReal = Catalogo;// "691"; //MRG: corregir a catalogo REAL desde BD
                     ///item.CatalogoReal;
 
                     objPedidosDetalleClienteInfo.UnidadNegocio = objPedidosDetalleClienteInfo.UnidadNegocio;
