@@ -470,7 +470,10 @@ namespace Application.Enterprise.Services.Controllers
                     objPedidosDetalleClienteInfo.Catalogo = Catalogo;
                     objPedidosDetalleClienteInfo.NumeroPedidoPadre = IdPedido;
 
-                    objPedidosDetalleClienteInfo.ValorUnitario = (item.Valor) / item.Cantidad;
+                    if (item.Cantidad > 0)
+                    {
+                        objPedidosDetalleClienteInfo.ValorUnitario = (item.Valor) / item.Cantidad;
+                    }
                     objPedidosDetalleClienteInfo.IdCodigoCorto = item.IdCodigoCorto;
                     objPedidosDetalleClienteInfo.CatalogoReal = Catalogo;// "691"; //MRG: corregir a catalogo REAL desde BD
                     ///item.CatalogoReal;
@@ -536,7 +539,10 @@ namespace Application.Enterprise.Services.Controllers
 
                     }
 
-                    objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario = item.ValorPrecioCatalogo / item.Cantidad; //valor unitario precio cat SIN IVA
+                    if (item.Cantidad > 0)
+                    {
+                        objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario = item.ValorPrecioCatalogo / item.Cantidad; //valor unitario precio cat SIN IVA
+                    }
 
                     //objPedidosDetalleClienteInfo.Valor = objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario - (objPedidosDetalleClienteInfo.ValorPrecioCatalogoUnitario * (dcPorcentaje / 100)); //valor del descuento de 1 solo articulo.
 

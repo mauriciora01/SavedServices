@@ -364,6 +364,13 @@ namespace Application.Enterprise.CommonObjects
             set { puntosganados = value; }
         }
 
+        private int cantidadpedida;
+        public int CantidadPedida
+        {
+            get { return cantidadpedida; }
+            set { cantidadpedida = value; }
+        }
+
         public virtual SessionEmpresariaInfo SessionEmpresaria
         {
             get;
