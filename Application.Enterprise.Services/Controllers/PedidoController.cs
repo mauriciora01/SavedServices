@@ -1954,5 +1954,18 @@ namespace Application.Enterprise.Services.Controllers
         //----------------------------------------------------------------------------------------------------------------
         //----------------------------------------------------------------------------------------------------------------
 
+
+
+        [HttpGet]
+        [HttpPost]
+        public List<PedidosDetalleClienteInfo> ListDetallePedidoReservaGYG(PedidosClienteInfo ObjPedidosClienteInfoRequest)
+        {
+            List<PedidosDetalleClienteInfo> lista = new List<PedidosDetalleClienteInfo>(); ;
+            PedidosDetalleCliente module = new PedidosDetalleCliente("conexion");
+                      
+            lista = module.ListDetallePedidoReservaGYG(ObjPedidosClienteInfoRequest.Numero);         
+
+            return lista;
+        }
     }
 }
