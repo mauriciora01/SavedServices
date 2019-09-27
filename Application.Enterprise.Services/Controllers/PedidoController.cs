@@ -1967,5 +1967,25 @@ namespace Application.Enterprise.Services.Controllers
 
             return lista;
         }
+
+
+        [HttpGet]
+        [HttpPost]
+        public PedidosClienteInfo ConsultarSaldoAPagarxNit(PedidosClienteInfo ObjPedidosClienteInfoRequest)
+        {
+            PedidosClienteInfo objPedidosClienteInfo = new PedidosClienteInfo();
+            PedidosCliente module = new PedidosCliente("conexion");
+
+            if (ObjPedidosClienteInfoRequest.Nit != "" && ObjPedidosClienteInfoRequest.Nit!=null)
+            {
+                objPedidosClienteInfo = module.ListxGerenteZonaReservadosCPActual(ObjPedidosClienteInfoRequest.Nit);
+            }
+            else
+            {
+                objPedidosClienteInfo.Saldo = -100; 
+            }
+
+            return objPedidosClienteInfo;
+        }
     }
 }
