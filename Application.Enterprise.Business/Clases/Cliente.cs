@@ -1116,5 +1116,11 @@ namespace Application.Enterprise.Business
             return null;
         }
 
+
+        public ClienteInfo ListClienteSVDNxNitxVendedorxLider(string Nit, string IdVendedor, string IdLider)
+        {
+            return module.ListClienteSVDNxNitxVendedorxLider(Nit, IdVendedor, IdLider);
+        }
+
     }
 }

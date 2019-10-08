@@ -652,7 +652,7 @@ namespace Application.Enterprise.Services.Controllers
                             if (ObjLiderInfo != null)
                             {
 
-                                ObjSessionUserInfo.Cedula = ObjVendedorInfo.Cedula.ToString().Trim();
+                                ObjSessionUserInfo.Cedula = objUser.UserName.Trim();// ObjVendedorInfo.Cedula.ToString().Trim();
                                 //Session["Usuario"] = ObjVendedorInfo.IdVendedor.ToString().Trim();
                                 ObjSessionUserInfo.Usuario = ObjUsuarioInfo.Clave.ToString().Trim();
                                 ObjSessionUserInfo.IdVendedor = ObjVendedorInfo.IdVendedor.ToString().Trim();

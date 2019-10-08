@@ -153,7 +153,7 @@ namespace Application.Enterprise.Services.Controllers
 
           
 
-            objClienteInfo = objCliente.ListClienteSVDNxNit(ObjClienteInfoNit.Nit);
+            objClienteInfo = objCliente.ListClienteSVDNxNitxVendedorxLider(ObjClienteInfoNit.Nit, ObjClienteInfoNit.Vendedor, ObjClienteInfoNit.Lider);
 
             if (objClienteInfo != null)
             {

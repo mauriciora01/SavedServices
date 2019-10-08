@@ -4005,5 +4005,54 @@ namespace Application.Enterprise.Data
 
             return col;
         }
+
+
+        /// <summary>
+        /// Lista un cliente especifico de la bd de svdn que corresponda a una zona de vendedor o lider 
+        /// </summary>
+        /// <param name="Nit"></param>
+        /// <returns></returns>
+        public ClienteInfo ListClienteSVDNxNitxVendedorxLider(string Nit, string IdVendedor, string IdLider)
+        {
+            db.SetParameterValue(commandCliente, "i_operation", 'S');
+            db.SetParameterValue(commandCliente, "i_option", "ED");
+            db.SetParameterValue(commandCliente, "i_nit", Nit);
+            db.SetParameterValue(commandCliente, "i_vendedor", IdVendedor);
+            db.SetParameterValue(commandCliente, "i_id_lider", IdLider);
+
+            IDataReader dr = null;
+
+            ClienteInfo m = null;
+
+            try
+            {
+                dr = db.ExecuteReader(commandCliente);
+
+                while (dr.Read())
+                {
+                    m = Factory.GetClientesNivi(dr);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+
+                bool rethrow = ExceptionPolicy.HandleException(ex, "DataAccess Policy");
+
+                if (rethrow)
+                {
+                    throw;
+                }
+            }
+            finally
+            {
+                if (dr != null)
+                {
+                    dr.Close();
+                }
+            }
+
+            return m;
+        }
     }
 }
