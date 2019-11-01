@@ -730,6 +730,8 @@ namespace Application.Enterprise.Business
             return module.ListEmpresariasxGerenteSimple(IdVendedor);
         }
 
+     
+
         /// <summary>
         /// Lista las empresarias de una gerente regional
         /// </summary>

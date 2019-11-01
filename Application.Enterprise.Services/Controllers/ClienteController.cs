@@ -144,6 +144,72 @@ namespace Application.Enterprise.Services.Controllers
 
         [HttpGet]
         [HttpPost]
+        public List<ClienteInfo> ListEmpresariasxGerentexEstado(ClienteInfo ObjClienteInfo)
+        {
+            List<ClienteInfo> ObjClienteInfoResponse = new List<ClienteInfo>();
+
+            ClienteEcu objCliente = new ClienteEcu("conexion");
+
+            ObjClienteInfoResponse = objCliente.ListEmpresariasxGerentexEstado(ObjClienteInfo.Vendedor, ObjClienteInfo.IdEstadosCliente);
+
+            return ObjClienteInfoResponse;
+        }
+
+        [HttpGet]
+        [HttpPost]
+        public List<ClienteInfo> ListEmpresariasActivasxGerenteSimple(ClienteInfo ObjClienteInfo)
+        {
+            List<ClienteInfo> ObjClienteInfoResponse = new List<ClienteInfo>();
+
+            ClienteEcu objCliente = new ClienteEcu("conexion");
+
+            ObjClienteInfoResponse = objCliente.ListEmpresariasActivasxGerenteSimple(ObjClienteInfo.Vendedor);
+
+            return ObjClienteInfoResponse;
+        }
+
+
+        [HttpGet]
+        [HttpPost]
+        public List<ClienteInfo> ListEmpresariasxLider(ClienteInfo ObjClienteInfo)
+        {
+            List<ClienteInfo> ObjClienteInfoResponse = new List<ClienteInfo>();
+
+            ClienteEcu objCliente = new ClienteEcu("conexion");
+
+            ObjClienteInfoResponse = objCliente.ListEmpresariasxLider(ObjClienteInfo.Lider);
+
+            return ObjClienteInfoResponse;
+        }
+
+        [HttpGet]
+        [HttpPost]
+        public List<ClienteInfo> ListEmpresariasxLiderEstado(ClienteInfo ObjClienteInfo)
+        {
+            List<ClienteInfo> ObjClienteInfoResponse = new List<ClienteInfo>();
+
+            ClienteEcu objCliente = new ClienteEcu("conexion");
+
+            ObjClienteInfoResponse = objCliente.ListEmpresariasxLiderEstado(ObjClienteInfo.Lider, ObjClienteInfo.IdEstadosCliente);
+
+            return ObjClienteInfoResponse;
+        }
+
+
+        [HttpGet]
+        [HttpPost]
+        public List<ClienteInfo> ListEmpresariasxLiderActivas(ClienteInfo ObjClienteInfo)
+        {
+            List<ClienteInfo> ObjClienteInfoResponse = new List<ClienteInfo>();
+
+            ClienteEcu objCliente = new ClienteEcu("conexion");
+
+            ObjClienteInfoResponse = objCliente.ListEmpresariasxLiderActivas(ObjClienteInfo.Lider);
+
+            return ObjClienteInfoResponse;
+        }
+        [HttpGet]
+        [HttpPost]
         public HttpResponseMessage ValidaExisteEmpresariaNombre(ClienteInfo ObjClienteInfoNit)
         {
             SessionEmpresariaInfo ObjSessionEmpresariaInfo = new SessionEmpresariaInfo();

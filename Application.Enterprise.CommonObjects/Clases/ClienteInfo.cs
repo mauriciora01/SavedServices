@@ -1447,6 +1447,16 @@ namespace Application.Enterprise.CommonObjects
         }
 
 
+        private string codestado;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string CodEstado
+        {
+            get { return codestado; }
+            set { codestado = value; }
+        }
+
         public virtual Error Error
         {
             get;

@@ -2213,6 +2213,11 @@
             
             </summary>
         </member>
+        <member name="P:Application.Enterprise.CommonObjects.ClienteInfo.CodEstado">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:Application.Enterprise.CommonObjects.ClientePuntosEnvioSiesaInfo.F_NUMERO_REG">
             <summary>
             1 | Numero de registro | Numero consecutivo |  Obligatorio: Si | Inicio:1 | Tamaño:7 | Tipo:Numérico
@@ -6943,6 +6948,11 @@
             </summary>
         </member>
         <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.Claseventa">
+            <summary>
+            
+            </summary>  
+        </member>
+        <member name="P:Application.Enterprise.CommonObjects.PedidosClienteInfo.GrupoUser">
             <summary>
             
             </summary>
@@ -14518,6 +14528,21 @@
              <param name="IdVendedor">Id del gerente de zona.</param>
              <returns></returns>
         </member>
+        <member name="M:Application.Enterprise.CommonObjects.Interfaces.IClienteEcu.ListEmpresariasxGerentexEstado(System.String,System.Int32)">
+             <summary>
+            Lista las empresarias de una gerente de zona simple.
+             </summary>
+             <param name="IdVendedor">Id del gerente de zona.</param>
+             <param name="EstadoCliente">Id del estado Empresaria.</param>
+             <returns></returns>
+        </member>
+        <member name="M:Application.Enterprise.CommonObjects.Interfaces.IClienteEcu.ListEmpresariasActivasxGerenteSimple(System.String)">
+             <summary>
+            Lista las empresarias de una gerente de zona simple.
+             </summary>
+             <param name="IdVendedor">Id del gerente de zona.</param>
+             <returns></returns>
+        </member>
         <member name="M:Application.Enterprise.CommonObjects.Interfaces.IClienteEcu.ListEmpresariasxGerenteSimpleEdit(System.String)">
              <summary>
             Lista las empresarias de una gerente de zona simple edit.
@@ -14605,6 +14630,21 @@
             <returns></returns>
         </member>
         <member name="M:Application.Enterprise.CommonObjects.Interfaces.IClienteEcu.ListEmpresariasxLider(System.String)">
+            <summary>
+            Lista las empresarias de un lider.
+            </summary>
+            <param name="IdLider"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Application.Enterprise.CommonObjects.Interfaces.IClienteEcu.ListEmpresariasxLiderEstado(System.String,System.Int32)">
+            <summary>
+            Lista las empresarias de un lider.
+            </summary>
+            <param name="IdLider"></param>
+            <param name="CodEstado"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Application.Enterprise.CommonObjects.Interfaces.IClienteEcu.ListEmpresariasxLiderActivas(System.String)">
             <summary>
             Lista las empresarias de un lider.
             </summary>

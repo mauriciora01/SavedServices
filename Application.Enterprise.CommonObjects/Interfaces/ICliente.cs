@@ -300,6 +300,7 @@ namespace Application.Enterprise.CommonObjects.Interfaces
         /// <returns></returns>
         List<ClienteInfo> ListEmpresariasxGerenteSimple(string IdVendedor);
 
+
         /// <summary>
         /// Lista las empresarias de una gerente regional
         /// </summary>

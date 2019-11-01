@@ -244,6 +244,21 @@ namespace Application.Enterprise.CommonObjects.Interfaces
         List<ClienteInfo> ListEmpresariasxGerenteSimple(string IdVendedor);
 
         /// <summary>
+        ///Lista las empresarias de una gerente de zona simple.
+        /// </summary>
+        /// <param name="IdVendedor">Id del gerente de zona.</param>
+        /// <param name="EstadoCliente">Id del estado Empresaria.</param>
+        /// <returns></returns>
+        List<ClienteInfo> ListEmpresariasxGerentexEstado(string IdVendedor, int EstadoCliente);
+
+        /// <summary>
+        ///Lista las empresarias de una gerente de zona simple.
+        /// </summary>
+        /// <param name="IdVendedor">Id del gerente de zona.</param>
+        /// <returns></returns>
+        List<ClienteInfo> ListEmpresariasActivasxGerenteSimple(string IdVendedor);
+
+        /// <summary>
         ///Lista las empresarias de una gerente de zona simple edit.
         /// </summary>
         /// <param name="IdVendedor">Id del gerente de zona.</param>
@@ -336,6 +351,21 @@ namespace Application.Enterprise.CommonObjects.Interfaces
         /// <param name="IdLider"></param>
         /// <returns></returns>
         List<ClienteInfo> ListEmpresariasxLider(string IdLider);
+
+        /// <summary>
+        /// Lista las empresarias de un lider.
+        /// </summary>
+        /// <param name="IdLider"></param>
+        /// <param name="CodEstado"></param>
+        /// <returns></returns>
+        List<ClienteInfo> ListEmpresariasxLiderEstado(string IdLider, int EstadoCliente);
+
+        /// <summary>
+        /// Lista las empresarias de un lider.
+        /// </summary>
+        /// <param name="IdLider"></param>
+        /// <returns></returns>
+        List<ClienteInfo> ListEmpresariasxLiderActivas(string IdLider);
 
         /// <summary>
         /// Lista si una empresaria corresponde a un lider.

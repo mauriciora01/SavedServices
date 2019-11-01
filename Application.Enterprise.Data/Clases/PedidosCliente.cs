@@ -236,7 +236,7 @@ namespace Application.Enterprise.Data
         public List<PedidosClienteInfo> ListxGerenteZona(string zona, string Campana)
         {
             db.SetParameterValue(commandPedidosCliente, "i_operation", 'S');
-            db.SetParameterValue(commandPedidosCliente, "i_option", 'C');
+            db.SetParameterValue(commandPedidosCliente, "i_option", "RW");
             db.SetParameterValue(commandPedidosCliente, "i_vendedor", zona);
             db.SetParameterValue(commandPedidosCliente, "i_campana", Campana);
 
@@ -5904,7 +5904,7 @@ namespace Application.Enterprise.Data
         public List<PedidosClienteInfo> ListPedidosxLider(string IdLider, string Campana)
         {
             db.SetParameterValue(commandPedidosCliente, "i_operation", 'S');
-            db.SetParameterValue(commandPedidosCliente, "i_option", "BN");
+            db.SetParameterValue(commandPedidosCliente, "i_option", "RX");
             db.SetParameterValue(commandPedidosCliente, "i_idlider", IdLider);
             db.SetParameterValue(commandPedidosCliente, "i_campana", Campana);
 

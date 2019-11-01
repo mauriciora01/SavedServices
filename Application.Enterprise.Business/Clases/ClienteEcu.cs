@@ -421,6 +421,26 @@ namespace Application.Enterprise.Business
         }
 
         /// <summary>
+        ///Lista las empresarias de una gerente de zona simple.
+        /// </summary>
+        /// <param name="IdVendedor">Id del gerente de zona.</param>
+        /// <returns></returns>
+        public List<ClienteInfo> ListEmpresariasxGerentexEstado(string IdVendedor, int EstadoCliente)
+        {
+            return module.ListEmpresariasxGerentexEstado(IdVendedor, EstadoCliente);
+        }
+
+        /// <summary>
+        ///Lista las empresarias de una gerente de zona simple.
+        /// </summary>
+        /// <param name="IdVendedor">Id del gerente de zona.</param>
+        /// <returns></returns>
+        public List<ClienteInfo> ListEmpresariasActivasxGerenteSimple(string IdVendedor)
+        {
+            return module.ListEmpresariasActivasxGerenteSimple(IdVendedor);
+        }
+
+        /// <summary>
         ///Lista las empresarias de una gerente de zona simple edit.
         /// </summary>
         /// <param name="IdVendedor">Id del gerente de zona.</param>
@@ -439,6 +459,27 @@ namespace Application.Enterprise.Business
         public List<ClienteInfo> ListEmpresariasxLider(string IdLider)
         {
             return module.ListEmpresariasxLider(IdLider);
+        }
+
+        /// <summary>
+        /// Lista las empresarias de un lider.
+        /// </summary>
+        /// <param name="IdLider"></param>
+        /// <param name="CodEstado"></param>
+        /// <returns></returns>
+        public List<ClienteInfo> ListEmpresariasxLiderEstado(string IdLider, int EstadoCliente)
+        {
+            return module.ListEmpresariasxLiderEstado(IdLider, EstadoCliente);
+        }
+
+        /// <summary>
+        /// Lista las empresarias de un lider.
+        /// </summary>
+        /// <param name="IdLider"></param>
+        /// <returns></returns>
+        public List<ClienteInfo> ListEmpresariasxLiderActivas(string IdLider)
+        {
+            return module.ListEmpresariasxLiderActivas(IdLider);
         }
 
         /// <summary>

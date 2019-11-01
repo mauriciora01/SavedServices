@@ -1207,6 +1207,123 @@ namespace Application.Enterprise.Services.Controllers
 
         }
 
+
+        [HttpGet]
+        [HttpPost]
+        public List<PedidosClienteInfo> PedidosListEmpresaria(PedidosClienteInfo ObjPedidosClienteInfoRequest)
+        {
+
+            List<PedidosClienteInfo> lista = new List<PedidosClienteInfo>(); ;
+            PedidosCliente module = new PedidosCliente("conexion");
+
+            //--------------------------------------------------------------------------------------------------------
+            CampanaInfo objCampanaInfo = new CampanaInfo();
+            Campana objCampana = new Campana("conexion");
+
+            if (ObjPedidosClienteInfoRequest.Campana != null && ObjPedidosClienteInfoRequest.Campana != "")
+            {
+                //objCampanaInfo = objCampana.ListxCampana(ObjPedidosClienteInfoRequest.Campana);
+                objCampanaInfo = objCampana.ListxGetDate();
+            }
+            else
+            {
+                objCampanaInfo = objCampana.ListxGetDate();
+            }
+            //--------------------------------------------------------------------------------------------------------
+            lista = module.ListxEmpresaria(ObjPedidosClienteInfoRequest.Nit, objCampanaInfo.Campana);
+            /*if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.GerentesZona))
+            {
+                lista = module.ListxGerenteZona(Session["IdVendedor"].ToString(), objCampanaInfo.Campana);
+            }
+            else if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.GerentesRegionales))
+            {
+                lista = module.ListxGerenteRegional(Session["CedulaRegional"].ToString(), objCampanaInfo.Campana);
+            }
+            else if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.Lider))
+            {
+                lista = module.ListPedidosxLider(Session["IdLider"].ToString(), objCampanaInfo.Campana);
+            }
+            //INICIO GAVL ASISTENTES
+            else if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.Asistentes))
+            {
+                lista = module.ListPedidosxAsistente(Session["Asistente"].ToString(), objCampanaInfo.Campana);
+            }
+            //FIN GAVL 
+            */
+
+            if (lista != null && lista.Count > 0)
+            {
+
+            }
+            else
+            {
+                lista = new List<PedidosClienteInfo>();
+            }
+
+
+            return lista;
+
+
+        }
+
+        [HttpGet]
+        [HttpPost]
+        public List<PedidosClienteInfo> PedidosListLider(PedidosClienteInfo ObjPedidosClienteInfoRequest)
+        {
+
+            List<PedidosClienteInfo> lista = new List<PedidosClienteInfo>(); ;
+            PedidosCliente module = new PedidosCliente("conexion");
+
+            //--------------------------------------------------------------------------------------------------------
+            CampanaInfo objCampanaInfo = new CampanaInfo();
+            Campana objCampana = new Campana("conexion");
+
+            if (ObjPedidosClienteInfoRequest.Campana != null && ObjPedidosClienteInfoRequest.Campana != "")
+            {
+                //objCampanaInfo = objCampana.ListxCampana(ObjPedidosClienteInfoRequest.Campana);
+                objCampanaInfo = objCampana.ListxGetDate();
+            }
+            else
+            {
+                objCampanaInfo = objCampana.ListxGetDate();
+            }
+            //--------------------------------------------------------------------------------------------------------
+            lista = module.ListPedidosxLider(ObjPedidosClienteInfoRequest.IdLider, objCampanaInfo.Campana);
+            /*if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.GerentesZona))
+            {
+                lista = module.ListxGerenteZona(Session["IdVendedor"].ToString(), objCampanaInfo.Campana);
+            }
+            else if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.GerentesRegionales))
+            {
+                lista = module.ListxGerenteRegional(Session["CedulaRegional"].ToString(), objCampanaInfo.Campana);
+            }
+            else if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.Lider))
+            {
+                lista = module.ListPedidosxLider(Session["IdLider"].ToString(), objCampanaInfo.Campana);
+            }
+            //INICIO GAVL ASISTENTES
+            else if (Session["IdGrupo"].ToString() == Convert.ToString((int)GruposUsuariosEnum.Asistentes))
+            {
+                lista = module.ListPedidosxAsistente(Session["Asistente"].ToString(), objCampanaInfo.Campana);
+            }
+            //FIN GAVL 
+            */
+
+            if (lista != null && lista.Count > 0)
+            {
+
+            }
+            else
+            {
+                lista = new List<PedidosClienteInfo>();
+            }
+
+
+            return lista;
+
+
+        }
+
         [HttpGet]
         [HttpPost]
         public List<PedidosClienteInfo> ListxGerenteZonaFacturados(PedidosClienteInfo ObjPedidosClienteInfoRequest)

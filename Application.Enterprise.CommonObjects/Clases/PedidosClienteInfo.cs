@@ -1125,14 +1125,23 @@ namespace Application.Enterprise.CommonObjects
         private string claseventa;
         /// <summary>
         /// 
-        /// </summary>
+        /// </summary>  
         public string Claseventa
         {
             get { return claseventa; }
             set { claseventa = value; }
         }
 
-        
+        private string grupouser;
+        /// <summary>
+        /// 
+        /// </summary>
+        public string GrupoUser
+        {
+            get { return grupouser; }
+            set { grupouser = value; }
+        }
+
 
         #region campor motivos de anulacion
 

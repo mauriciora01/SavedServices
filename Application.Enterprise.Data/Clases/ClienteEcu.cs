@@ -165,6 +165,7 @@ namespace Application.Enterprise.Data
             db.AddInParameter(commandClienteEcu, "i_tallaprendainferior", DbType.String);
             db.AddInParameter(commandClienteEcu, "i_tallacalzado", DbType.String);
             db.AddInParameter(commandClienteEcu, "i_tarjetacd", DbType.String);
+            db.AddInParameter(commandClienteEcu, "i_codestado", DbType.String);
 
             db.AddOutParameter(commandClienteEcu, "o_err_cod", DbType.Int32, 1000);
             db.AddOutParameter(commandClienteEcu, "o_err_msg", DbType.String, 1000);
@@ -1849,6 +1850,108 @@ namespace Application.Enterprise.Data
 
 
         /// <summary>
+        ///Lista las empresarias de una gerente de zona simple.
+        /// </summary>
+        /// <param name="IdVendedor">Id del gerente de zona.</param>
+        /// <returns></returns>
+        public List<ClienteInfo> ListEmpresariasxGerentexEstado(string IdVendedor, int EstadoCliente)
+        {
+            db.SetParameterValue(commandClienteEcu, "i_operation", 'S');
+            db.SetParameterValue(commandClienteEcu, "i_option", "EG");
+            db.SetParameterValue(commandClienteEcu, "i_vendedor", IdVendedor);
+            db.SetParameterValue(commandClienteEcu, "i_esc_id", EstadoCliente);
+
+
+            List<ClienteInfo> col = new List<ClienteInfo>();
+
+            IDataReader dr = null;
+
+            ClienteInfo m = null;
+
+            try
+            {
+                dr = db.ExecuteReader(commandClienteEcu);
+
+                while (dr.Read())
+                {
+                    m = Factory.GetClientexEstadosCliente(dr);
+
+                    col.Add(m);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+
+                bool rethrow = ExceptionPolicy.HandleException(ex, "DataAccess Policy");
+
+                if (rethrow)
+                {
+                    throw;
+                }
+            }
+            finally
+            {
+                if (dr != null)
+                {
+                    dr.Close();
+                }
+            }
+
+            return col;
+        }
+
+        /// <summary>
+        ///Lista las empresarias de una gerente de zona simple.
+        /// </summary>
+        /// <param name="IdVendedor">Id del gerente de zona.</param>
+        /// <returns></returns>
+        public List<ClienteInfo> ListEmpresariasActivasxGerenteSimple(string IdVendedor)
+        {
+            db.SetParameterValue(commandClienteEcu, "i_operation", 'S');
+            db.SetParameterValue(commandClienteEcu, "i_option", "EF");
+            db.SetParameterValue(commandClienteEcu, "i_vendedor", IdVendedor);
+
+            List<ClienteInfo> col = new List<ClienteInfo>();
+
+            IDataReader dr = null;
+
+            ClienteInfo m = null;
+
+            try
+            {
+                dr = db.ExecuteReader(commandClienteEcu);
+
+                while (dr.Read())
+                {
+                    m = Factory.GetClientexEstadosCliente(dr);
+
+                    col.Add(m);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+
+                bool rethrow = ExceptionPolicy.HandleException(ex, "DataAccess Policy");
+
+                if (rethrow)
+                {
+                    throw;
+                }
+            }
+            finally
+            {
+                if (dr != null)
+                {
+                    dr.Close();
+                }
+            }
+
+            return col;
+        }
+
+        /// <summary>
         /// Lista las empresarias de una gerente regional
         /// </summary>
         /// <param name="CodigoRegional"></param>
@@ -2699,8 +2802,9 @@ namespace Application.Enterprise.Data
         public List<ClienteInfo> ListEmpresariasxLider(string IdLider)
         {
             db.SetParameterValue(commandClienteEcu, "i_operation", 'S');
-            db.SetParameterValue(commandClienteEcu, "i_option", "AF");
+            db.SetParameterValue(commandClienteEcu, "i_option", "AH");
             db.SetParameterValue(commandClienteEcu, "i_id_lider", IdLider);
+       
 
             List<ClienteInfo> col = new List<ClienteInfo>();
 
@@ -2740,6 +2844,111 @@ namespace Application.Enterprise.Data
 
             return col;
         }
+
+        /// <summary>
+        /// Lista las empresarias de un lider.
+        /// </summary>
+        /// <param name="IdLider"></param>
+        /// <param name="CodEstado"></param>
+        /// <returns></returns>
+        public List<ClienteInfo> ListEmpresariasxLiderEstado(string IdLider, int EstadoCliente)
+        {
+            db.SetParameterValue(commandClienteEcu, "i_operation", 'S');
+            db.SetParameterValue(commandClienteEcu, "i_option", "EH");
+            db.SetParameterValue(commandClienteEcu, "i_id_lider", IdLider);
+            db.SetParameterValue(commandClienteEcu, "i_esc_id", EstadoCliente);
+
+            List<ClienteInfo> col = new List<ClienteInfo>();
+
+            IDataReader dr = null;
+
+            ClienteInfo m = null;
+
+            try
+            {
+                dr = db.ExecuteReader(commandClienteEcu);
+
+                while (dr.Read())
+                {
+                    m = Factory.GetClientexEstadosClienteEdit(dr);
+
+                    col.Add(m);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+
+                bool rethrow = ExceptionPolicy.HandleException(ex, "DataAccess Policy");
+
+                if (rethrow)
+                {
+                    throw;
+                }
+            }
+            finally
+            {
+                if (dr != null)
+                {
+                    dr.Close();
+                }
+            }
+
+            return col;
+        }
+
+        /// <summary>
+        /// Lista las empresarias de un lider.
+        /// </summary>
+        /// <param name="IdLider"></param>
+        /// <param name="CodEstado"></param>
+        /// <returns></returns>
+        public List<ClienteInfo> ListEmpresariasxLiderActivas(string IdLider)
+        {
+            db.SetParameterValue(commandClienteEcu, "i_operation", 'S');
+            db.SetParameterValue(commandClienteEcu, "i_option", "EE");
+            db.SetParameterValue(commandClienteEcu, "i_id_lider", IdLider);
+
+
+            List<ClienteInfo> col = new List<ClienteInfo>();
+
+            IDataReader dr = null;
+
+            ClienteInfo m = null;
+
+            try
+            {
+                dr = db.ExecuteReader(commandClienteEcu);
+
+                while (dr.Read())
+                {
+                    m = Factory.GetClientexEstadosClienteEdit(dr);
+
+                    col.Add(m);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format("NIVI Error: {0} , NameSpace: {1}, Clase: {2}, Metodo: {3} ", ex.Message, MethodBase.GetCurrentMethod().DeclaringType.Namespace, MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name));
+
+                bool rethrow = ExceptionPolicy.HandleException(ex, "DataAccess Policy");
+
+                if (rethrow)
+                {
+                    throw;
+                }
+            }
+            finally
+            {
+                if (dr != null)
+                {
+                    dr.Close();
+                }
+            }
+
+            return col;
+        }
+
 
 
         /// <summary>
